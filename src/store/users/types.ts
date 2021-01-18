@@ -7,9 +7,9 @@ export type LogInInfo = {
 };
 
 export type SignUpInfo = {
-  username: string;
   email: string;
   password: string;
+  name: string;
 };
 
 export type SetLogInInfoPayload = Partial<LogInInfo>;

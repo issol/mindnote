@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logIn, setLogInInfo } from "store/users/actions";
-import { RootState } from "store";
-import TextInput from "components/TextInput";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logIn, setLogInInfo } from 'store/users/actions';
+import { RootState } from 'store';
+import TextInput from 'components/TextInput';
 
-import "./styles.css";
-import SignUp from "pages/SingUp";
+import './styles.css';
+import SignUp from 'pages/SingUp';
+
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const userReducer = useSelector((state: RootState) => state.userReducer);
-  const loginHandler = (e: any) => {
+
+  const loginHandler = () => {
     dispatch(logIn.request(userReducer.logInInfo));
-    console.log(userReducer.isLoggedIn);
   };
 
   const emailChange = (value: string) => {
@@ -29,18 +30,18 @@ const LogIn = () => {
     <div className="wrap">
       <div className="form-wrap">
         <div className="button-wrap">
-          {visible && <div id="btn"></div>}
+          {visible && <div id="btn" />}
           <button type="button" className="togglebtn" onClick={toggleChange}>
             LogIn
           </button>
-          {!visible && <div id="btn2"></div>}
+          {!visible && <div id="btn2" />}
           <button type="button" className="togglebtn" onClick={toggleChange}>
             SignUp
           </button>
         </div>
         {visible ? (
           <>
-            <form id="login" action="" className="input-group">
+            <div id="login" className="input-group">
               <TextInput
                 type={"email"}
                 label={"Email"}
@@ -56,13 +57,12 @@ const LogIn = () => {
               <button className="submit" onClick={loginHandler}>
                 Login
               </button>
-            </form>
+            </div>
           </>
         ) : (
           <SignUp />
         )}
       </div>
-      <h1>{userReducer.isLoggedIn ? "yes" : "no"}</h1>
     </div>
   );
 };

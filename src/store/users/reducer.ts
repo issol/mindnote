@@ -16,9 +16,9 @@ const initialState: UserState = {
     password: "",
   },
   signUpInfo: {
-    username: "",
     email: "",
     password: "",
+    name: "",
   },
 };
 
@@ -31,11 +31,11 @@ const userReducer = createReducer<UserState, UserAction>(initialState, {
     },
   }),
 
-  [LOG_IN_SUCCESS]: (state, action) => ({
+  [LOG_IN_SUCCESS]: (state) => ({
     ...state,
     isLoggedIn: true,
   }),
-  [LOG_IN_FAILURE]: (state, action) => ({
+  [LOG_IN_FAILURE]: (state) => ({
     ...state,
     isLoggedIn: false,
   }),
