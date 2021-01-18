@@ -4,14 +4,8 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from "./actions";
 import { HOST } from "../../cons/requests";
 
-const LogInApi = (payload: LogInInfo) => {
-  axios.post(HOST + "/users/tokens/", payload).then((res) => {
-    console.log(res);
-  });
-};
-const SignUpApi = (payload: SignUpInfo) => {
-  axios.post(HOST + "/users/tokens/", payload);
-};
+
+const LogInApi = (payload: LogInInfo) => axios.post(HOST + "/users/tokens/", payload);
 
 function* LogInAsync(action: { type: string; payload: LogInInfo }) {
   try {
@@ -25,8 +19,13 @@ function* LogInAsync(action: { type: string; payload: LogInInfo }) {
     yield put(logIn.failure("로그인에 실패했습니다."));
   }
 }
+
+
+const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + "/users/", payload);
+
 function* SignUpAsync(action: { type: string; payload: SignUpInfo }) {
   try {
+    console.log(action.payload);
     const res = yield call(SignUpApi, action.payload);
     localStorage.setItem("token", res.data.token);
     yield put(signUp.success());

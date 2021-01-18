@@ -66,6 +66,7 @@
   cursor: pointer;
 }
 .input-group {
+  left: 50px;
   top: 180px;
   position: absolute;
   width: 280px;
@@ -91,7 +92,4 @@ span {
   font-size: 12px;
   bottom: 68px;
   position: absolute;
-}
-form {
-  left: 50px;
 }
