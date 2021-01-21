@@ -9,7 +9,7 @@ const LogInPresenter = ({
   HandleLogin,
 }) => {
   return (
-    <div id="login" className="input-group">
+    <div className="input-group">
       <TextInput
         type={'email'}
         label={'Email'}
