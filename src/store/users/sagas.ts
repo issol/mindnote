@@ -2,10 +2,10 @@ import { LogInInfo, SignUpInfo } from "./types";
 import axios from "axios";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from "./actions";
-import { HOST } from "../../cons/requests";
+import { HOST } from "constants/requests";
 
-
-const LogInApi = (payload: LogInInfo) => axios.post(HOST + "/users/tokens/", payload);
+const LogInApi = (payload: LogInInfo) =>
+  axios.post(HOST + "/users/tokens/", payload);
 
 function* LogInAsync(action: { type: string; payload: LogInInfo }) {
   try {
@@ -20,8 +20,8 @@ function* LogInAsync(action: { type: string; payload: LogInInfo }) {
   }
 }
 
-
-const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + "/users/", payload);
+const SignUpApi = (payload: SignUpInfo) =>
+  axios.post(HOST + "/users/", payload);
 
 function* SignUpAsync(action: { type: string; payload: SignUpInfo }) {
   try {
