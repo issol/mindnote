@@ -6,6 +6,7 @@ type HomeType = {
   createArticle: React.MouseEventHandler<HTMLButtonElement>;
   articleReducer: ArticleState;
 };
+
 const HomePresenter = ({ createArticle, articleReducer }: HomeType) => {
   return (
     <>

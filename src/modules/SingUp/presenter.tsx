@@ -1,6 +1,7 @@
 import TextInput from 'components/TextInput';
 import React from 'react';
 import './styles.css';
+
 const SignUpPresenter = ({
   userReducer,
   changeEmail,

@@ -12,12 +12,15 @@ const SignUpContainer = () => {
   const changeEmail = (value: string) => {
     dispatch(setSignUpInfo({ email: value }));
   };
+
   const changePassword = (value: string) => {
     dispatch(setSignUpInfo({ password: value }));
   };
+
   const changeName = (value: string) => {
     dispatch(setSignUpInfo({ name: value }));
   };
+
   const handelSignUp = () => {
     if (isValid()) {
       dispatch(signUp.request(userReducer.signUpInfo));
@@ -37,6 +40,7 @@ const SignUpContainer = () => {
     }
     return true;
   };
+  
   return (
     <SignUpPresenter
       userReducer={userReducer}

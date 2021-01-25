@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
 import { RootState } from 'store';
 import { logIn, setLogInInfo } from 'store/users/actions';
 import LogInPresenter from './presenter';
@@ -17,6 +18,7 @@ const LogInContainer = () => {
   const changeEmail = (value: string) => {
     dispatch(setLogInInfo({ email: value }));
   };
+
   const changePassword = (value: string) => {
     dispatch(setLogInInfo({ password: value }));
   };
