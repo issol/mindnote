@@ -3,14 +3,14 @@ import React from 'react';
 import { ArticleState } from 'store/articles/types';
 
 type HomeType = {
-  CreateArticle: React.MouseEventHandler<HTMLButtonElement>;
+  createArticle: React.MouseEventHandler<HTMLButtonElement>;
   articleReducer: ArticleState;
 };
-const HomePresenter = ({ CreateArticle, articleReducer }: HomeType) => {
+const HomePresenter = ({ createArticle, articleReducer }: HomeType) => {
   return (
     <>
       <Navigation />
-      <button type="button" onClick={CreateArticle}>
+      <button type="button" onClick={createArticle}>
         +
       </button>
       <div>{articleReducer.articleInfo.title}</div>

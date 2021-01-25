@@ -3,32 +3,32 @@ import React from 'react';
 import './styles.css';
 const SignUpPresenter = ({
   userReducer,
-  ChangeEmail,
-  ChangePassword,
-  ChangeName,
-  HandelSignUp,
+  changeEmail,
+  changePassword,
+  changeName,
+  handelSignUp,
 }) => {
   return (
-    <div id="register" className="input-group">
+    <div className="input-group">
       <TextInput
         type={'email'}
         label={'Email'}
         value={userReducer.signUpInfo.email}
-        onChange={ChangeEmail}
+        onChange={changeEmail}
       />
       <TextInput
         type={'password'}
         label={'Password'}
         value={userReducer.signUpInfo.password}
-        onChange={ChangePassword}
+        onChange={changePassword}
       />
       <TextInput
         type={'text'}
         label={'Name'}
         value={userReducer.signUpInfo.name}
-        onChange={ChangeName}
+        onChange={changeName}
       />
-      <button className="signup" onClick={HandelSignUp}>
+      <button className="signup" onClick={handelSignUp}>
         SignUp
       </button>
     </div>

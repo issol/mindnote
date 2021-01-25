@@ -10,14 +10,14 @@ const LogInContainer = () => {
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const HandleLogin = () => {
+  const handleLogin = () => {
     dispatch(logIn.request(userReducer.logInInfo));
   };
 
-  const ChangeEmail = (value: string) => {
+  const changeEmail = (value: string) => {
     dispatch(setLogInInfo({ email: value }));
   };
-  const ChangePassword = (value: string) => {
+  const changePassword = (value: string) => {
     dispatch(setLogInInfo({ password: value }));
   };
 
@@ -28,9 +28,9 @@ const LogInContainer = () => {
       ) : (
         <LogInPresenter
           userReducer={userReducer}
-          HandleLogin={HandleLogin}
-          ChangeEmail={ChangeEmail}
-          ChangePassword={ChangePassword}
+          handleLogin={handleLogin}
+          changeEmail={changeEmail}
+          changePassword={changePassword}
         />
       )}
     </>

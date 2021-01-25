@@ -9,16 +9,16 @@ const SignUpContainer = () => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const ChangeEmail = (value: string) => {
+  const changeEmail = (value: string) => {
     dispatch(setSignUpInfo({ email: value }));
   };
-  const ChangePassword = (value: string) => {
+  const changePassword = (value: string) => {
     dispatch(setSignUpInfo({ password: value }));
   };
-  const ChangeName = (value: string) => {
+  const changeName = (value: string) => {
     dispatch(setSignUpInfo({ name: value }));
   };
-  const HandelSignUp = () => {
+  const handelSignUp = () => {
     if (isValid()) {
       dispatch(signUp.request(userReducer.signUpInfo));
     }
@@ -40,10 +40,10 @@ const SignUpContainer = () => {
   return (
     <SignUpPresenter
       userReducer={userReducer}
-      ChangeEmail={ChangeEmail}
-      ChangePassword={ChangePassword}
-      ChangeName={ChangeName}
-      HandelSignUp={HandelSignUp}
+      changeEmail={changeEmail}
+      changePassword={changePassword}
+      changeName={changeName}
+      handelSignUp={handelSignUp}
     />
   );
 };

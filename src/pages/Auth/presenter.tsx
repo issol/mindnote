@@ -6,20 +6,20 @@ import './styles.css';
 
 type AuthType = {
   changeAuthType: boolean;
-  HandleAuthType: React.MouseEventHandler<HTMLButtonElement>;
+  handleAuthType: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const AuthPresenter = ({ changeAuthType, HandleAuthType }: AuthType) => {
+const AuthPresenter = ({ changeAuthType, handleAuthType }: AuthType) => {
   return (
     <div className="wrap">
       <div className="form-wrap">
         <div className="button-wrap">
           {changeAuthType && <div className="LogInToggle" />}
-          <button type="button" className="type-btn" onClick={HandleAuthType}>
+          <button type="button" className="type-btn" onClick={handleAuthType}>
             LogIn
           </button>
           {!changeAuthType && <div className="SignUpToggle" />}
-          <button type="button" className="type-btn" onClick={HandleAuthType}>
+          <button type="button" className="type-btn" onClick={handleAuthType}>
             SignUp
           </button>
         </div>

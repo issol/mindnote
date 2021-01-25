@@ -6,11 +6,11 @@ const AuthContainer = () => {
     console.log(localStorage.getItem('token'));
   });
   const [changeAuthType, setChangeAuthType] = useState(true);
-  const HandleAuthType = () => setChangeAuthType((type) => !type);
+  const handleAuthType = () => setChangeAuthType((type) => !type);
   return (
     <AuthPresenter
       changeAuthType={changeAuthType}
-      HandleAuthType={HandleAuthType}
+      handleAuthType={handleAuthType}
     />
   );
 };

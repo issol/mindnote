@@ -10,7 +10,7 @@ const HomeContainer = () => {
   const articleReducer = useSelector(
     (state: RootState) => state.articleReducer
   );
-  const CreateArticle = () => {
+  const createArticle = () => {
     console.log('click');
     history.push('/create-article');
   };
@@ -27,7 +27,7 @@ const HomeContainer = () => {
     <>
       {isLoggedIn ? (
         <HomePresenter
-          CreateArticle={CreateArticle}
+          createArticle={createArticle}
           articleReducer={articleReducer}
         />
       ) : (

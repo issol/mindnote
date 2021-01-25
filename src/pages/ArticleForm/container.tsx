@@ -13,23 +13,23 @@ const ArticleFormContainer = () => {
   );
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const HadleSaveArticle = () => {
+  const hadleSaveArticle = () => {
     dispatch(createArticle.request(articleReducer.articleInfo));
     history.push('/home');
   };
-  const ChangeTitle = (value: string) => {
+  const changeTitle = (value: string) => {
     dispatch(setArticleInfo({ title: value, user: 'issol' }));
   };
-  const ChangeDescription = (value: string) => {
+  const changeDescription = (value: string) => {
     dispatch(setArticleInfo({ description: value }));
   };
 
   return (
     <ArticleFormPresenter
       articleReducer={articleReducer}
-      ChangeTitle={ChangeTitle}
-      ChangeDescription={ChangeDescription}
-      HadleSaveArticle={HadleSaveArticle}
+      changeTitle={changeTitle}
+      changeDescription={changeDescription}
+      hadleSaveArticle={hadleSaveArticle}
     />
   );
 };
