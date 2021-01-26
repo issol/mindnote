@@ -1,5 +1,5 @@
-import { ActionType } from "typesafe-actions";
-import { logIn, setLogInInfo, signUp, setSignUpInfo } from "./actions";
+import { ActionType } from 'typesafe-actions';
+import { logIn, setLogInInfo, signUp, setSignUpInfo } from './actions';
 
 export type LogInInfo = {
   email: string;
@@ -19,6 +19,7 @@ export type UserState = {
   isLoggedIn: boolean;
   logInInfo: LogInInfo;
   signUpInfo: SignUpInfo;
+  statusMessage: string;
 };
 
 export type UserAction =

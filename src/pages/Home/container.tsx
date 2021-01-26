@@ -11,9 +11,8 @@ const HomeContainer = () => {
   const articleReducer = useSelector(
     (state: RootState) => state.articleReducer
   );
-
+  const userReducer = useSelector((state: RootState) => state.userReducer);
   const createArticle = () => {
-    
     history.push('/create-article');
   };
 
