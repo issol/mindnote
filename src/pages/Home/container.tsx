@@ -7,27 +7,28 @@ import HomePresenter from './presenter';
 const HomeContainer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const history = useHistory();
+
   const articleReducer = useSelector(
     (state: RootState) => state.articleReducer
   );
-  const CreateArticle = () => {
-    console.log('click');
+  const userReducer = useSelector((state: RootState) => state.userReducer);
+  const createArticle = () => {
     history.push('/create-article');
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem('token'));
     if (localStorage.getItem('token') === null) {
       setIsLoggedIn(false);
     } else {
       setIsLoggedIn(true);
     }
   }, []);
+
   return (
     <>
       {isLoggedIn ? (
         <HomePresenter
-          CreateArticle={CreateArticle}
+          createArticle={createArticle}
           articleReducer={articleReducer}
         />
       ) : (

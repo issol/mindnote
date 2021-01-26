@@ -4,9 +4,9 @@ import './styles.css';
 
 const LogInPresenter = ({
   userReducer,
-  ChangeEmail,
-  ChangePassword,
-  HandleLogin,
+  changeEmail,
+  changePassword,
+  handleLogin,
 }) => {
   return (
     <div className="input-group">
@@ -14,15 +14,15 @@ const LogInPresenter = ({
         type={'email'}
         label={'Email'}
         value={userReducer.logInInfo.email}
-        onChange={ChangeEmail}
+        onChange={changeEmail}
       />
       <TextInput
         type={'password'}
         label={'Password'}
         value={userReducer.logInInfo.password}
-        onChange={ChangePassword}
+        onChange={changePassword}
       />
-      <button className="login" onClick={HandleLogin}>
+      <button className="login" onClick={handleLogin}>
         LogIn
       </button>
     </div>

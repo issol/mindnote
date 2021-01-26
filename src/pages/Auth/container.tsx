@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { RootState } from 'store';
 import AuthPresenter from './presenter';
 
 const AuthContainer = () => {
-  useEffect(() => {
-    console.log(localStorage.getItem('token'));
-  });
   const [changeAuthType, setChangeAuthType] = useState(true);
-  const HandleAuthType = () => setChangeAuthType((type) => !type);
+  const handleAuthType = () => setChangeAuthType((type) => !type);
+  const userReducer = useSelector((state: RootState) => state.userReducer);
   return (
-    <AuthPresenter
-      changeAuthType={changeAuthType}
-      HandleAuthType={HandleAuthType}
-    />
+    <>
+      {userReducer.isLoggedIn ? (
+        <Redirect to="/home" />
+      ) : (
+        <AuthPresenter
+          changeAuthType={changeAuthType}
+          handleAuthType={handleAuthType}
+        />
+      )}
+    </>
   );
 };
 

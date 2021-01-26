@@ -5,9 +5,9 @@ import { ArticleState } from 'store/articles/types';
 
 const ArticleFormPresenter = ({
   articleReducer,
-  ChangeTitle,
-  ChangeDescription,
-  HadleSaveArticle,
+  changeTitle,
+  changeDescription,
+  hadleSaveArticle,
 }) => {
   return (
     <>
@@ -15,15 +15,15 @@ const ArticleFormPresenter = ({
         type={'text'}
         label={'Title'}
         value={articleReducer.articleInfo.title}
-        onChange={ChangeTitle}
+        onChange={changeTitle}
       />
       <TextInput
         type={'text'}
         label={'Desc'}
         value={articleReducer.articleInfo.description}
-        onChange={ChangeDescription}
+        onChange={changeDescription}
       />
-      <button className="save-article" onClick={HadleSaveArticle}>
+      <button className="save-article" onClick={hadleSaveArticle}>
         Save
       </button>
     </>
