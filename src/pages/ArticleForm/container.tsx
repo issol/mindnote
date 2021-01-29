@@ -13,13 +13,13 @@ const ArticleFormContainer = () => {
     (state: RootState) => state.articleReducer
   );
 
-  const hadleSaveArticle = () => {
+  const hadleCreateArticle = () => {
     dispatch(createArticle.request(articleReducer.articleInfo));
     history.push('/home');
   };
 
   const changeTitle = (value: string) => {
-    dispatch(setArticleInfo({ title: value, user: 'issol' }));
+    dispatch(setArticleInfo({ title: value }));
   };
 
   const changeDescription = (value: string) => {
@@ -31,7 +31,7 @@ const ArticleFormContainer = () => {
       articleReducer={articleReducer}
       changeTitle={changeTitle}
       changeDescription={changeDescription}
-      hadleSaveArticle={hadleSaveArticle}
+      hadleSaveArticle={hadleCreateArticle}
     />
   );
 };
