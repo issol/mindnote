@@ -5,18 +5,21 @@ import { RootState } from 'store';
 import AuthPresenter from './presenter';
 
 const AuthContainer = () => {
-  const [changeAuthType, setChangeAuthType] = useState(true);
-  const handleAuthType = () => setChangeAuthType((type) => !type);
+  const [authType, setAuthType] = useState('LogIn');
+  const handleAuthType = () => {
+    if (authType === 'LogIn') {
+      setAuthType('SignUp');
+    } else if (authType === 'SignUp') {
+      setAuthType('LogIn');
+    }
+  };
   const userReducer = useSelector((state: RootState) => state.userReducer);
   return (
     <>
       {userReducer.isLoggedIn ? (
         <Redirect to="/home" />
       ) : (
-        <AuthPresenter
-          changeAuthType={changeAuthType}
-          handleAuthType={handleAuthType}
-        />
+        <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
       )}
     </>
   );
