@@ -1,7 +1,6 @@
 import Navigation from 'components/Navigation';
 import React from 'react';
 import { ArticleState } from 'store/articles/types';
-import userReducer from 'store/users/reducer';
 
 type HomeType = {
   createArticle: React.MouseEventHandler<HTMLButtonElement>;
@@ -12,7 +11,7 @@ const HomePresenter = ({ createArticle, articleReducer }: HomeType) => {
   return (
     <>
       <Navigation />
-      
+
       <button type="button" onClick={createArticle}>
         +
       </button>

@@ -1,5 +1,5 @@
 import { LogInInfo, SignUpInfo } from './types';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from './actions';
 import { HOST } from 'constants/requests';

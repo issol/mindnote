@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useForm } from 'react-hook-form';
 
 import { RootState } from 'store';
 import { logIn, setLogInInfo } from 'store/users/actions';
 import LogInPresenter from './presenter';
-import { Alert, Button, Modal } from 'react-bootstrap';
-
 import StatusModal from 'components/StatusModal';
-import { isLoginFormEmpty } from 'utils/auth';
+
+type Props = {
+  email: string;
+  password: string;
+};
 
 const LogInContainer = () => {
   const dispatch = useDispatch();
@@ -18,17 +19,19 @@ const LogInContainer = () => {
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
+  const { register, errors, handleSubmit } = useForm<Props>();
+
   const handleLogin = () => {
     dispatch(logIn.request(userReducer.logInInfo));
     setModalShow(true);
   };
 
-  const changeEmail = (value: string) => {
-    dispatch(setLogInInfo({ email: value }));
+  const changeEmail = (e: any) => {
+    dispatch(setLogInInfo({ email: e.target.value }));
   };
 
-  const changePassword = (value: string) => {
-    dispatch(setLogInInfo({ password: value }));
+  const changePassword = (e: any) => {
+    dispatch(setLogInInfo({ password: e.target.value }));
   };
 
   useEffect(() => {
@@ -51,6 +54,9 @@ const LogInContainer = () => {
         handleLogin={handleLogin}
         changeEmail={changeEmail}
         changePassword={changePassword}
+        handleSubmit={handleSubmit}
+        register={register}
+        errors={errors}
       />
     </>
   );

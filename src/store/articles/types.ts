@@ -1,18 +1,19 @@
 import { ActionType } from 'typesafe-actions';
-import { createArticle, setArticleInfo } from './actions';
+import { createArticle } from './actions';
 
 export type ArticleInfo = {
   title: string;
   description: string;
-  user: string;
+  user: number;
 };
 
-export type SetAritcleInfoPayload = Partial<ArticleInfo>;
+export type CreateArticleRequestPayload = {
+  title: string;
+  description: string;
+};
 
 export type ArticleState = {
   articleInfo: ArticleInfo;
 };
 
-export type ArticleAction =
-  | ActionType<typeof createArticle>
-  | ActionType<typeof setArticleInfo>;
+export type ArticleAction = ActionType<typeof createArticle>;
