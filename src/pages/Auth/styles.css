@@ -17,6 +17,7 @@
 .form-wrap {
   width: 380px;
   height: 580px;
+  display: flex;
   position: relative;
   margin: 6% auto;
   background: #fff;
@@ -25,6 +26,7 @@
 }
 .button-wrap {
   width: 220px;
+  height: 50px;
   margin: 35px auto;
   position: relative;
   box-shadow: 0 0 600px 9px #fcae8f;

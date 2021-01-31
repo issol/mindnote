@@ -1,4 +1,4 @@
-import { action, createReducer } from 'typesafe-actions';
+import { createReducer } from 'typesafe-actions';
 import {
   LOG_IN_FAILURE,
   LOG_IN_SUCCESS,

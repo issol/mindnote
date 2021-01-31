@@ -1,4 +1,4 @@
-import { action, createReducer } from 'typesafe-actions';
+import { createReducer } from 'typesafe-actions';
 import { CREATE_ARTICLE_FAILURE, CREATE_ARTICLE_SUCCESS } from './actions';
 
 import { ArticleState, ArticleAction } from './types';

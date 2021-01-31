@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { RootState } from 'store';
 import { setSignUpInfo, signUp } from 'store/users/actions';
 import SignUpPresenter from './presenter';
-import { useAlert } from 'react-alert';
 import StatusModal from 'components/StatusModal';
 
 const SignUpContainer = () => {

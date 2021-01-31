@@ -1,4 +1,4 @@
-import { createAction, createAsyncAction } from 'typesafe-actions';
+import { createAsyncAction } from 'typesafe-actions';
 import { ArticleInfo, CreateArticleRequestPayload } from './types';
 
 export const CREATE_ARTICLE_REQUEST = 'articles/CREATE_ARTICLE_REQUEST';

@@ -1,10 +1,10 @@
-import FormWrapper from "components/FormWrapper";
-import React from "react";
+import FormWrapper from 'components/FormWrapper';
+import React from 'react';
 
-import "./styles.css";
+import './styles.css';
 
 type Props = {
-  type: "email" | "password" | "text";
+  type: 'email' | 'password' | 'text';
   label: string;
   value: string;
   onChange: Function;
@@ -15,7 +15,7 @@ const TextInput = ({ type, label, value, onChange }: Props) => {
     <FormWrapper label={label}>
       <input
         type={type}
-        className={"input-field"}
+        className={'input-field'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

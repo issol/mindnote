@@ -2,7 +2,7 @@ import React from 'react';
 import LogIn from 'modules/LogIn';
 import SignUp from 'modules/SingUp';
 import styled from 'styled-components';
-import Switch from 'react-switch';
+
 import './styles.css';
 
 type AuthTypeProps = {
@@ -34,7 +34,7 @@ const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
 const LoginButton = styled.button<ButtonProps>`
   position: relative;
   width: 110px;
-  height: 50px;
+  height: 100%;
   border-radius: 30px;
   cursor: pointer;
   outline: none;
@@ -51,7 +51,7 @@ const LoginButton = styled.button<ButtonProps>`
 const SignUpButton = styled.button<ButtonProps>`
   position: relative;
   width: 110px;
-  height: 50px;
+  height: 100%;
   border-radius: 30px;
   cursor: pointer;
   outline: none;
