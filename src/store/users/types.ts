@@ -12,8 +12,8 @@ export type SignUpInfo = {
   name: string;
 };
 
-export type SetLogInInfoPayload = Partial<LogInInfo>;
-export type SetSignUpInfoPayload = Partial<SignUpInfo>;
+export type SetLogInInfoPayload = Required<LogInInfo>;
+export type SetSignUpInfoPayload = Required<SignUpInfo>;
 
 export type UserState = {
   isLoggedIn: boolean;
