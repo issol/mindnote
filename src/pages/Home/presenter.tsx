@@ -1,13 +1,14 @@
 import Navigation from 'components/Navigation';
 import React from 'react';
-import { ArticleState } from 'store/articles/types';
+import { ArticleType } from 'store/articles/types';
+
 
 type HomeType = {
   createArticle: React.MouseEventHandler<HTMLButtonElement>;
-  articleReducer: ArticleState;
+  articleList: ArticleType[];
 };
 
-const HomePresenter = ({ createArticle, articleReducer }: HomeType) => {
+const HomePresenter = ({ createArticle, articleList }: HomeType) => {
   return (
     <>
       <Navigation />
@@ -15,9 +16,11 @@ const HomePresenter = ({ createArticle, articleReducer }: HomeType) => {
       <button type="button" onClick={createArticle}>
         +
       </button>
-      <div>{articleReducer.articleInfo.title}</div>
-      <div>{articleReducer.articleInfo.description}</div>
-      <div>{articleReducer.articleInfo.user}</div>
+      {
+        articleList.map((article) => {
+          return <div key={article.id}>{article.subject}</div>;
+        })
+      }
     </>
   );
 };

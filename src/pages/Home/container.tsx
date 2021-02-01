@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'store';
 import HomePresenter from './presenter';
+import { fetchArticleList } from '../../store/articles/actions';
 
 const HomeContainer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const articleReducer = useSelector(
@@ -24,12 +26,16 @@ const HomeContainer = () => {
     }
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchArticleList.request());
+  }, [dispatch]);
+
   return (
     <>
       {isLoggedIn ? (
         <HomePresenter
           createArticle={createArticle}
-          articleReducer={articleReducer}
+          articleList={articleReducer.articleList}
         />
       ) : (
         history.push('/')

@@ -1,7 +1,13 @@
 import { createReducer } from 'typesafe-actions';
-import { CREATE_ARTICLE_FAILURE, CREATE_ARTICLE_SUCCESS } from './actions';
+import {
+  CREATE_ARTICLE_FAILURE,
+  CREATE_ARTICLE_SUCCESS,
+  FETCH_ARTICLE_LIST_FAILURE,
+  FETCH_ARTICLE_LIST_SUCCESS
+} from './actions';
 
-import { ArticleState, ArticleAction } from './types';
+import { ArticleAction, ArticleState } from './types';
+
 
 const initialState: ArticleState = {
   articleInfo: {
@@ -9,6 +15,7 @@ const initialState: ArticleState = {
     description: '',
     user: 0,
   },
+  articleList: [],
 };
 
 const articleReducer = createReducer<ArticleState, ArticleAction>(
@@ -24,7 +31,15 @@ const articleReducer = createReducer<ArticleState, ArticleAction>(
     [CREATE_ARTICLE_FAILURE]: (state) => ({
       ...state,
     }),
+    [FETCH_ARTICLE_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      articleList: action.payload
+    }),
+    [FETCH_ARTICLE_LIST_FAILURE]: (state) => ({
+      ...state,
+    }),
   }
 );
+
 
 export default articleReducer;
