@@ -3,8 +3,6 @@ import LogIn from 'modules/LogIn';
 import SignUp from 'modules/SingUp';
 import styled from 'styled-components';
 
-import './styles.css';
-
 type AuthTypeProps = {
   authType: string;
   handleAuthType: (event: React.MouseEvent<HTMLElement>) => void;
@@ -15,40 +13,50 @@ type ButtonProps = {
 
 const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
   return (
-    <div className="wrap">
-      <div className="form-wrap">
-        <div className="button-wrap">
+    <WholeWrap>
+      <FormWrap>
+        <ButtonWrap>
           <LoginButton authType={authType} onClick={handleAuthType}>
             LogIn
           </LoginButton>
           <SignUpButton authType={authType} onClick={handleAuthType}>
             SignUp
           </SignUpButton>
-        </div>
+        </ButtonWrap>
         {authType === 'LogIn' ? <LogIn /> : <SignUp />}
-      </div>
-    </div>
+      </FormWrap>
+    </WholeWrap>
   );
 };
 
-const LoginButton = styled.button<ButtonProps>`
-  position: relative;
-  width: 110px;
+const WholeWrap = styled.div`
   height: 100%;
-  border-radius: 30px;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: ${(props) => {
-    if (props.authType === 'LogIn') {
-      return 'linear-gradient(to right, #ff105f, #ffad06);';
-    } else {
-      return 'white;';
-    }
-  }};
+  width: 100%;
+
+  background-position: center;
+  background-size: cover;
+  position: absolute;
 `;
 
-const SignUpButton = styled.button<ButtonProps>`
+const FormWrap = styled.div`
+  width: 380px;
+  height: 580px;
+  position: relative;
+  margin: 6% auto;
+  background: #fff;
+  padding: 5px;
+`;
+
+const ButtonWrap = styled.div`
+  width: 60%;
+  height: 50px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 600px 9px #fcae8f;
+  border-radius: 30px;
+`;
+
+const CommonButton = styled.button`
   position: relative;
   width: 110px;
   height: 100%;
@@ -56,13 +64,20 @@ const SignUpButton = styled.button<ButtonProps>`
   cursor: pointer;
   outline: none;
   border: none;
-  background: ${(props) => {
-    if (props.authType === 'SignUp') {
-      return 'linear-gradient(to right, #ff105f, #ffad06);';
-    } else {
-      return 'white;';
-    }
-  }};
+`;
+
+const LoginButton = styled(CommonButton)<ButtonProps>`
+  background: ${(props) =>
+    props.authType === 'LogIn'
+      ? 'linear-gradient(to right, #ff105f, #ffad06);'
+      : 'white;'};
+`;
+
+const SignUpButton = styled(CommonButton)<ButtonProps>`
+  background: ${(props) =>
+    props.authType === 'SignUp'
+      ? 'linear-gradient(to right, #ff105f, #ffad06);'
+      : 'white;'};
 `;
 
 export default AuthPresenter;

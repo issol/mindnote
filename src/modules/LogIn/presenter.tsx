@@ -1,10 +1,8 @@
 import React from 'react';
-import NewInput from 'components/NewInput';
+import TextInput from 'components/TextInput';
 
 import { DeepMap, FieldError } from 'react-hook-form';
-
-import { UserState } from 'store/users/types';
-import './styles.css';
+import styled from 'styled-components';
 
 type inputProps = {
   email: string;
@@ -19,51 +17,57 @@ type RefReturn =
   | undefined;
 
 type Props = {
-  userReducer: UserState;
-  changeEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  changePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleLogin: (event: React.MouseEvent<HTMLElement>) => void;
-  handleSubmit: any;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
   errors: DeepMap<inputProps, FieldError>;
 };
 
 const LogInPresenter = ({
-  userReducer,
-  changeEmail,
-  changePassword,
-  handleLogin,
+  onSubmit,
   handleSubmit,
   register,
   errors,
 }: Props) => {
   return (
-    <div className="input-group">
-      <NewInput
-        type="email"
-        label="email"
-        value={userReducer.logInInfo.email}
-        onChange={changeEmail}
-        register={register}
-        required
-      />
-
-      {errors.email && <p>This field is required</p>}
-
-      <NewInput
+    <LoginForm onSubmit={handleSubmit(onSubmit)} className="input-group">
+      <TextInput type="email" label="email" register={register} required />
+      {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
+      <TextInput
         type="password"
         label="password"
-        value={userReducer.logInInfo.password}
-        onChange={changePassword}
         register={register}
         required
       />
-      {errors.password && <p>This field is required</p>}
-      <button className="login" onClick={handleSubmit(handleLogin)}>
-        login
-      </button>
-    </div>
+      {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
+      <LoginButton type="submit" className="login" value="Login" />
+    </LoginForm>
   );
 };
+
+const LoginForm = styled.form`
+  width: 75%;
+  left: 50px;
+  margin: 30px 0;
+`;
+
+const LoginButton = styled.input`
+  width: 50%;
+  padding: 10px 30px;
+  margin: 30px auto 0 auto;
+
+  cursor: pointer;
+  display: block;
+
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+`;
+
+const ErrorMessage = styled.p`
+  color: #bf1650;
+  display: inline;
+`;
 
 export default LogInPresenter;

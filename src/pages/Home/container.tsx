@@ -14,8 +14,8 @@ const HomeContainer = () => {
     (state: RootState) => state.articleReducer
   );
 
-  const createArticle = () => {
-    history.push('/create-article');
+  const openModalForCreateArticle = () => {
+    //이부분 아티클 만드는 모달 띄우기
   };
 
   useEffect(() => {
@@ -33,10 +33,7 @@ const HomeContainer = () => {
   return (
     <>
       {isLoggedIn ? (
-        <HomePresenter
-          createArticle={createArticle}
-          articleList={articleReducer.articleList}
-        />
+        <HomePresenter articleList={articleReducer.articleList} />
       ) : (
         history.push('/')
       )}
