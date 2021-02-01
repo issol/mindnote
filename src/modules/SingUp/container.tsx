@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
-import { setSignUpInfo, signUp } from 'store/users/actions';
+import { signUp } from 'store/users/actions';
 import SignUpPresenter from './presenter';
 import StatusModal from 'components/StatusModal';
+import { useForm } from 'react-hook-form';
+import { SignUpInfo } from 'store/users/types';
 
 const SignUpContainer = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
@@ -13,21 +15,10 @@ const SignUpContainer = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const changeEmail = (value: string) => {
-    dispatch(setSignUpInfo({ email: value }));
-  };
+  const { register, errors, handleSubmit } = useForm<SignUpInfo>();
 
-  const changePassword = (value: string) => {
-    dispatch(setSignUpInfo({ password: value }));
-  };
-
-  const changeName = (value: string) => {
-    dispatch(setSignUpInfo({ name: value }));
-  };
-
-  const handelSignUp = () => {
-    dispatch(signUp.request(userReducer.signUpInfo));
-    setIsOpenModal(true);
+  const handelSignUp = (data) => {
+    dispatch(signUp.request(data));
   };
 
   useEffect(() => {
@@ -46,11 +37,10 @@ const SignUpContainer = () => {
       />
 
       <SignUpPresenter
-        userReducer={userReducer}
-        changeEmail={changeEmail}
-        changePassword={changePassword}
-        changeName={changeName}
         handelSignUp={handelSignUp}
+        register={register}
+        errors={errors}
+        handleSubmit={handleSubmit}
       />
     </>
   );
