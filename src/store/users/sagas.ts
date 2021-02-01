@@ -13,8 +13,10 @@ function* LogInAsync(action: { type: string; payload: LogInInfo }) {
     localStorage.setItem('token', res.data.token);
     yield put(logIn.success());
   } catch (e) {
-    localStorage.removeItem('token');
-    yield put(logIn.failure(e.request.responseText));
+    if (e.request.status >= 400 && e.request.status <= 599) {
+      localStorage.removeItem('token');
+      yield put(logIn.failure('이메일 또는 비밀번호가 틀립니다.'));
+    }
   }
 }
 
@@ -28,8 +30,10 @@ function* SignUpAsync(action: { type: string; payload: SignUpInfo }) {
     localStorage.setItem('token', res.data.token);
     yield put(signUp.success());
   } catch (e) {
-    localStorage.removeItem('token');
-    yield put(signUp.failure(e.request.responseText));
+    if (e.request.status >= 400 && e.request.status <= 599) {
+      localStorage.removeItem('token');
+      yield put(signUp.failure(e.request.responseText));
+    }
   }
 }
 export function* watchUser() {

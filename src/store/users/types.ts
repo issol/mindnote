@@ -17,9 +17,9 @@ export type SetSignUpInfoPayload = Partial<SignUpInfo>;
 
 export type UserState = {
   isLoggedIn: boolean;
+  errorMessage: string;
   logInInfo: LogInInfo;
   signUpInfo: SignUpInfo;
-  statusMessage: string;
 };
 
 export type UserAction =

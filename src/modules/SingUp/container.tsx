@@ -11,7 +11,7 @@ const SignUpContainer = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
-  const [modalShow, setModalShow] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const changeEmail = (value: string) => {
     dispatch(setSignUpInfo({ email: value }));
@@ -26,41 +26,25 @@ const SignUpContainer = () => {
   };
 
   const handelSignUp = () => {
-    if (isValid()) {
-      dispatch(signUp.request(userReducer.signUpInfo));
-      setModalShow(true);
-    }
+    dispatch(signUp.request(userReducer.signUpInfo));
+    setIsOpenModal(true);
   };
-  useEffect(() => {
-    if (userReducer.statusMessage !== '') {
-      if (userReducer.statusMessage.includes('already')) {
-        setErrorMessage('이미 동일한 이메일이 존재합니다');
-      } else if (userReducer.statusMessage.includes('valid')) {
-        setErrorMessage('유효한 이메일 형식을 입력해주세요.');
-      }
-    }
-  }, [userReducer.statusMessage]);
 
-  const isValid = () => {
-    if (userReducer.signUpInfo.email === '') {
-      setErrorMessage('아이디를 입력해주세요.');
-    } else if (userReducer.signUpInfo.password === '') {
-      setErrorMessage('비밀번호를 입력해주세요.');
-    } else if (userReducer.signUpInfo.name === '') {
-      setErrorMessage('이름을 입력해주세요.');
+  useEffect(() => {
+    if (userReducer.errorMessage !== '') {
+      setErrorMessage(userReducer.errorMessage);
+      setIsOpenModal(true);
     }
-    return true;
-  };
+  }, [userReducer.errorMessage]);
 
   return (
     <>
-      {modalShow ? (
-        <StatusModal
-          statusMessage={errorMessage}
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
-      ) : null}
+      <StatusModal
+        statusMessage={errorMessage}
+        show={isOpenModal}
+        onHide={() => setIsOpenModal(false)}
+      />
+
       <SignUpPresenter
         userReducer={userReducer}
         changeEmail={changeEmail}

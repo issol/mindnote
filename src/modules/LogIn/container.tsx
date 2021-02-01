@@ -14,7 +14,7 @@ type Props = {
 
 const LogInContainer = () => {
   const dispatch = useDispatch();
-  const [modalShow, setModalShow] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
@@ -23,7 +23,6 @@ const LogInContainer = () => {
 
   const handleLogin = () => {
     dispatch(logIn.request(userReducer.logInInfo));
-    setModalShow(true);
   };
 
   const changeEmail = (e: any) => {
@@ -35,20 +34,20 @@ const LogInContainer = () => {
   };
 
   useEffect(() => {
-    if (userReducer.statusMessage !== '') {
-      setErrorMessage(userReducer.statusMessage);
+    if (userReducer.errorMessage !== '') {
+      setErrorMessage(userReducer.errorMessage);
+      setIsOpenModal(true);
     }
-  }, [userReducer.statusMessage]);
+  }, [userReducer.errorMessage]);
 
   return (
     <>
-      {modalShow ? (
-        <StatusModal
-          statusMessage={errorMessage}
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
-      ) : null}
+      <StatusModal
+        statusMessage={errorMessage}
+        show={isOpenModal}
+        onHide={() => setIsOpenModal(false)}
+      />
+
       <LogInPresenter
         userReducer={userReducer}
         handleLogin={handleLogin}
