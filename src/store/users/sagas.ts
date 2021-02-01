@@ -30,7 +30,7 @@ function* SignUpAsync(action: { type: string; payload: SignUpInfo }) {
     localStorage.setItem('token', res.data.token);
     yield put(signUp.success());
   } catch (e) {
-    console.log(e.request);
+    
 
     localStorage.removeItem('token');
     yield put(signUp.failure(e.request.responseText));
