@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'store';
 
-import { fetchArticleList } from '../../store/articles/actions';
+import { createArticle, fetchArticleList } from '../../store/articles/actions';
 import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(
+    false
+  );
+  const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -15,8 +20,13 @@ const ArticleListContainer = () => {
     (state: RootState) => state.articleReducer
   );
 
+  const handleCreateArticle = (data) => {
+    setIsOpenCreateArticleModal(false);
+    dispatch(createArticle.request(data));
+  };
+
   const openModalForCreateArticle = () => {
-    //이부분 아티클 만드는 모달 띄우기
+    setIsOpenCreateArticleModal(true);
   };
 
   useEffect(() => {
@@ -29,12 +39,20 @@ const ArticleListContainer = () => {
 
   useEffect(() => {
     dispatch(fetchArticleList.request());
-  }, [dispatch]);
+  },[articleReducer.articleList]);
 
   return (
     <>
       {isLoggedIn ? (
-        <ArticleListPresenter articleList={articleReducer.articleList} />
+        <ArticleListPresenter
+          isOpenCreateArticleModal={isOpenCreateArticleModal}
+          openModalForCreateArticle={openModalForCreateArticle}
+          articleList={articleReducer.articleList}
+          handleCreateArticle={handleCreateArticle}
+          register={register}
+          handleSubmit={handleSubmit}
+          errors={errors}
+        />
       ) : (
         history.push('/')
       )}
