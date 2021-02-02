@@ -1,3 +1,4 @@
+import Article from 'components/Article';
 import CreateArticleModal from 'components/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import React from 'react';
@@ -54,9 +55,11 @@ const ArticleListPresenter = ({
       )}
       {articleList.map((article) => {
         return (
-          <div key={article.id}>
-            {article.subject} {article.description}
-          </div>
+          <Article
+            key={article.id}
+            subject={article.subject}
+            description={article.description}
+          />
         );
       })}
     </>
