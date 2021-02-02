@@ -4,6 +4,11 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from './actions';
 import { HOST } from 'constants/requests';
 
+const mapErrorMessageFromServerForUser = {
+  '{"email":["user with this email already exists."]}':
+    '이미 동일한 이메일이 존재합니다.',
+};
+
 const LogInApi = (payload: LogInInfo) =>
   axios.post(HOST + '/users/tokens/', payload);
 
@@ -30,10 +35,12 @@ function* SignUpAsync(action: { type: string; payload: SignUpInfo }) {
     localStorage.setItem('token', res.data.token);
     yield put(signUp.success());
   } catch (e) {
-    
-
-    localStorage.removeItem('token');
-    yield put(signUp.failure(e.request.responseText));
+    if (e.request.status >= 400 && e.request.status <= 599) {
+      localStorage.removeItem('token');
+      yield put(
+        signUp.failure(mapErrorMessageFromServerForUser[e.request.responseText])
+      );
+    }
   }
 }
 export function* watchUser() {
