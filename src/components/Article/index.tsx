@@ -1,18 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Article = ({ key, subject, description }) => {
+const Article = ({ id, subject, description, user, createdAt }) => {
   return (
     <CardView>
       <CardWrapper>
-        <Card key={key}>
-          <ArticleTitle>{subject}</ArticleTitle>
-          <p className="ddd">{description.slice(0, 100)}</p>
+        <Card key={id}>
+          <LinkArticle
+            to={{
+              pathname: `/article/${id}`,
+              state: { id, subject, description, user, createdAt },
+            }}
+          >
+            <ArticleTitle>{subject}</ArticleTitle>
+          </LinkArticle>
+          <p className="description">{description.slice(0, 100)}</p>
         </Card>
       </CardWrapper>
     </CardView>
   );
 };
+
+const LinkArticle = styled(Link)`
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 2fr;
+  grid-gap: 20px;
+  text-decoration: none;
+  color: inherit;
+`;
 
 const CardView = styled.div`
   height: 100%;

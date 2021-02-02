@@ -39,7 +39,7 @@ const ArticleListContainer = () => {
 
   useEffect(() => {
     dispatch(fetchArticleList.request());
-  },[articleReducer.articleList]);
+  }, [articleReducer.articleList]);
 
   return (
     <>

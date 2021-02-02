@@ -3,11 +3,10 @@ import {
   CREATE_ARTICLE_FAILURE,
   CREATE_ARTICLE_SUCCESS,
   FETCH_ARTICLE_LIST_FAILURE,
-  FETCH_ARTICLE_LIST_SUCCESS
+  FETCH_ARTICLE_LIST_SUCCESS,
 } from './actions';
 
 import { ArticleAction, ArticleState } from './types';
-
 
 const initialState: ArticleState = {
   articleInfo: {
@@ -15,6 +14,7 @@ const initialState: ArticleState = {
     description: '',
     user: 0,
   },
+
   articleList: [],
 };
 
@@ -33,13 +33,12 @@ const articleReducer = createReducer<ArticleState, ArticleAction>(
     }),
     [FETCH_ARTICLE_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      articleList: action.payload
+      articleList: action.payload,
     }),
     [FETCH_ARTICLE_LIST_FAILURE]: (state) => ({
       ...state,
     }),
   }
 );
-
 
 export default articleReducer;
