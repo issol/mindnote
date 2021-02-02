@@ -17,7 +17,7 @@ const AuthContainer = () => {
   return (
     <>
       {userReducer.isLoggedIn ? (
-        <Redirect to="/home" />
+        <Redirect to="/note-list" />
       ) : (
         <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
       )}
