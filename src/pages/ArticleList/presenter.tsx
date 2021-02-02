@@ -6,7 +6,7 @@ type HomeType = {
   articleList: ArticleType[];
 };
 
-const HomePresenter = ({ articleList }: HomeType) => {
+const ArticleListPresenter = ({ articleList }: HomeType) => {
   return (
     <>
       <Navigation />
@@ -18,4 +18,4 @@ const HomePresenter = ({ articleList }: HomeType) => {
   );
 };
 
-export default HomePresenter;
+export default ArticleListPresenter;

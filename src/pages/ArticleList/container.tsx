@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'store';
-import HomePresenter from './presenter';
-import { fetchArticleList } from '../../store/articles/actions';
 
-const HomeContainer = () => {
+import { fetchArticleList } from '../../store/articles/actions';
+import ArticleListPresenter from './presenter';
+
+const ArticleListContainer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,7 +34,7 @@ const HomeContainer = () => {
   return (
     <>
       {isLoggedIn ? (
-        <HomePresenter articleList={articleReducer.articleList} />
+        <ArticleListPresenter articleList={articleReducer.articleList} />
       ) : (
         history.push('/')
       )}
@@ -41,4 +42,4 @@ const HomeContainer = () => {
   );
 };
 
-export default HomeContainer;
+export default ArticleListContainer;
