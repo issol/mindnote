@@ -55,11 +55,16 @@ const ArticleListPresenter = ({
       )}
       {articleList.map((article) => {
         return (
-          <Article
-            key={article.id}
-            subject={article.subject}
-            description={article.description}
-          />
+          <>
+            <div>{article.id}</div>
+            <Article
+              id={article.id}
+              subject={article.subject}
+              description={article.description}
+              user={article.user}
+              createdAt={article.createdAt}
+            />
+          </>
         );
       })}
     </>

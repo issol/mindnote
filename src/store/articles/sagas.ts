@@ -7,7 +7,7 @@ import {
   CREATE_ARTICLE_REQUEST,
 } from './actions';
 import { HOST } from 'constants/requests';
-import { ArticleInfo } from './types';
+import { ArticleInfo, ArticleType } from './types';
 
 type data = {
   token: any;
@@ -38,7 +38,7 @@ function* createArticleAsync(action: { type: string; payload: ArticleInfo }) {
   try {
     const token = localStorage.getItem('token');
     const res = yield call(createArticleApi, token, action.payload);
-    console.log(res.data);
+
     yield put(createArticle.success(res.data));
   } catch (e) {
     yield put(createArticle.failure(e.request.responseText));
