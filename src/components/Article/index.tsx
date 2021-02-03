@@ -4,21 +4,17 @@ import styled from 'styled-components';
 
 const Article = ({ id, subject, description, user, createdAt }) => {
   return (
-    <CardView>
-      <CardWrapper>
-        <Card key={id}>
-          <LinkArticle
-            to={{
-              pathname: `/article/${id}`,
-              state: { id, subject, description, user, createdAt },
-            }}
-          >
-            <ArticleTitle>{subject}</ArticleTitle>
-          </LinkArticle>
-          <p className="description">{description.slice(0, 100)}</p>
-        </Card>
-      </CardWrapper>
-    </CardView>
+    <Card key={id}>
+      <LinkArticle
+        to={{
+          pathname: `/article/${id}`,
+          state: { id, subject, description, user, createdAt },
+        }}
+      >
+        <ArticleTitle>{subject}</ArticleTitle>
+      </LinkArticle>
+      <p className="description">{description.slice(0, 100)}</p>
+    </Card>
   );
 };
 
@@ -30,26 +26,13 @@ const LinkArticle = styled(Link)`
   color: inherit;
 `;
 
-const CardView = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  float: left;
-`;
-
-const CardWrapper = styled.div`
-  display: flex;
-  padding: 50px;
-  padding-top: 70px;
-  width: 80%;
-`;
-
 const Card = styled.div`
   background-color: white;
   margin-bottom: 70px;
+  margin-right: 50px;
   font-weight: 300;
-  width: 350px;
-  height: 80%;
+  width: 300px;
+  heihgt: 80%;
   padding: 20px;
   border-radius: 10px;
   color: #adaeb9;

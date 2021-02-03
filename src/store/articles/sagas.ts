@@ -38,7 +38,6 @@ function* createArticleAsync(action: { type: string; payload: ArticleInfo }) {
   try {
     const token = localStorage.getItem('token');
     const res = yield call(createArticleApi, token, action.payload);
-
     yield put(createArticle.success(res.data));
   } catch (e) {
     yield put(createArticle.failure(e.request.responseText));
