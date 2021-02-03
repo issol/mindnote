@@ -2,7 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Article = ({ id, subject, description, user, createdAt }) => {
+const Article = ({
+  id,
+  subject,
+  description,
+  user,
+  createdAt,
+  handleDeleteArticle,
+}) => {
   return (
     <Card key={id}>
       <LinkArticle
@@ -14,6 +21,9 @@ const Article = ({ id, subject, description, user, createdAt }) => {
         <ArticleTitle>{subject}</ArticleTitle>
       </LinkArticle>
       <p className="description">{description.slice(0, 100)}</p>
+      <button onClick={handleDeleteArticle} id={id}>
+        삭제
+      </button>
     </Card>
   );
 };

@@ -23,6 +23,7 @@ type Props = {
   isOpenCreateArticleModal: boolean;
   openModalForCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteArticle: (event: React.MouseEvent<HTMLElement>) => void;
   articleList: ArticleType[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
@@ -33,6 +34,7 @@ const ArticleListPresenter = ({
   isOpenCreateArticleModal,
   openModalForCreateArticle,
   handleCreateArticle,
+  handleDeleteArticle,
   articleList,
   register,
   handleSubmit,
@@ -54,15 +56,15 @@ const ArticleListPresenter = ({
       <CardWrapper>
         {articleList.map((article) => {
           return (
-            <div>
-              <Article
-                id={article.id}
-                subject={article.subject}
-                description={article.description}
-                user={article.user}
-                createdAt={article.createdAt}
-              />
-            </div>
+            <Article
+              key={article.id}
+              id={article.id}
+              subject={article.subject}
+              description={article.description}
+              user={article.user}
+              createdAt={article.createdAt}
+              handleDeleteArticle={handleDeleteArticle}
+            />
           );
         })}
         <CreateArticleButton onClick={openModalForCreateArticle}>

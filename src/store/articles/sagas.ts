@@ -5,14 +5,12 @@ import {
   fetchArticleList,
   createArticle,
   CREATE_ARTICLE_REQUEST,
+  deleteArticle,
+  DELETE_ARTICLE_REQUEST,
+  updateArticle,
 } from './actions';
 import { HOST } from 'constants/requests';
 import { ArticleInfo, ArticleType } from './types';
-
-type data = {
-  token: any;
-  payload: ArticleInfo;
-};
 
 const fetchArticleListApi = (token) =>
   axios.get(HOST + '/articles/my-list/', {
@@ -44,7 +42,27 @@ function* createArticleAsync(action: { type: string; payload: ArticleInfo }) {
   }
 }
 
+const deleteArticleApi = (token: any, id: number) =>
+  axios.delete(HOST + `/articles/${id}/`, {
+    headers: { Authorization: `token ${token}` },
+  });
+
+function* deleteArticleAsync(action) {
+  try {
+    const token = localStorage.getItem('token');
+    const id = action.payload;
+    const res = yield call(deleteArticleApi, token, id);
+
+    yield put(deleteArticle.success(res));
+  } catch (e) {
+    console.log(e);
+
+    yield put(deleteArticle.failure());
+  }
+}
+
 export function* watchArticle() {
   yield takeEvery(FETCH_ARTICLE_LIST_REQUEST, fetchArticleListAsync);
   yield takeEvery(CREATE_ARTICLE_REQUEST, createArticleAsync);
+  yield takeEvery(DELETE_ARTICLE_REQUEST, deleteArticleAsync);
 }

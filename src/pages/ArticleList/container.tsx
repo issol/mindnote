@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'store';
 
-import { createArticle, fetchArticleList } from '../../store/articles/actions';
+import {
+  createArticle,
+  deleteArticle,
+  fetchArticleList,
+} from '../../store/articles/actions';
 import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {
@@ -20,9 +24,13 @@ const ArticleListContainer = () => {
     (state: RootState) => state.articleReducer
   );
 
-  const handleCreateArticle = (data) => {
+  const handleCreateArticle = (data: any) => {
     setIsOpenCreateArticleModal(false);
     dispatch(createArticle.request(data));
+  };
+
+  const handleDeleteArticle = (e: any) => {
+    dispatch(deleteArticle.request(e.target.id));
   };
 
   const openModalForCreateArticle = () => {
@@ -49,6 +57,7 @@ const ArticleListContainer = () => {
           openModalForCreateArticle={openModalForCreateArticle}
           articleList={articleReducer.articleList}
           handleCreateArticle={handleCreateArticle}
+          handleDeleteArticle={handleDeleteArticle}
           register={register}
           handleSubmit={handleSubmit}
           errors={errors}
