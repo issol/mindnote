@@ -6,6 +6,7 @@ import {
   DELETE_ARTICLE_SUCCESS,
   FETCH_ARTICLE_LIST_FAILURE,
   FETCH_ARTICLE_LIST_SUCCESS,
+  UPDATE_ARTICLE_FAILURE,
   UPDATE_ARTICLE_SUCCESS,
 } from './actions';
 
@@ -13,7 +14,7 @@ import { ArticleAction, ArticleState } from './types';
 
 const initialState: ArticleState = {
   articleInfo: {
-    title: '',
+    subject: '',
     description: '',
     user: 0,
   },
@@ -41,9 +42,11 @@ const articleReducer = createReducer<ArticleState, ArticleAction>(
     [FETCH_ARTICLE_LIST_FAILURE]: (state) => ({
       ...state,
     }),
-    [UPDATE_ARTICLE_SUCCESS] : (state, action)=>({
+    [UPDATE_ARTICLE_SUCCESS]: (state) => ({
       ...state,
-     
+    }),
+    [UPDATE_ARTICLE_FAILURE]: (state) => ({
+      ...state,
     }),
 
     [DELETE_ARTICLE_SUCCESS]: (state) => ({

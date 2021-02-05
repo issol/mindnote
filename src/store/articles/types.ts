@@ -7,13 +7,19 @@ import {
 } from './actions';
 
 export type ArticleInfo = {
-  title: string;
+  subject: string;
   description: string;
   user: number;
 };
 
 export type CreateArticleRequestPayload = {
   title: string;
+  description: string;
+};
+
+export type UpdatedArticleInfo = {
+  id: number;
+  subject: string;
   description: string;
 };
 

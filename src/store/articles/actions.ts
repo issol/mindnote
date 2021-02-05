@@ -4,6 +4,7 @@ import {
   ArticleType,
   CreateArticleRequestPayload,
   UpdateArticleRequestPayload,
+  UpdatedArticleInfo,
 } from './types';
 
 export const CREATE_ARTICLE_REQUEST = 'articles/CREATE_ARTICLE_REQUEST';
@@ -44,4 +45,4 @@ export const updateArticle = createAsyncAction(
   UPDATE_ARTICLE_REQUEST,
   UPDATE_ARTICLE_SUCCESS,
   UPDATE_ARTICLE_FAILURE
-)<ArticleType[], UpdateArticleRequestPayload, string>();
+)<UpdatedArticleInfo, UpdateArticleRequestPayload, string>();
