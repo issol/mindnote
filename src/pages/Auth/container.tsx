@@ -6,6 +6,9 @@ import AuthPresenter from './presenter';
 
 const AuthContainer = () => {
   const [authType, setAuthType] = useState('LogIn');
+
+  const userReducer = useSelector((state: RootState) => state.userReducer);
+
   const handleAuthType = () => {
     if (authType === 'LogIn') {
       setAuthType('SignUp');
@@ -13,11 +16,11 @@ const AuthContainer = () => {
       setAuthType('LogIn');
     }
   };
-  const userReducer = useSelector((state: RootState) => state.userReducer);
+
   return (
     <>
       {userReducer.isLoggedIn ? (
-        <Redirect to="/note-list" />
+        <Redirect to="/article-list" />
       ) : (
         <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
       )}

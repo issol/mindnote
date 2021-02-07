@@ -1,8 +1,13 @@
 import { ActionType } from 'typesafe-actions';
-import { createArticle, fetchArticleList } from './actions';
+import {
+  createArticle,
+  deleteArticle,
+  fetchArticleList,
+  updateArticle,
+} from './actions';
 
 export type ArticleInfo = {
-  title: string;
+  subject: string;
   description: string;
   user: number;
 };
@@ -10,6 +15,19 @@ export type ArticleInfo = {
 export type CreateArticleRequestPayload = {
   title: string;
   description: string;
+};
+
+export type UpdatedArticleInfo = {
+  id: number;
+  subject: string;
+  description: string;
+};
+
+export type UpdateArticleRequestPayload = {
+  id: number;
+  subject: string;
+  description: string;
+  updatedAt: string;
 };
 
 export type ArticleType = {
@@ -28,4 +46,6 @@ export type ArticleState = {
 
 export type ArticleAction =
   | ActionType<typeof createArticle>
-  | ActionType<typeof fetchArticleList>;
+  | ActionType<typeof fetchArticleList>
+  | ActionType<typeof deleteArticle>
+  | ActionType<typeof updateArticle>;

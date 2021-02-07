@@ -1,13 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { updateArticle } from 'store/articles/actions';
 import WriteArticlePresenter from './presenter';
 
+type ArticleProps = {
+  id: number;
+  subject: string;
+  description: string;
+  createdAt: string;
+};
+
+type UpdateProps = {
+  id: number;
+  subject: string;
+  description: string;
+};
+
 const WriteArticleContainer = (props) => {
-  const [state, setState] = useState();
-  
-  useEffect(() => {
-    setState(props.location.state);
+  const dispatch = useDispatch();
+
+  const [articleInfo, setArticleInfo] = useState<ArticleProps>({
+    id: 0,
+    subject: '',
+    description: '',
+    createdAt: '',
   });
-  return <WriteArticlePresenter />;
+
+  const [updatedArticleInfo, setUpdatedArticleInfo] = useState<UpdateProps>({
+    id: 0,
+    subject: '',
+    description: '',
+  });
+
+  const { register, handleSubmit } = useForm<UpdateProps>();
+
+  const handleUpdateArticleInfo = (data) => {
+    setUpdatedArticleInfo({
+      id: articleInfo.id,
+      subject: data.subject,
+      description: data.description,
+    });
+  };
+
+  useEffect(() => {
+    setArticleInfo(props.location.state);
+  }, []);
+
+  useEffect(() => {
+    dispatch(updateArticle.request(updatedArticleInfo));
+  }, [updatedArticleInfo]);
+
+  return (
+    <WriteArticlePresenter
+      articleInfo={articleInfo}
+      register={register}
+      handleSubmit={handleSubmit}
+      handleUpdateArticleInfo={handleUpdateArticleInfo}
+    />
+  );
 };
 
 export default WriteArticleContainer;
