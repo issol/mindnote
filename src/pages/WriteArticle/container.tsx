@@ -1,4 +1,3 @@
-import { request } from 'http';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -34,7 +33,7 @@ const WriteArticleContainer = (props) => {
     description: '',
   });
 
-  const { register, handleSubmit, setValue } = useForm<UpdateProps>();
+  const { register, handleSubmit } = useForm<UpdateProps>();
 
   const handleUpdateArticleInfo = (data) => {
     setUpdatedArticleInfo({
@@ -51,15 +50,14 @@ const WriteArticleContainer = (props) => {
   useEffect(() => {
     dispatch(updateArticle.request(updatedArticleInfo));
   }, [updatedArticleInfo]);
+
   return (
-    <>
-      <WriteArticlePresenter
-        articleInfo={articleInfo}
-        register={register}
-        handleSubmit={handleSubmit}
-        handleUpdateArticleInfo={handleUpdateArticleInfo}
-      />
-    </>
+    <WriteArticlePresenter
+      articleInfo={articleInfo}
+      register={register}
+      handleSubmit={handleSubmit}
+      handleUpdateArticleInfo={handleUpdateArticleInfo}
+    />
   );
 };
 

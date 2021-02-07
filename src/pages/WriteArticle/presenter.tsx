@@ -6,14 +6,11 @@ const WriteArticlePresenter = ({
   register,
   handleSubmit,
   handleUpdateArticleInfo,
-  
 }) => {
   return (
     <form onSubmit={handleSubmit(handleUpdateArticleInfo)}>
-      
       <TextInput type="text" label="subject" register={register} required />
       <TextInput type="text" label="description" register={register} required />
-      
       <input type="submit" value="저장하기" />
     </form>
   );
