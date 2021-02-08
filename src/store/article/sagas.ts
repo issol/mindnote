@@ -18,7 +18,7 @@ function* fetchArticleDetailAsync(action){
         const token = localStorage.getItem('token');
         const id = action.payload;
         const res = yield call(fetchArticleDetailApi, token, id);
-        console.log(res.data);
+        
         
         yield put(fetchArticleDetail.success(res.data));
     }catch(e){

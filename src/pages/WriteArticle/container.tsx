@@ -60,7 +60,7 @@ const WriteArticleContainer = (props) => {
   };
 
   const handleCreateNote = (data : any)=>{
-    console.log("create");
+  
     
     setNoteInfo({
       id : articleInfo.id,
