@@ -6,8 +6,6 @@ const Article = ({
   id,
   subject,
   description,
-  user,
-  createdAt,
   handleDeleteArticle,
 }) => {
   return (
@@ -15,7 +13,7 @@ const Article = ({
       <LinkArticle
         to={{
           pathname: `/article/${id}`,
-          state: { id, subject, description, user, createdAt },
+          state: {id},
         }}
       >
         <ArticleTitle>{subject}</ArticleTitle>

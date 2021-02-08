@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { RootState } from 'store';
+import { createNote, fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articles/actions';
 import WriteArticlePresenter from './presenter';
 
 type ArticleProps = {
   id: number;
-  subject: string;
-  description: string;
-  createdAt: string;
 };
 
 type UpdateProps = {
@@ -17,14 +17,22 @@ type UpdateProps = {
   description: string;
 };
 
+type NoteProps = {
+  id : number;
+  contents : string;
+}
+
 const WriteArticleContainer = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const mounted = useRef(false);
+
+  const articleDetailReducer = useSelector(
+    (state: RootState) => state.articleDetailReducer
+  );
 
   const [articleInfo, setArticleInfo] = useState<ArticleProps>({
     id: 0,
-    subject: '',
-    description: '',
-    createdAt: '',
   });
 
   const [updatedArticleInfo, setUpdatedArticleInfo] = useState<UpdateProps>({
@@ -33,9 +41,17 @@ const WriteArticleContainer = (props) => {
     description: '',
   });
 
+  const [noteInfo, setNoteInfo] = useState<NoteProps>({
+
+    id: 0,
+    contents : ''
+  
+  });
+
   const { register, handleSubmit } = useForm<UpdateProps>();
 
-  const handleUpdateArticleInfo = (data) => {
+  const handleUpdateArticleInfo = (data :any) => {
+    
     setUpdatedArticleInfo({
       id: articleInfo.id,
       subject: data.subject,
@@ -43,20 +59,48 @@ const WriteArticleContainer = (props) => {
     });
   };
 
+  const handleCreateNote = (data : any)=>{
+  
+    
+    setNoteInfo({
+      id : articleInfo.id,
+      contents : data.contents
+    })
+  }
+
   useEffect(() => {
     setArticleInfo(props.location.state);
-  }, []);
+    
+  },[]);
+
+  useEffect(()=>{
+    if(!mounted.current){
+      mounted.current = true;
+    }else{
+      dispatch(fetchArticleDetail.request(articleInfo.id));
+    }
+  },[articleInfo.id])
+ 
 
   useEffect(() => {
     dispatch(updateArticle.request(updatedArticleInfo));
+    return (()=>{
+      history.push("/article-list")
+    })
   }, [updatedArticleInfo]);
+
+  useEffect(()=>{
+    dispatch(createNote.request(noteInfo));
+  },[noteInfo])
 
   return (
     <WriteArticlePresenter
-      articleInfo={articleInfo}
+      
+      articleNoteList = {articleDetailReducer.articleDetail.notes}
       register={register}
       handleSubmit={handleSubmit}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
+      handleCreateNote = {handleCreateNote}
     />
   );
 };
