@@ -31,7 +31,6 @@ const CreateArticleModal = ({
 
 const ModalOverlay = styled.div`
   box-sizing: border-box;
-
   position: fixed;
   top: 0;
   left: 0;
