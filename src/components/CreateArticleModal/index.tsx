@@ -16,11 +16,13 @@ const CreateArticleModal = ({
             <TextInput
               type="text"
               label="subject"
+              
               register={register}
               required
+              
             />
             {errors.subject && <p>제목을 입력해주세요.</p>}
-            <TextInput type="text" label="description" register={register} />
+            <TextInput type="text" label="description" register={register}  placeholder=''/>
             <CreateArticleButton type="submit" value="저장" />
           </form>
         </ModalInner>

@@ -1,17 +1,13 @@
 import Note from 'components/Note';
 import TextInput from 'components/TextInput';
 import React from 'react';
-import articleDetailReducer from 'store/article/reducer';
+
 
 import styled from 'styled-components';
 
-type Props = {
-  articleNoteList: [];
-
-}
 
 const WriteArticlePresenter = ({
-  
+  articleInfo,
   articleNoteList,
   register,
   handleSubmit,

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const SignUpPresenter = ({ handelSignUp, register, errors, handleSubmit }) => {
   return (
     <SignUpForm onSubmit={handleSubmit(handelSignUp)} className="input-group">
-      <TextInput type="email" label="email" register={register} required />
+      <TextInput type="email"  label="email" register={register} required  placeholder=''/>
       {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
 
       <TextInput
@@ -15,10 +15,11 @@ const SignUpPresenter = ({ handelSignUp, register, errors, handleSubmit }) => {
         label="password"
         register={register}
         required
+        placeholder=''
       />
       {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
 
-      <TextInput type="text" label="name" register={register} required />
+      <TextInput type="text" label="name" register={register} required  placeholder='' />
       {errors.name && <ErrorMessage>⚠이름을 입력해주세요</ErrorMessage>}
 
       <SignUpButton type="submit" value="SignUp" />

@@ -27,19 +27,18 @@ function* fetchArticleDetailAsync(action){
     }
 }
 
-const createNoteApi = (token : any, id :any, payload :NoteInfo)=> axios.post(HOST + `/articles/${id}/`, payload,{headers:{Authorization : `token ${token}`},});
+const createNoteApi = (token : any,payload :NoteInfo)=> axios.post(HOST + '/notes/', payload,{headers:{Authorization : `token ${token}`},});
 
 function* createNoteAsync(action:{type:string, payload: NoteInfo}){
-    
+    console.log(action.payload);
     
     try{
         const token = localStorage.getItem('token');
-        const id = action.payload.id;
-        const res = yield call(createNoteApi, token, id, action.payload);
-        
+        const res = yield call(createNoteApi, token, action.payload);
         
         yield put(createNote.success(res.data));
     }catch(e){
+        console.log(e);
         
         yield put(createNote.failure());
     }
