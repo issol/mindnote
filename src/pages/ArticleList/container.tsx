@@ -26,7 +26,7 @@ const ArticleListContainer = () => {
   };
 
   const handleDeleteArticle = (e: any) => {
-    dispatch(deleteArticle.request(e.target.id));
+    dispatch(deleteArticle.request(e.target.getAttribute('article-id')));
   };
 
   const openModalForCreateArticle = () => {
