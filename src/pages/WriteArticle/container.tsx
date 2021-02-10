@@ -9,7 +9,7 @@ import WriteArticlePresenter from './presenter';
 
 type ArticleProps = {
   id: number;
-  subject : string;
+  subject: string;
   description: string;
 };
 
@@ -20,10 +20,9 @@ type UpdateProps = {
 };
 
 type NoteProps = {
- 
-  article : number;
-  contents : string;
-}
+  article: number;
+  contents: string;
+};
 
 const WriteArticleContainer = (props) => {
   const dispatch = useDispatch();
@@ -36,9 +35,8 @@ const WriteArticleContainer = (props) => {
 
   const [articleInfo, setArticleInfo] = useState<ArticleProps>({
     id: 0,
-    subject : '',
-    description : '',
-
+    subject: '',
+    description: '',
   });
 
   const [updatedArticleInfo, setUpdatedArticleInfo] = useState<UpdateProps>({
@@ -48,16 +46,13 @@ const WriteArticleContainer = (props) => {
   });
 
   const [noteInfo, setNoteInfo] = useState<NoteProps>({
-
-    article:0,
-    contents : ''
-  
+    article: 0,
+    contents: '',
   });
 
   const { register, handleSubmit } = useForm<UpdateProps>();
 
-  const handleUpdateArticleInfo = (data :any) => {
-    
+  const handleUpdateArticleInfo = (data: any) => {
     setUpdatedArticleInfo({
       id: articleInfo.id,
       subject: data.subject,
@@ -65,50 +60,44 @@ const WriteArticleContainer = (props) => {
     });
   };
 
-  const handleCreateNote = (data : any)=>{
-    console.log(articleInfo.id);
-    
+  const handleCreateNote = (data: any) => {
     setNoteInfo({
-      article : articleInfo.id,
-      contents : 'n번째 테스트'
-    })
-  }
+      article: articleInfo.id,
+      contents: 'n번째 테스트',
+    });
+  };
 
   useEffect(() => {
-    console.log(props.location.state);
-    
     setArticleInfo(props.location.state);
-    
-  },[props.location.state]);
+  }, [props.location.state]);
 
-  useEffect(()=>{
-    if(!mounted.current){
+  useEffect(() => {
+    if (!mounted.current) {
       mounted.current = true;
-    }else{
+    } else {
       dispatch(fetchArticleDetail.request(articleInfo.id));
     }
-  },[articleInfo.id])
- 
+  }, [articleInfo.id]);
 
   useEffect(() => {
     dispatch(updateArticle.request(updatedArticleInfo));
-    return (()=>{
-      history.push("/article-list")
-    })
+    return () => {
+      history.push('/article-list');
+    };
   }, [updatedArticleInfo]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(createNote.request(noteInfo));
-  },[noteInfo])
+  }, [noteInfo]);
 
   return (
     <WriteArticlePresenter
-      articleInfo = {articleInfo}
-      articleNoteList = {articleDetailReducer.articleDetail.notes}
+      articleInfo={articleInfo}
+      articleNoteList={articleDetailReducer.articleDetail.notes}
       register={register}
       handleSubmit={handleSubmit}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
-      handleCreateNote = {handleCreateNote}
+      handleCreateNote={handleCreateNote}
     />
   );
 };

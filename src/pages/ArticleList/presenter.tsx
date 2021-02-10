@@ -4,7 +4,7 @@ import { DeepMap, FieldError } from 'react-hook-form';
 import styled from 'styled-components';
 
 import Article from 'components/Article';
-import CreateArticleModal from 'components/CreateArticleModal';
+import CreateArticleModal from 'modules/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import { ArticleType } from 'store/articles/types';
 import Modal from 'components/Modal';
