@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
+
 import {
   FETCH_ARTICLE_LIST_REQUEST,
   fetchArticleList,
@@ -10,6 +11,7 @@ import {
   updateArticle,
   UPDATE_ARTICLE_REQUEST,
 } from './actions';
+
 import { HOST } from 'constants/requests';
 import { ArticleInfo, UpdatedArticleInfo } from './types';
 
@@ -37,6 +39,7 @@ function* createArticleAsync(action: { type: string; payload: ArticleInfo }) {
   try {
     const token = localStorage.getItem('token');
     const res = yield call(createArticleApi, token, action.payload);
+
     yield put(createArticle.success(res.data));
   } catch (e) {
     yield put(createArticle.failure(e.request.responseText));
@@ -48,11 +51,11 @@ const deleteArticleApi = (token: any, id: number) =>
     headers: { Authorization: `token ${token}` },
   });
 
-function* deleteArticleAsync(action) {
+function* deleteArticleAsync(action: { type: string; payload: number }) {
   try {
     const token = localStorage.getItem('token');
-    const id = action.payload;
-    const res = yield call(deleteArticleApi, token, id);
+
+    const res = yield call(deleteArticleApi, token, action.payload);
 
     yield put(deleteArticle.success(res));
   } catch (e) {
@@ -60,19 +63,12 @@ function* deleteArticleAsync(action) {
   }
 }
 
-const updateArticleApi = (
-  token: any,
-  id: number,
-  payload: UpdatedArticleInfo
-) =>
+const updateArticleApi = (token: any, id: number, payload: UpdatedArticleInfo) =>
   axios.patch(HOST + `/articles/${id}/`, payload, {
     headers: { Authorization: `token ${token}` },
   });
 
-function* updateArticleAsync(action: {
-  type: string;
-  payload: UpdatedArticleInfo;
-}) {
+function* updateArticleAsync(action: { type: string; payload: UpdatedArticleInfo }) {
   try {
     const token = localStorage.getItem('token');
     const id = action.payload.id;

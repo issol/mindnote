@@ -1,7 +1,9 @@
 import React from 'react';
-import TextInput from 'components/TextInput';
 
 import { DeepMap, FieldError } from 'react-hook-form';
+
+import TextInput from 'components/TextInput';
+
 import styled from 'styled-components';
 
 type inputProps = {
@@ -9,37 +11,21 @@ type inputProps = {
   password: string;
 };
 
-type RefReturn =
-  | string
-  | ((instance: HTMLInputElement | null) => void)
-  | React.RefObject<HTMLInputElement>
-  | null
-  | undefined;
+type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleLogin: (event: React.FormEvent<HTMLFormElement>) => void;
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
   errors: DeepMap<inputProps, FieldError>;
 };
 
-const LogInPresenter = ({
-  onSubmit,
-  handleSubmit,
-  register,
-  errors,
-}: Props) => {
+const LogInPresenter = ({ handleLogin, handleSubmit, register, errors }: Props) => {
   return (
-    <LoginForm onSubmit={handleSubmit(onSubmit)} className="input-group">
-      <TextInput type="email" label="email"  register={register} required  placeholder=''/>
+    <LoginForm onSubmit={handleSubmit(handleLogin)} className="input-group">
+      <TextInput type="email" label="email" register={register} required placeholder="" />
       {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
-      <TextInput
-        type="password"
-        label="password"
-        register={register}
-        required
-        placeholder=''
-      />
+      <TextInput type="password" label="password" register={register} required placeholder="" />
       {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
       <LoginButton type="submit" className="login" value="Login" />
     </LoginForm>

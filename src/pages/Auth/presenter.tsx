@@ -1,6 +1,8 @@
 import React from 'react';
+
 import LogIn from 'modules/LogIn';
 import SignUp from 'modules/SingUp';
+
 import styled from 'styled-components';
 
 type AuthTypeProps = {
@@ -67,17 +69,11 @@ const CommonButton = styled.button`
 `;
 
 const LoginButton = styled(CommonButton)<ButtonProps>`
-  background: ${(props) =>
-    props.authType === 'LogIn'
-      ? 'linear-gradient(to right, #ff105f, #ffad06);'
-      : 'white;'};
+  background: ${(props) => (props.authType === 'LogIn' ? 'linear-gradient(to right, #ff105f, #ffad06);' : 'white;')};
 `;
 
 const SignUpButton = styled(CommonButton)<ButtonProps>`
-  background: ${(props) =>
-    props.authType === 'SignUp'
-      ? 'linear-gradient(to right, #ff105f, #ffad06);'
-      : 'white;'};
+  background: ${(props) => (props.authType === 'SignUp' ? 'linear-gradient(to right, #ff105f, #ffad06);' : 'white;')};
 `;
 
 export default AuthPresenter;

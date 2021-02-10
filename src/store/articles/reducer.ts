@@ -1,4 +1,5 @@
 import { createReducer } from 'typesafe-actions';
+
 import {
   CREATE_ARTICLE_FAILURE,
   CREATE_ARTICLE_SUCCESS,
@@ -22,40 +23,37 @@ const initialState: ArticleState = {
   articleList: [],
 };
 
-const articleReducer = createReducer<ArticleState, ArticleAction>(
-  initialState,
-  {
-    [CREATE_ARTICLE_SUCCESS]: (state, action) => ({
-      ...state,
-      articleInfo: {
-        ...state.articleInfo,
-        ...action.payload,
-      },
-    }),
-    [CREATE_ARTICLE_FAILURE]: (state) => ({
-      ...state,
-    }),
-    [FETCH_ARTICLE_LIST_SUCCESS]: (state, action) => ({
-      ...state,
-      articleList: action.payload,
-    }),
-    [FETCH_ARTICLE_LIST_FAILURE]: (state) => ({
-      ...state,
-    }),
-    [UPDATE_ARTICLE_SUCCESS]: (state) => ({
-      ...state,
-    }),
-    [UPDATE_ARTICLE_FAILURE]: (state) => ({
-      ...state,
-    }),
+const articleReducer = createReducer<ArticleState, ArticleAction>(initialState, {
+  [CREATE_ARTICLE_SUCCESS]: (state, action) => ({
+    ...state,
+    articleInfo: {
+      ...state.articleInfo,
+      ...action.payload,
+    },
+  }),
+  [CREATE_ARTICLE_FAILURE]: (state) => ({
+    ...state,
+  }),
+  [FETCH_ARTICLE_LIST_SUCCESS]: (state, action) => ({
+    ...state,
+    articleList: action.payload,
+  }),
+  [FETCH_ARTICLE_LIST_FAILURE]: (state) => ({
+    ...state,
+  }),
+  [UPDATE_ARTICLE_SUCCESS]: (state) => ({
+    ...state,
+  }),
+  [UPDATE_ARTICLE_FAILURE]: (state) => ({
+    ...state,
+  }),
 
-    [DELETE_ARTICLE_SUCCESS]: (state) => ({
-      ...state,
-    }),
-    [DELETE_ARTICLE_FAILURE]: (state) => ({
-      ...state,
-    }),
-  }
-);
+  [DELETE_ARTICLE_SUCCESS]: (state) => ({
+    ...state,
+  }),
+  [DELETE_ARTICLE_FAILURE]: (state) => ({
+    ...state,
+  }),
+});
 
 export default articleReducer;

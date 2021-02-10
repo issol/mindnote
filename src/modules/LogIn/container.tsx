@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { RootState } from 'store';
 import { logIn } from 'store/users/actions';
 import LogInPresenter from './presenter';
-import StatusModal from 'components/StatusModal';
+import StatusModal from 'modules/StatusModal';
 import { LogInInfo } from 'store/users/types';
+import Modal from 'components/Modal';
 
 const LogInContainer = () => {
   const dispatch = useDispatch();
@@ -21,8 +23,12 @@ const LogInContainer = () => {
     dispatch(logIn.request(data));
   };
 
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
   useEffect(() => {
-    if (userReducer.errorMessage !== '') {
+    if (userReducer.errorMessage) {
       setErrorMessage(userReducer.errorMessage);
       setIsOpenModal(true);
     }
@@ -30,18 +36,9 @@ const LogInContainer = () => {
 
   return (
     <>
-      <StatusModal
-        statusMessage={errorMessage}
-        show={isOpenModal}
-        onHide={() => setIsOpenModal(false)}
-      />
+      <Modal isOpen={isOpenModal} children={<StatusModal statusMessage={errorMessage} onClose={closeModal} />} />
 
-      <LogInPresenter
-        onSubmit={handleLogin}
-        handleSubmit={handleSubmit}
-        register={register}
-        errors={errors}
-      />
+      <LogInPresenter handleLogin={handleLogin} handleSubmit={handleSubmit} register={register} errors={errors} />
     </>
   );
 };

@@ -1,12 +1,6 @@
 import { createReducer } from 'typesafe-actions';
-import {
-  LOG_IN_FAILURE,
-  LOG_IN_SUCCESS,
-  SET_LOG_IN_INFO,
-  SIGN_UP_FAILURE,
-  SET_SIGN_UP_INFO,
-  SIGN_UP_SUCCESS,
-} from './actions';
+
+import { LOG_IN_FAILURE, LOG_IN_SUCCESS, SET_LOG_IN_INFO, SIGN_UP_FAILURE, SET_SIGN_UP_INFO, SIGN_UP_SUCCESS } from './actions';
 import { UserState, UserAction } from './types';
 
 const initialState: UserState = {
