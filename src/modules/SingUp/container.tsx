@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { signUp } from 'store/users/actions';
 import SignUpPresenter from './presenter';
-import StatusModal from 'components/StatusModal';
+import StatusModal from 'modules/StatusModal';
 import { useForm } from 'react-hook-form';
 import { SignUpInfo } from 'store/users/types';
+import { Modal } from 'react-bootstrap';
 
 const SignUpContainer = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
@@ -30,10 +31,14 @@ const SignUpContainer = () => {
 
   return (
     <>
-      <StatusModal
-        statusMessage={errorMessage}
-        show={isOpenModal}
-        onHide={() => setIsOpenModal(false)}
+      <Modal
+        isOpen={isOpenModal}
+        children={
+          <StatusModal
+            statusMessage={errorMessage}
+            onClose={() => setIsOpenModal(false)}
+          />
+        }
       />
 
       <SignUpPresenter
