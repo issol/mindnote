@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { DeepMap, FieldError } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -8,7 +7,7 @@ import Article from 'components/Article';
 import CreateArticleModal from 'components/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import { ArticleType } from 'store/articles/types';
-
+import Modal from 'components/Modal';
 
 type RefReturn =
   | string
@@ -23,7 +22,7 @@ type inputProps = {
 };
 
 type Props = {
-  isOpenCreateArticleModal: boolean;
+  isOpenModal: boolean;
   openModalForCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleDeleteArticle: (event: React.MouseEvent<HTMLElement>) => void;
@@ -34,7 +33,7 @@ type Props = {
 };
 
 const ArticleListPresenter = ({
-  isOpenCreateArticleModal,
+  isOpenModal,
   openModalForCreateArticle,
   handleCreateArticle,
   handleDeleteArticle,
@@ -46,19 +45,20 @@ const ArticleListPresenter = ({
   return (
     <>
       <Navigation />
-
-      {isOpenCreateArticleModal && (
-        <CreateArticleModal
-          register={register}
-          handleSubmit={handleSubmit}
-          handleCreateArticle={handleCreateArticle}
-          errors={errors}
-        />
-      )}
-
+      <Modal
+        isOpen={isOpenModal}
+        children={
+          <CreateArticleModal
+            register={register}
+            handleSubmit={handleSubmit}
+            handleCreateArticle={handleCreateArticle}
+            errors={errors}
+          />
+        }
+      />
+      )
       <CardWrapper>
         {articleList.map((article) => {
-          
           return (
             <Article
               key={article.id}
@@ -69,9 +69,7 @@ const ArticleListPresenter = ({
             />
           );
         })}
-        <CreateArticleButton onClick={openModalForCreateArticle}>
-          +
-        </CreateArticleButton>
+        <CreateArticleButton onClick={openModalForCreateArticle}>+</CreateArticleButton>
       </CardWrapper>
     </>
   );
@@ -103,8 +101,8 @@ const CreateArticleButton = styled.button`
   border: white;
   border-radius: 10px;
 
-  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
-    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3),
+    0 -6px 16px -6px rgba(0, 0, 0, 0.025);
 `;
 
 export default ArticleListPresenter;
