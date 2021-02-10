@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
 import { RootState } from 'store';
 import { signUp } from 'store/users/actions';
 import SignUpPresenter from './presenter';
 import StatusModal from 'modules/StatusModal';
-import { useForm } from 'react-hook-form';
 import { SignUpInfo } from 'store/users/types';
-import { Modal } from 'react-bootstrap';
+import Modal from 'components/Modal';
 
 const SignUpContainer = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
@@ -31,22 +31,9 @@ const SignUpContainer = () => {
 
   return (
     <>
-      <Modal
-        isOpen={isOpenModal}
-        children={
-          <StatusModal
-            statusMessage={errorMessage}
-            onClose={() => setIsOpenModal(false)}
-          />
-        }
-      />
+      <Modal isOpen={isOpenModal} children={<StatusModal statusMessage={errorMessage} onClose={() => setIsOpenModal(false)} />} />
 
-      <SignUpPresenter
-        handelSignUp={handelSignUp}
-        register={register}
-        errors={errors}
-        handleSubmit={handleSubmit}
-      />
+      <SignUpPresenter handelSignUp={handelSignUp} register={register} errors={errors} handleSubmit={handleSubmit} />
     </>
   );
 };

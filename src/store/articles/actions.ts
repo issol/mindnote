@@ -1,11 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions';
-import {
-  ArticleInfo,
-  ArticleType,
-  CreateArticleRequestPayload,
-  UpdateArticleRequestPayload,
-  UpdatedArticleInfo,
-} from './types';
+
+import { ArticleInfo, ArticleType, CreateArticleRequestPayload, UpdateArticleRequestPayload, UpdatedArticleInfo } from './types';
 
 export const CREATE_ARTICLE_REQUEST = 'articles/CREATE_ARTICLE_REQUEST';
 export const CREATE_ARTICLE_SUCCESS = 'articles/CREATE_ARTICLE_SUCCESS';
@@ -23,11 +18,11 @@ export const UPDATE_ARTICLE_REQUEST = 'articles/UPDATE_ARTICLE_REQUEST';
 export const UPDATE_ARTICLE_SUCCESS = 'articles/UPDATE_ARTICLE_SUCCESS';
 export const UPDATE_ARTICLE_FAILURE = 'articles/UPDATE_ARTICLE_FAILURE';
 
-export const createArticle = createAsyncAction(
-  CREATE_ARTICLE_REQUEST,
-  CREATE_ARTICLE_SUCCESS,
-  CREATE_ARTICLE_FAILURE
-)<ArticleInfo, CreateArticleRequestPayload, string>();
+export const createArticle = createAsyncAction(CREATE_ARTICLE_REQUEST, CREATE_ARTICLE_SUCCESS, CREATE_ARTICLE_FAILURE)<
+  ArticleInfo,
+  CreateArticleRequestPayload,
+  string
+>();
 
 export const fetchArticleList = createAsyncAction(
   FETCH_ARTICLE_LIST_REQUEST,
@@ -35,14 +30,14 @@ export const fetchArticleList = createAsyncAction(
   FETCH_ARTICLE_LIST_FAILURE
 )<void, ArticleType[], string>();
 
-export const deleteArticle = createAsyncAction(
-  DELETE_ARTICLE_REQUEST,
-  DELETE_ARTICLE_SUCCESS,
-  DELETE_ARTICLE_FAILURE
-)<number, void, void>();
+export const deleteArticle = createAsyncAction(DELETE_ARTICLE_REQUEST, DELETE_ARTICLE_SUCCESS, DELETE_ARTICLE_FAILURE)<
+  number,
+  void,
+  void
+>();
 
-export const updateArticle = createAsyncAction(
-  UPDATE_ARTICLE_REQUEST,
-  UPDATE_ARTICLE_SUCCESS,
-  UPDATE_ARTICLE_FAILURE
-)<UpdatedArticleInfo, UpdateArticleRequestPayload, string>();
+export const updateArticle = createAsyncAction(UPDATE_ARTICLE_REQUEST, UPDATE_ARTICLE_SUCCESS, UPDATE_ARTICLE_FAILURE)<
+  UpdatedArticleInfo,
+  UpdateArticleRequestPayload,
+  string
+>();

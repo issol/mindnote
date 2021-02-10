@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { RootState } from 'store';
 
-import {
-  createArticle,
-  deleteArticle,
-  fetchArticleList,
-} from '../../store/articles/actions';
+import { RootState } from 'store';
+import { createArticle, deleteArticle, fetchArticleList } from 'store/articles/actions';
 import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {

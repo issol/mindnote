@@ -1,10 +1,6 @@
 import { ActionType } from 'typesafe-actions';
-import {
-  createArticle,
-  deleteArticle,
-  fetchArticleList,
-  updateArticle,
-} from './actions';
+
+import { createArticle, deleteArticle, fetchArticleList, updateArticle } from './actions';
 
 export type ArticleInfo = {
   subject: string;

@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import { RootState } from 'store';
 import { createNote, fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articles/actions';
@@ -29,9 +31,7 @@ const WriteArticleContainer = (props) => {
   const history = useHistory();
   const mounted = useRef(false);
 
-  const articleDetailReducer = useSelector(
-    (state: RootState) => state.articleDetailReducer
-  );
+  const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
 
   const [articleInfo, setArticleInfo] = useState<ArticleProps>({
     id: 0,
@@ -50,7 +50,7 @@ const WriteArticleContainer = (props) => {
     contents: '',
   });
 
-  const { register, handleSubmit } = useForm<UpdateProps>();
+  const { register, handleSubmit, errors } = useForm<UpdateProps>();
 
   const handleUpdateArticleInfo = (data: any) => {
     setUpdatedArticleInfo({
@@ -92,12 +92,12 @@ const WriteArticleContainer = (props) => {
 
   return (
     <WriteArticlePresenter
-      articleInfo={articleInfo}
       articleNoteList={articleDetailReducer.articleDetail.notes}
       register={register}
       handleSubmit={handleSubmit}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
       handleCreateNote={handleCreateNote}
+      errors={errors}
     />
   );
 };

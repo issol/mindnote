@@ -1,8 +1,26 @@
-import TextInput from 'components/TextInput';
 import React from 'react';
+
+import { DeepMap, FieldError } from 'react-hook-form';
+
+import TextInput from 'components/TextInput';
+
 import styled from 'styled-components';
 
-const CreateArticleModal = ({ register, handleSubmit, handleCreateArticle, errors }) => {
+type InputProps = {
+  subject: string;
+  description: string;
+};
+
+type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
+
+type Props = {
+  register: ({ required }: { required?: boolean }) => RefReturn;
+  handleSubmit: Function;
+  handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  errors: DeepMap<InputProps, FieldError>;
+};
+
+const CreateArticleModal = ({ register, handleSubmit, handleCreateArticle, errors }: Props) => {
   return (
     <form onSubmit={handleSubmit(handleCreateArticle)}>
       <TextInput type="text" label="subject" register={register} required />

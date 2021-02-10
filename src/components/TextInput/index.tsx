@@ -1,42 +1,21 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import './styles.css';
 
-type RefReturn =
-  | string
-  | ((instance: HTMLInputElement | null) => void)
-  | React.RefObject<HTMLInputElement>
-  | null
-  | undefined;
+type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
+type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   type: 'text' | 'email' | 'password';
   label: string;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  
-  
 };
 
-const TextInput: React.FC<InputProps> = ({
-  type,
-  label,
-  register,
-  required,
-  
-  
-}) => (
+const TextInput: React.FC<InputProps> = ({ type, label, register, required }) => (
   <>
     <InputLabel>{label}</InputLabel>
-    <input
-      className={'input-field'}
-      type={type}
-      name={label}
-     
-      ref={register({ required })}
-    />
+    <input className={'input-field'} type={type} name={label} ref={register({ required })} />
   </>
 );
 

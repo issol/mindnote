@@ -1,4 +1,5 @@
 import { ActionType } from 'typesafe-actions';
+
 import { logIn, setLogInInfo, signUp, setSignUpInfo } from './actions';
 
 export type LogInInfo = {

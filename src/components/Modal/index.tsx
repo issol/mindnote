@@ -1,15 +1,23 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
-const Modal = ({ isOpen, children }) => {
+type Props = {
+  isOpen: boolean;
+  children: React.ReactNode;
+};
+
+const Modal = ({ isOpen, children }: Props) => {
   return (
-    isOpen && (
-      <ModalOverlay>
-        <ModalWrapper>
-          <ModalInner>{children}</ModalInner>
-        </ModalWrapper>
-      </ModalOverlay>
-    )
+    <>
+      {isOpen && (
+        <ModalOverlay>
+          <ModalWrapper>
+            <ModalInner>{children}</ModalInner>
+          </ModalWrapper>
+        </ModalOverlay>
+      )}
+    </>
   );
 };
 

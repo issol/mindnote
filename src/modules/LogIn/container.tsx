@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
@@ -35,17 +36,9 @@ const LogInContainer = () => {
 
   return (
     <>
-      <Modal
-        isOpen={isOpenModal}
-        children={<StatusModal statusMessage={errorMessage} onClose={closeModal} />}
-      />
+      <Modal isOpen={isOpenModal} children={<StatusModal statusMessage={errorMessage} onClose={closeModal} />} />
 
-      <LogInPresenter
-        onSubmit={handleLogin}
-        handleSubmit={handleSubmit}
-        register={register}
-        errors={errors}
-      />
+      <LogInPresenter handleLogin={handleLogin} handleSubmit={handleSubmit} register={register} errors={errors} />
     </>
   );
 };
