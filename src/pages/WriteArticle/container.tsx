@@ -9,6 +9,8 @@ import WriteArticlePresenter from './presenter';
 
 type ArticleProps = {
   id: number;
+  subject : string;
+  description: string;
 };
 
 type UpdateProps = {
@@ -18,7 +20,8 @@ type UpdateProps = {
 };
 
 type NoteProps = {
-  id : number;
+ 
+  article : number;
   contents : string;
 }
 
@@ -33,6 +36,9 @@ const WriteArticleContainer = (props) => {
 
   const [articleInfo, setArticleInfo] = useState<ArticleProps>({
     id: 0,
+    subject : '',
+    description : '',
+
   });
 
   const [updatedArticleInfo, setUpdatedArticleInfo] = useState<UpdateProps>({
@@ -43,7 +49,7 @@ const WriteArticleContainer = (props) => {
 
   const [noteInfo, setNoteInfo] = useState<NoteProps>({
 
-    id: 0,
+    article:0,
     contents : ''
   
   });
@@ -60,18 +66,20 @@ const WriteArticleContainer = (props) => {
   };
 
   const handleCreateNote = (data : any)=>{
-  
+    console.log(articleInfo.id);
     
     setNoteInfo({
-      id : articleInfo.id,
-      contents : data.contents
+      article : articleInfo.id,
+      contents : 'n번째 테스트'
     })
   }
 
   useEffect(() => {
+    console.log(props.location.state);
+    
     setArticleInfo(props.location.state);
     
-  },[]);
+  },[props.location.state]);
 
   useEffect(()=>{
     if(!mounted.current){
@@ -95,7 +103,7 @@ const WriteArticleContainer = (props) => {
 
   return (
     <WriteArticlePresenter
-      
+      articleInfo = {articleInfo}
       articleNoteList = {articleDetailReducer.articleDetail.notes}
       register={register}
       handleSubmit={handleSubmit}

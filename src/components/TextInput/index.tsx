@@ -16,6 +16,8 @@ type InputProps = React.DetailedHTMLProps<
   type: 'text' | 'email' | 'password';
   label: string;
   register: ({ required }: { required?: boolean }) => RefReturn;
+  
+  
 };
 
 const TextInput: React.FC<InputProps> = ({
@@ -23,6 +25,8 @@ const TextInput: React.FC<InputProps> = ({
   label,
   register,
   required,
+  
+  
 }) => (
   <>
     <InputLabel>{label}</InputLabel>
@@ -30,6 +34,7 @@ const TextInput: React.FC<InputProps> = ({
       className={'input-field'}
       type={type}
       name={label}
+     
       ref={register({ required })}
     />
   </>

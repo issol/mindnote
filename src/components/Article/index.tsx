@@ -13,7 +13,7 @@ const Article = ({
       <LinkArticle
         to={{
           pathname: `/article/${id}`,
-          state: {id},
+          state: {id,subject, description},
         }}
       >
         <ArticleTitle>{subject}</ArticleTitle>

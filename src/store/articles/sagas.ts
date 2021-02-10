@@ -11,7 +11,7 @@ import {
   UPDATE_ARTICLE_REQUEST,
 } from './actions';
 import { HOST } from 'constants/requests';
-import { ArticleInfo, ArticleType, UpdatedArticleInfo } from './types';
+import { ArticleInfo, UpdatedArticleInfo } from './types';
 
 const fetchArticleListApi = (token) =>
   axios.get(HOST + '/articles/my-list/', {

@@ -15,13 +15,13 @@ export type NoteRequestPayload = {
 }
 
 export type NoteInfo = {
-    id : number;
+    article : number;
     contents : string;
 }
 
 export type ArticleDetailState = {
     articleDetail : ArticleDetail;
-    noteInfo : NoteInfo;
+    noteInfo : NoteRequestPayload;
 };
 
 export type ArticleDetailAction = 

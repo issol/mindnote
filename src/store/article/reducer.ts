@@ -1,4 +1,4 @@
-import {action, createReducer} from 'typesafe-actions';
+import {createReducer} from 'typesafe-actions';
 
 import {FETCH_ARTICLE_DETAIL_SUCCESS, FETCH_ARTICLE_DETAIL_FAILURE, CREATE_NOTE_SUCCESS, CREATE_NOTE_FAILURE} from './actions';
 
@@ -14,6 +14,8 @@ const initialState : ArticleDetailState ={
     noteInfo : {
       id : 0,
       contents : '',
+      createdAt : '',
+      updatedAt : '',
     
     }
     

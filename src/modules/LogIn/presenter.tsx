@@ -31,13 +31,14 @@ const LogInPresenter = ({
 }: Props) => {
   return (
     <LoginForm onSubmit={handleSubmit(onSubmit)} className="input-group">
-      <TextInput type="email" label="email" register={register} required />
+      <TextInput type="email" label="email"  register={register} required  placeholder=''/>
       {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
       <TextInput
         type="password"
         label="password"
         register={register}
         required
+        placeholder=''
       />
       {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
       <LoginButton type="submit" className="login" value="Login" />

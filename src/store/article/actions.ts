@@ -1,5 +1,3 @@
-
-import Note from 'components/Note';
 import { createAsyncAction } from 'typesafe-actions';
 import { ArticleDetail, NoteInfo, NoteRequestPayload } from './types';
 
