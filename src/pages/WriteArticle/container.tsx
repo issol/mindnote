@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
-import { fetchArticleDetail } from 'store/article/actions';
+import { createNote, fetchArticleDetail } from 'store/article/actions';
 import { fetchArticleList, updateArticle } from 'store/articles/actions';
 
 import { ArticleInfo } from 'store/articles/types';
@@ -17,19 +17,25 @@ type Props = {
 };
 
 const WriteArticleContainer = ({ match }) => {
+  const articleId = match.params.id;
+
   const dispatch = useDispatch();
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
 
-  const articleId = match.params.id;
-
   const { register, handleSubmit, errors, setValue } = useForm<Props>();
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleUpdateArticleInfo = (data: any) => {
     dispatch(updateArticle.request({ id: articleId, subject: data.subject, description: data.description }));
   };
 
-  const handleCreateNote = (data: any) => {};
+  const handleCreateNote = (data: any) => {
+    setIsOpenModal(false);
+
+    dispatch(createNote.request({ article: articleId, contents: data.content }));
+  };
 
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
@@ -45,9 +51,11 @@ const WriteArticleContainer = ({ match }) => {
       articleNoteList={articleDetailReducer.articleDetail.notes}
       register={register}
       handleSubmit={handleSubmit}
-      handleUpdateArticleInfo={handleUpdateArticleInfo}
       handleCreateNote={handleCreateNote}
+      handleUpdateArticleInfo={handleUpdateArticleInfo}
       errors={errors}
+      isOpenModal={isOpenModal}
+      setIsOpenModal={setIsOpenModal}
     />
   );
 };

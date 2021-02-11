@@ -4,10 +4,12 @@ import { DeepMap, FieldError } from 'react-hook-form';
 
 import Note from 'modules/Note';
 import TextInput from 'components/TextInput';
+import Modal from 'components/Modal';
 import { NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
 import { ArticleInfo } from 'store/articles/types';
+import CreateNoteModal from 'modules/CreateNoteModal';
 
 type InputProps = {
   subject: string;
@@ -20,21 +22,29 @@ type Props = {
   articleNoteList: NoteResponse[];
   register: ({ required }: { required?: boolean }) => RefReturn;
   handleSubmit: Function;
-  handleUpdateArticleInfo: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateNote: (event: React.MouseEvent<HTMLElement>) => void;
+  handleUpdateArticleInfo: (event: React.MouseEvent<HTMLElement>) => void;
   errors: DeepMap<InputProps, FieldError>;
+  isOpenModal: boolean;
+  setIsOpenModal: any;
 };
 
 const WriteArticlePresenter = ({
   articleNoteList,
   register,
   handleSubmit,
-  handleUpdateArticleInfo,
   handleCreateNote,
+  handleUpdateArticleInfo,
   errors,
+  isOpenModal,
+  setIsOpenModal,
 }: Props) => {
   return (
     <>
+      <Modal
+        isOpen={isOpenModal}
+        children={<CreateNoteModal register={register} handleSubmit={handleSubmit} handleCreateNote={handleCreateNote} />}
+      />
       <ArticleInfoForm onSubmit={handleSubmit(handleUpdateArticleInfo)}>
         <div>
           <TextInput type="text" label="subject" register={register} required />
@@ -48,7 +58,7 @@ const WriteArticlePresenter = ({
 
         <SaveButton type="submit" value="저장하기" />
       </ArticleInfoForm>
-      <button onClick={handleCreateNote}>+</button>
+      <button onClick={() => setIsOpenModal(true)}>+</button>
     </>
   );
 };
