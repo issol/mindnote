@@ -5,12 +5,6 @@ import { createArticle, deleteArticle, fetchArticleList, updateArticle } from '.
 export type ArticleInfo = {
   subject: string;
   description: string;
-  user: number;
-};
-
-export type CreateArticleRequestPayload = {
-  title: string;
-  description: string;
 };
 
 export type UpdatedArticleInfo = {
@@ -19,14 +13,7 @@ export type UpdatedArticleInfo = {
   description: string;
 };
 
-export type UpdateArticleRequestPayload = {
-  id: number;
-  subject: string;
-  description: string;
-  updatedAt: string;
-};
-
-export type ArticleType = {
+export type ArticleResponse = {
   id: number;
   user: number;
   subject: string;
@@ -37,7 +24,7 @@ export type ArticleType = {
 
 export type ArticleState = {
   articleInfo: ArticleInfo;
-  articleList: ArticleType[];
+  articleList: ArticleResponse[];
 };
 
 export type ArticleAction =

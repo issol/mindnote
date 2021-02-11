@@ -17,7 +17,6 @@ const Article = ({ id, subject, description, handleDeleteArticle }: Props) => {
       <LinkArticle
         to={{
           pathname: `/article/${id}`,
-          state: { id, subject, description },
         }}
       >
         <ArticleTitle>{subject}</ArticleTitle>

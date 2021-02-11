@@ -11,7 +11,9 @@ import ArticleListPresenter from './presenter';
 const ArticleListContainer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
   const { register, handleSubmit, errors } = useForm();
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -26,7 +28,7 @@ const ArticleListContainer = () => {
     dispatch(deleteArticle.request(e.target.getAttribute('article-id')));
   };
 
-  const openModalForCreateArticle = () => {
+  const openModalToCreateArticle = () => {
     setIsOpenModal(true);
   };
 
@@ -40,14 +42,14 @@ const ArticleListContainer = () => {
 
   useEffect(() => {
     dispatch(fetchArticleList.request());
-  }, [dispatch, fetchArticleList]);
+  }, [articleReducer.articleList]);
 
   return (
     <>
       {isLoggedIn ? (
         <ArticleListPresenter
           isOpenModal={isOpenModal}
-          openModalForCreateArticle={openModalForCreateArticle}
+          openModalToCreateArticle={openModalToCreateArticle}
           articleList={articleReducer.articleList}
           handleCreateArticle={handleCreateArticle}
           handleDeleteArticle={handleDeleteArticle}
