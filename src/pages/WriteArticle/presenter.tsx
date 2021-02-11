@@ -22,6 +22,7 @@ type Props = {
   handleUpdateArticleInfo: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateNote: (event: React.MouseEvent<HTMLElement>) => void;
   errors: DeepMap<InputProps, FieldError>;
+  setValue: any;
 };
 
 const WriteArticlePresenter = ({
@@ -31,6 +32,7 @@ const WriteArticlePresenter = ({
   handleUpdateArticleInfo,
   handleCreateNote,
   errors,
+  setValue,
 }: Props) => {
   return (
     <>
