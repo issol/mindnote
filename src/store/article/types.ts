@@ -8,9 +8,10 @@ export type ArticleDetail = {
 };
 
 export type NoteResponse = {
-  id: number;
+  article: number;
   contents: string;
   createdAt: string;
+  id: number;
   updatedAt: string;
 };
 
@@ -21,7 +22,7 @@ export type NoteInfo = {
 
 export type ArticleDetailState = {
   articleDetail: ArticleDetail;
-  noteInfo: NoteResponse;
+  noteList: NoteResponse[];
 };
 
 export type ArticleDetailAction = ActionType<typeof fetchArticleDetail> | ActionType<typeof createNote>;

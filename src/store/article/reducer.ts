@@ -10,25 +10,22 @@ const initialState: ArticleDetailState = {
     description: '',
     notes: [],
   },
-  noteInfo: {
-    id: 0,
-    contents: '',
-    createdAt: '',
-    updatedAt: '',
-  },
+  noteList: [],
 };
 
 const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailAction>(initialState, {
   [FETCH_ARTICLE_DETAIL_SUCCESS]: (state, action) => ({
     ...state,
     articleDetail: action.payload,
+    noteList: action.payload.notes,
   }),
   [FETCH_ARTICLE_DETAIL_FAILURE]: (state) => ({
     ...state,
   }),
+
   [CREATE_NOTE_SUCCESS]: (state, action) => ({
     ...state,
-    noteInfo: action.payload,
+    noteList: [...state.noteList, action.payload],
   }),
   [CREATE_NOTE_FAILURE]: (state) => ({
     ...state,

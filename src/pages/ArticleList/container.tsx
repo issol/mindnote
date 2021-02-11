@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { RootState } from 'store';
+
 import { createArticle, deleteArticle, fetchArticleList } from 'store/articles/actions';
 import ArticleListPresenter from './presenter';
 
@@ -42,7 +43,7 @@ const ArticleListContainer = () => {
 
   useEffect(() => {
     dispatch(fetchArticleList.request());
-  }, [articleReducer.articleList]);
+  }, [dispatch]);
 
   return (
     <>

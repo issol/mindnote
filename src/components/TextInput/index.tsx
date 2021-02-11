@@ -19,17 +19,6 @@ const TextInput: React.FC<InputProps> = ({ type, label, register, required }) =>
   </>
 );
 
-const InputField = styled.input`
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid white;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  font-size: 14px;
-`;
-
 const InputLabel = styled.label`
   width: 100%;
   height: 10px;

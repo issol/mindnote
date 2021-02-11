@@ -1,14 +1,11 @@
-import { features } from 'process';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
-import { fetchArticleDetail } from 'store/article/actions';
-import { fetchArticleList, updateArticle } from 'store/articles/actions';
-
-import { ArticleInfo } from 'store/articles/types';
+import { createNote, fetchArticleDetail } from 'store/article/actions';
+import { updateArticle } from 'store/articles/actions';
 import WriteArticlePresenter from './presenter';
 
 type Props = {
@@ -17,23 +14,29 @@ type Props = {
 };
 
 const WriteArticleContainer = ({ match }) => {
+  const [articleId, setArticleId] = useState(match.params.id);
+
   const dispatch = useDispatch();
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
 
-  const articleId = match.params.id;
-
   const { register, handleSubmit, errors, setValue } = useForm<Props>();
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleUpdateArticleInfo = (data: any) => {
     dispatch(updateArticle.request({ id: articleId, subject: data.subject, description: data.description }));
   };
 
-  const handleCreateNote = (data: any) => {};
+  const handleCreateNote = (data: any) => {
+    setIsOpenModal(false);
+
+    dispatch(createNote.request({ article: articleId, contents: data.content }));
+  };
 
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
-  }, [dispatch, fetchArticleList]);
+  }, [dispatch, articleDetailReducer]);
 
   useEffect(() => {
     setValue('subject', articleDetailReducer.articleDetail.subject);
@@ -42,12 +45,14 @@ const WriteArticleContainer = ({ match }) => {
 
   return (
     <WriteArticlePresenter
-      articleNoteList={articleDetailReducer.articleDetail.notes}
+      articleNoteList={articleDetailReducer.noteList}
       register={register}
       handleSubmit={handleSubmit}
-      handleUpdateArticleInfo={handleUpdateArticleInfo}
       handleCreateNote={handleCreateNote}
+      handleUpdateArticleInfo={handleUpdateArticleInfo}
       errors={errors}
+      isOpenModal={isOpenModal}
+      setIsOpenModal={setIsOpenModal}
     />
   );
 };

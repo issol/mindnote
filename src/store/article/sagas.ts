@@ -39,5 +39,6 @@ function* createNoteAsync(action: { type: string; payload: NoteInfo }) {
 
 export function* watchArticleDetail() {
   yield takeEvery(FETCH_ARTICLE_DETAIL_REQUEST, fetchArticleDetailAsync);
+
   yield takeEvery(CREATE_NOTE_REQUEST, createNoteAsync);
 }
