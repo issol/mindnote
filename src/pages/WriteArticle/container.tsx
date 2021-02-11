@@ -58,7 +58,7 @@ const WriteArticleContainer = ({ match }) => {
 
   const handleUpdateArticleInfo = (data: any) => {
     setUpdatedArticleInfo({
-      id: articleInfo.id,
+      id: articleId,
       subject: data.subject,
       description: data.description,
     });
@@ -66,14 +66,10 @@ const WriteArticleContainer = ({ match }) => {
 
   const handleCreateNote = (data: any) => {
     setNoteInfo({
-      article: articleInfo.id,
+      article: articleId,
       contents: 'n번째 테스트',
     });
   };
-
-  useEffect(() => {
-    console.log(articleId);
-  }, []);
 
   useEffect(() => {
     if (!mounted.current) {

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Article from 'components/Article';
 import CreateArticleModal from 'modules/CreateArticleModal';
 import Navigation from 'components/Navigation';
-import { ArticleType } from 'store/articles/types';
+import { ArticleResponse } from 'store/articles/types';
 import Modal from 'components/Modal';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
@@ -18,10 +18,10 @@ type inputProps = {
 
 type Props = {
   isOpenModal: boolean;
-  openModalForCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleDeleteArticle: (event: React.MouseEvent<HTMLElement>) => void;
-  articleList: ArticleType[];
+  articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
   errors: DeepMap<inputProps, FieldError>;
@@ -29,7 +29,7 @@ type Props = {
 
 const ArticleListPresenter = ({
   isOpenModal,
-  openModalForCreateArticle,
+  openModalToCreateArticle,
   handleCreateArticle,
   handleDeleteArticle,
   articleList,
@@ -64,7 +64,7 @@ const ArticleListPresenter = ({
             />
           );
         })}
-        <CreateArticleButton onClick={openModalForCreateArticle}>+</CreateArticleButton>
+        <CreateArticleButton onClick={openModalToCreateArticle}>+</CreateArticleButton>
       </CardWrapper>
     </>
   );

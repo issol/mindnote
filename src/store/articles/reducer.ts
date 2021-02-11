@@ -17,7 +17,6 @@ const initialState: ArticleState = {
   articleInfo: {
     subject: '',
     description: '',
-    user: 0,
   },
 
   articleList: [],
@@ -30,6 +29,7 @@ const articleReducer = createReducer<ArticleState, ArticleAction>(initialState, 
       ...state.articleInfo,
       ...action.payload,
     },
+    articleList: [...state.articleList, action.payload],
   }),
   [CREATE_ARTICLE_FAILURE]: (state) => ({
     ...state,
@@ -41,15 +41,17 @@ const articleReducer = createReducer<ArticleState, ArticleAction>(initialState, 
   [FETCH_ARTICLE_LIST_FAILURE]: (state) => ({
     ...state,
   }),
-  [UPDATE_ARTICLE_SUCCESS]: (state) => ({
+  [UPDATE_ARTICLE_SUCCESS]: (state, action) => ({
     ...state,
+    articleList: state.articleList.map((article) => (article.id === action.payload.id ? action.payload : article)),
   }),
   [UPDATE_ARTICLE_FAILURE]: (state) => ({
     ...state,
   }),
 
-  [DELETE_ARTICLE_SUCCESS]: (state) => ({
+  [DELETE_ARTICLE_SUCCESS]: (state, action) => ({
     ...state,
+    articleList: state.articleList.filter((article) => article.id !== action.payload),
   }),
   [DELETE_ARTICLE_FAILURE]: (state) => ({
     ...state,

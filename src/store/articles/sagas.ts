@@ -24,6 +24,7 @@ function* fetchArticleListAsync() {
   try {
     const token = localStorage.getItem('token');
     const res = yield call(fetchArticleListApi, token);
+
     yield put(fetchArticleList.success(res.data));
   } catch (e) {
     yield put(fetchArticleList.failure(e.request.responseText));
@@ -57,7 +58,7 @@ function* deleteArticleAsync(action: { type: string; payload: number }) {
 
     const res = yield call(deleteArticleApi, token, action.payload);
 
-    yield put(deleteArticle.success(res));
+    yield put(deleteArticle.success(action.payload));
   } catch (e) {
     yield put(deleteArticle.failure());
   }
@@ -71,9 +72,9 @@ const updateArticleApi = (token: any, id: number, payload: UpdatedArticleInfo) =
 function* updateArticleAsync(action: { type: string; payload: UpdatedArticleInfo }) {
   try {
     const token = localStorage.getItem('token');
-    const id = action.payload.id;
 
-    const res = yield call(updateArticleApi, token, id, action.payload);
+    const res = yield call(updateArticleApi, token, action.payload.id, action.payload);
+
     yield put(updateArticle.success(res.data));
   } catch (e) {
     yield put(updateArticle.failure('업데이트 실패'));
