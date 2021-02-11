@@ -57,7 +57,7 @@ function* deleteArticleAsync(action: { type: string; payload: number }) {
     const token = localStorage.getItem('token');
 
     const res = yield call(deleteArticleApi, token, action.payload);
-
+    window.location.href = '/article-list';
     yield put(deleteArticle.success(action.payload));
   } catch (e) {
     yield put(deleteArticle.failure());

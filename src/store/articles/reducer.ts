@@ -18,7 +18,6 @@ const initialState: ArticleState = {
     subject: '',
     description: '',
   },
-
   articleList: [],
 };
 

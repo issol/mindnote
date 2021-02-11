@@ -8,7 +8,7 @@ import Modal from 'components/Modal';
 import { NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
-import { ArticleInfo } from 'store/articles/types';
+
 import CreateNoteModal from 'modules/CreateNoteModal';
 
 type InputProps = {

@@ -1,8 +1,6 @@
 import TextInput from 'components/TextInput';
 import React from 'react';
 
-import styled from 'styled-components';
-
 const CreateNoteModal = ({ register, handleCreateNote, handleSubmit }) => {
   return (
     <>

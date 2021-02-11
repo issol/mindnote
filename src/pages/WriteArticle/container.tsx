@@ -1,14 +1,11 @@
-import { features } from 'process';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
 import { createNote, fetchArticleDetail } from 'store/article/actions';
-import { fetchArticleList, updateArticle } from 'store/articles/actions';
-
-import { ArticleInfo } from 'store/articles/types';
+import { updateArticle } from 'store/articles/actions';
 import WriteArticlePresenter from './presenter';
 
 type Props = {
@@ -17,7 +14,7 @@ type Props = {
 };
 
 const WriteArticleContainer = ({ match }) => {
-  const articleId = match.params.id;
+  const [articleId, setArticleId] = useState(match.params.id);
 
   const dispatch = useDispatch();
 
@@ -39,7 +36,7 @@ const WriteArticleContainer = ({ match }) => {
 
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
-  }, [dispatch, fetchArticleList]);
+  }, [dispatch, articleDetailReducer]);
 
   useEffect(() => {
     setValue('subject', articleDetailReducer.articleDetail.subject);
@@ -48,7 +45,7 @@ const WriteArticleContainer = ({ match }) => {
 
   return (
     <WriteArticlePresenter
-      articleNoteList={articleDetailReducer.articleDetail.notes}
+      articleNoteList={articleDetailReducer.noteList}
       register={register}
       handleSubmit={handleSubmit}
       handleCreateNote={handleCreateNote}
