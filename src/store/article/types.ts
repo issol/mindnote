@@ -7,7 +7,7 @@ export type ArticleDetail = {
   notes: [];
 };
 
-export type NoteRequestPayload = {
+export type NoteResponse = {
   id: number;
   contents: string;
   createdAt: string;
@@ -21,7 +21,7 @@ export type NoteInfo = {
 
 export type ArticleDetailState = {
   articleDetail: ArticleDetail;
-  noteInfo: NoteRequestPayload;
+  noteInfo: NoteResponse;
 };
 
 export type ArticleDetailAction = ActionType<typeof fetchArticleDetail> | ActionType<typeof createNote>;

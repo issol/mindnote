@@ -18,11 +18,8 @@ const Note = ({ id, contents, createdAt }: Props) => {
 
 const Card = styled.div`
   background-color: white;
-  margin-bottom: 70px;
-  margin-right: 50px;
-  font-weight: 300;
+
   width: 30%;
-  heihgt: 80%;
   padding: 20px;
   border-radius: 10px;
   color: #adaeb9;

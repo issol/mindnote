@@ -74,7 +74,7 @@ function* updateArticleAsync(action: { type: string; payload: UpdatedArticleInfo
     const token = localStorage.getItem('token');
 
     const res = yield call(updateArticleApi, token, action.payload.id, action.payload);
-
+    window.location.href = '/article-list';
     yield put(updateArticle.success(res.data));
   } catch (e) {
     yield put(updateArticle.failure('업데이트 실패'));
