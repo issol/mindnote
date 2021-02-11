@@ -1,6 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions';
 
-import { ArticleDetail, NoteInfo, NoteRequestPayload } from './types';
+import { ArticleDetail, NoteInfo, NoteResponse } from './types';
 
 export const FETCH_ARTICLE_DETAIL_REQUEST = 'article/FETCH_ARTICLE_DETAIL_REQUEST';
 export const FETCH_ARTICLE_DETAIL_SUCCESS = 'article/FETCH_ARTICLE_DETAIL_SUCCESS';
@@ -18,6 +18,6 @@ export const fetchArticleDetail = createAsyncAction(
 
 export const createNote = createAsyncAction(CREATE_NOTE_REQUEST, CREATE_NOTE_SUCCESS, CREATE_NOTE_FAILURE)<
   NoteInfo,
-  NoteRequestPayload,
+  NoteResponse,
   void
 >();

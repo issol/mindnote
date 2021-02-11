@@ -2,11 +2,12 @@ import React from 'react';
 
 import { DeepMap, FieldError } from 'react-hook-form';
 
-import Note from 'components/Note';
+import Note from 'modules/Note';
 import TextInput from 'components/TextInput';
-import { NoteRequestPayload } from 'store/article/types';
+import { NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
+import { ArticleInfo } from 'store/articles/types';
 
 type InputProps = {
   subject: string;
@@ -16,13 +17,12 @@ type InputProps = {
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
-  articleNoteList: NoteRequestPayload[];
+  articleNoteList: NoteResponse[];
   register: ({ required }: { required?: boolean }) => RefReturn;
   handleSubmit: Function;
   handleUpdateArticleInfo: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateNote: (event: React.MouseEvent<HTMLElement>) => void;
   errors: DeepMap<InputProps, FieldError>;
-  setValue: any;
 };
 
 const WriteArticlePresenter = ({
@@ -32,7 +32,6 @@ const WriteArticlePresenter = ({
   handleUpdateArticleInfo,
   handleCreateNote,
   errors,
-  setValue,
 }: Props) => {
   return (
     <>
@@ -57,12 +56,8 @@ const WriteArticlePresenter = ({
 const CardWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
-
-  padding: 50px;
-  padding-top: 70px;
-
+  padding-top: 30px;
   width: 100%;
-  height: 100%;
 `;
 
 const ArticleInfoForm = styled.form`
