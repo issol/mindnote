@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
 import { createNote, fetchArticleDetail } from 'store/article/actions';
@@ -26,12 +26,16 @@ type NoteProps = {
   contents: string;
 };
 
-const WriteArticleContainer = (props) => {
+const WriteArticleContainer = ({ match }) => {
   const dispatch = useDispatch();
+
   const history = useHistory();
+
   const mounted = useRef(false);
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
+
+  const articleId = match.params.id;
 
   const [articleInfo, setArticleInfo] = useState<ArticleProps>({
     id: 0,
@@ -68,8 +72,8 @@ const WriteArticleContainer = (props) => {
   };
 
   useEffect(() => {
-    setArticleInfo(props.location.state);
-  }, [props.location.state]);
+    console.log(articleId);
+  }, []);
 
   useEffect(() => {
     if (!mounted.current) {
