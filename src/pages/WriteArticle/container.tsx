@@ -1,3 +1,4 @@
+import { features } from 'process';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -6,7 +7,8 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
 import { createNote, fetchArticleDetail } from 'store/article/actions';
-import { updateArticle } from 'store/articles/actions';
+import { fetchArticleList, updateArticle } from 'store/articles/actions';
+import articleReducer from 'store/articles/reducer';
 import WriteArticlePresenter from './presenter';
 
 type ArticleProps = {
@@ -37,24 +39,12 @@ const WriteArticleContainer = ({ match }) => {
 
   const articleId = match.params.id;
 
-  const [articleInfo, setArticleInfo] = useState<ArticleProps>({
-    id: 0,
-    subject: '',
-    description: '',
-  });
-
   const [updatedArticleInfo, setUpdatedArticleInfo] = useState<UpdateProps>({
     id: 0,
     subject: '',
     description: '',
   });
-
-  const [noteInfo, setNoteInfo] = useState<NoteProps>({
-    article: 0,
-    contents: '',
-  });
-
-  const { register, handleSubmit, errors } = useForm<UpdateProps>();
+  const { register, handleSubmit, errors, setValue } = useForm<UpdateProps>();
 
   const handleUpdateArticleInfo = (data: any) => {
     setUpdatedArticleInfo({
@@ -64,20 +54,11 @@ const WriteArticleContainer = ({ match }) => {
     });
   };
 
-  const handleCreateNote = (data: any) => {
-    setNoteInfo({
-      article: articleId,
-      contents: 'n번째 테스트',
-    });
-  };
+  const handleCreateNote = (data: any) => {};
 
   useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      dispatch(fetchArticleDetail.request(articleInfo.id));
-    }
-  }, [articleInfo.id]);
+    dispatch(fetchArticleDetail.request(articleId));
+  }, [dispatch, fetchArticleList]);
 
   useEffect(() => {
     dispatch(updateArticle.request(updatedArticleInfo));
@@ -87,8 +68,9 @@ const WriteArticleContainer = ({ match }) => {
   }, [updatedArticleInfo]);
 
   useEffect(() => {
-    dispatch(createNote.request(noteInfo));
-  }, [noteInfo]);
+    setValue('subject', articleDetailReducer.articleDetail.subject);
+    setValue('description', articleDetailReducer.articleDetail.description);
+  }, [articleDetailReducer.articleDetail]);
 
   return (
     <WriteArticlePresenter
@@ -98,6 +80,7 @@ const WriteArticleContainer = ({ match }) => {
       handleUpdateArticleInfo={handleUpdateArticleInfo}
       handleCreateNote={handleCreateNote}
       errors={errors}
+      setValue={setValue}
     />
   );
 };
