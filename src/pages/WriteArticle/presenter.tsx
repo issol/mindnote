@@ -23,6 +23,7 @@ type Props = {
   register: ({ required }: { required?: boolean }) => RefReturn;
   handleSubmit: Function;
   handleCreateNote: (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteNote: (event: React.MouseEvent<HTMLElement>) => void;
   handleUpdateArticleInfo: (event: React.MouseEvent<HTMLElement>) => void;
   errors: DeepMap<InputProps, FieldError>;
   isOpenModal: boolean;
@@ -34,6 +35,7 @@ const WriteArticlePresenter = ({
   register,
   handleSubmit,
   handleCreateNote,
+  handleDeleteNote,
   handleUpdateArticleInfo,
   errors,
   isOpenModal,
@@ -52,7 +54,15 @@ const WriteArticlePresenter = ({
         </div>
         <CardWrapper>
           {articleNoteList.map((note) => {
-            return <Note key={note.id} id={note.id} contents={note.contents} createdAt={note.createdAt} />;
+            return (
+              <Note
+                key={note.id}
+                id={note.id}
+                contents={note.contents}
+                createdAt={note.createdAt}
+                handleDeleteNote={handleDeleteNote}
+              />
+            );
           })}
         </CardWrapper>
 

@@ -6,12 +6,16 @@ type Props = {
   id: number;
   contents: string;
   createdAt: string;
+  handleDeleteNote: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const Note = ({ id, contents, createdAt }: Props) => {
+const Note = ({ id, contents, createdAt, handleDeleteNote }: Props) => {
   return (
     <Card key={id}>
       <ArticleTitle>{contents}</ArticleTitle>
+      <button onClick={handleDeleteNote} note-id={id}>
+        삭제
+      </button>
     </Card>
   );
 };

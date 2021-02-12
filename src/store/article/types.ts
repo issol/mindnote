@@ -1,5 +1,5 @@
 import { ActionType } from 'typesafe-actions';
-import { createNote, fetchArticleDetail } from './actions';
+import { createNote, deleteNote, fetchArticleDetail } from './actions';
 
 export type ArticleDetail = {
   subject: string;
@@ -20,9 +20,17 @@ export type NoteInfo = {
   contents: string;
 };
 
+export type ArticleNoteId = {
+  article: number;
+  id: number;
+};
+
 export type ArticleDetailState = {
   articleDetail: ArticleDetail;
   noteList: NoteResponse[];
 };
 
-export type ArticleDetailAction = ActionType<typeof fetchArticleDetail> | ActionType<typeof createNote>;
+export type ArticleDetailAction =
+  | ActionType<typeof fetchArticleDetail>
+  | ActionType<typeof createNote>
+  | ActionType<typeof deleteNote>;
