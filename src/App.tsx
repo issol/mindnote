@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = token;
+      axios.defaults.headers.common['Authorization'] = `token ${token}`;
     }
   }, []);
 

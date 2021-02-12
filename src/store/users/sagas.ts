@@ -32,6 +32,7 @@ function* SignUpAsync({ type, payload }: ReturnType<typeof signUp.request>) {
     const res = yield call(SignUpApi, payload);
 
     localStorage.setItem('token', res.data.token);
+
     yield put(signUp.success());
   } catch (e) {
     if (e.request.status >= 400 && e.request.status <= 599) {
