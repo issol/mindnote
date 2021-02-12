@@ -36,10 +36,10 @@ const createArticleApi = (token: any, payload: ArticleInfo) =>
     headers: { Authorization: `token ${token}` },
   });
 
-function* createArticleAsync(action: { type: string; payload: ArticleInfo }) {
+function* createArticleAsync({ type, payload }: ReturnType<typeof createArticle.request>) {
   try {
     const token = localStorage.getItem('token');
-    const res = yield call(createArticleApi, token, action.payload);
+    const res = yield call(createArticleApi, token, payload);
 
     yield put(createArticle.success(res.data));
   } catch (e) {
@@ -52,13 +52,13 @@ const deleteArticleApi = (token: any, id: number) =>
     headers: { Authorization: `token ${token}` },
   });
 
-function* deleteArticleAsync(action: { type: string; payload: number }) {
+function* deleteArticleAsync({ type, payload }: ReturnType<typeof deleteArticle.request>) {
   try {
     const token = localStorage.getItem('token');
 
-    const res = yield call(deleteArticleApi, token, action.payload);
+    yield call(deleteArticleApi, token, payload);
     window.location.href = '/article-list';
-    yield put(deleteArticle.success(action.payload));
+    yield put(deleteArticle.success(payload));
   } catch (e) {
     yield put(deleteArticle.failure());
   }
@@ -69,11 +69,11 @@ const updateArticleApi = (token: any, id: number, payload: UpdatedArticleInfo) =
     headers: { Authorization: `token ${token}` },
   });
 
-function* updateArticleAsync(action: { type: string; payload: UpdatedArticleInfo }) {
+function* updateArticleAsync({ type, payload }: ReturnType<typeof updateArticle.request>) {
   try {
     const token = localStorage.getItem('token');
 
-    const res = yield call(updateArticleApi, token, action.payload.id, action.payload);
+    const res = yield call(updateArticleApi, token, payload.id, payload);
     window.location.href = '/article-list';
     yield put(updateArticle.success(res.data));
   } catch (e) {
