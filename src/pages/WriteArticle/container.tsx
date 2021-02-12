@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
-import { createNote, fetchArticleDetail } from 'store/article/actions';
+import { createNote, deleteNote, fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articles/actions';
 import WriteArticlePresenter from './presenter';
 
@@ -30,13 +30,16 @@ const WriteArticleContainer = ({ match }) => {
 
   const handleCreateNote = (data: any) => {
     setIsOpenModal(false);
-
     dispatch(createNote.request({ article: articleId, contents: data.content }));
+  };
+
+  const handleDeleteNote = (e: any) => {
+    dispatch(deleteNote.request({ id: e.target.getAttribute('note-id'), article: articleId }));
   };
 
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
-  }, [dispatch, articleDetailReducer]);
+  }, [dispatch, fetchArticleDetail]);
 
   useEffect(() => {
     setValue('subject', articleDetailReducer.articleDetail.subject);
@@ -49,6 +52,7 @@ const WriteArticleContainer = ({ match }) => {
       register={register}
       handleSubmit={handleSubmit}
       handleCreateNote={handleCreateNote}
+      handleDeleteNote={handleDeleteNote}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
       errors={errors}
       isOpenModal={isOpenModal}

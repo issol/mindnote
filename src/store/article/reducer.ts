@@ -1,6 +1,13 @@
 import { createReducer } from 'typesafe-actions';
 
-import { FETCH_ARTICLE_DETAIL_SUCCESS, FETCH_ARTICLE_DETAIL_FAILURE, CREATE_NOTE_SUCCESS, CREATE_NOTE_FAILURE } from './actions';
+import {
+  FETCH_ARTICLE_DETAIL_SUCCESS,
+  FETCH_ARTICLE_DETAIL_FAILURE,
+  CREATE_NOTE_SUCCESS,
+  CREATE_NOTE_FAILURE,
+  DELETE_NOTE_SUCCESS,
+  DELETE_NOTE_FAILURE,
+} from './actions';
 
 import { ArticleDetailState, ArticleDetailAction } from './types';
 
@@ -28,6 +35,13 @@ const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailActi
     noteList: [...state.noteList, action.payload],
   }),
   [CREATE_NOTE_FAILURE]: (state) => ({
+    ...state,
+  }),
+  [DELETE_NOTE_SUCCESS]: (state, action) => ({
+    ...state,
+    noteList: state.noteList.filter((note) => note.id !== action.payload),
+  }),
+  [DELETE_NOTE_FAILURE]: (state) => ({
     ...state,
   }),
 });
