@@ -12,9 +12,9 @@ const mapErrorMessageFromServerForUser = {
 
 const LogInApi = (payload: LogInInfo) => axios.post(HOST + '/users/tokens/', payload);
 
-function* LogInAsync(action: { type: string; payload: LogInInfo }) {
+function* LogInAsync({ type, payload }: ReturnType<typeof logIn.request>) {
   try {
-    const res = yield call(LogInApi, action.payload);
+    const res = yield call(LogInApi, payload);
     localStorage.setItem('token', res.data.token);
     yield put(logIn.success());
   } catch (e) {
@@ -27,9 +27,9 @@ function* LogInAsync(action: { type: string; payload: LogInInfo }) {
 
 const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + '/users/', payload);
 
-function* SignUpAsync(action: { type: string; payload: SignUpInfo }) {
+function* SignUpAsync({ type, payload }: ReturnType<typeof signUp.request>) {
   try {
-    const res = yield call(SignUpApi, action.payload);
+    const res = yield call(SignUpApi, payload);
 
     localStorage.setItem('token', res.data.token);
     yield put(signUp.success());

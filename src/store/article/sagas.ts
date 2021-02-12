@@ -18,11 +18,11 @@ const fetchArticleDetailApi = (token: any, id: number) =>
     headers: { Authorization: `token ${token}` },
   });
 
-function* fetchArticleDetailAsync(action: { type: string; payload: number }) {
+function* fetchArticleDetailAsync({ type, payload }: ReturnType<typeof fetchArticleDetail.request>) {
   try {
     const token = localStorage.getItem('token');
 
-    const res = yield call(fetchArticleDetailApi, token, action.payload);
+    const res = yield call(fetchArticleDetailApi, token, payload);
 
     yield put(fetchArticleDetail.success(res.data));
   } catch (e) {
@@ -33,10 +33,10 @@ function* fetchArticleDetailAsync(action: { type: string; payload: number }) {
 const createNoteApi = (token: any, payload: NoteInfo) =>
   axios.post(HOST + '/notes/', payload, { headers: { Authorization: `token ${token}` } });
 
-function* createNoteAsync(action: { type: string; payload: NoteInfo }) {
+function* createNoteAsync({ type, payload }: ReturnType<typeof createNote.request>) {
   try {
     const token = localStorage.getItem('token');
-    const res = yield call(createNoteApi, token, action.payload);
+    const res = yield call(createNoteApi, token, payload);
 
     yield put(createNote.success(res.data));
   } catch (e) {
@@ -49,15 +49,13 @@ const deleteNoteApi = (token: any, id: number) =>
     headers: { Authorization: `token ${token}` },
   });
 
-function* deleteNoteAsync(action: { type: string; payload: ArticleNoteId }) {
+function* deleteNoteAsync({ type, payload }: ReturnType<typeof deleteNote.request>) {
   try {
     const token = localStorage.getItem('token');
-    const id = action.payload.id;
-    console.log(id, action.payload.article);
 
-    yield call(deleteNoteApi, token, id);
-    window.location.href = `/article/${action.payload.article}/`;
-    yield put(deleteNote.success(id));
+    yield call(deleteNoteApi, token, payload.id);
+    window.location.href = `/article/${payload.article}/`;
+    yield put(deleteNote.success(payload.id));
   } catch (e) {
     yield put(deleteNote.failure());
   }
