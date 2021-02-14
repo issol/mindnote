@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
 import { createNote, deleteNote, fetchArticleDetail } from 'store/article/actions';
@@ -14,8 +15,12 @@ type Props = {
   description: string;
 };
 
-const WriteArticleContainer = ({ match }) => {
-  const [articleId, setArticleId] = useState(match.params.id);
+type ParamType = {
+  id: string;
+};
+
+const WriteArticleContainer = () => {
+  const articleId = Number(useParams<ParamType>().id);
 
   const dispatch = useDispatch();
 
