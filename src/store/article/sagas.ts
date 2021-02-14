@@ -11,18 +11,13 @@ import {
   DELETE_NOTE_REQUEST,
 } from './actions';
 import { HOST } from 'constants/requests';
-import { ArticleNoteId, NoteInfo } from './types';
+import { NoteInfo } from './types';
 
-const fetchArticleDetailApi = (token: any, id: number) =>
-  axios.get(HOST + `/articles/${id}/`, {
-    headers: { Authorization: `token ${token}` },
-  });
+const fetchArticleDetailApi = (id: number) => axios.get(HOST + `/articles/${id}/`);
 
-function* fetchArticleDetailAsync({ type, payload }: ReturnType<typeof fetchArticleDetail.request>) {
+function* fetchArticleDetailAsync({ payload }: ReturnType<typeof fetchArticleDetail.request>) {
   try {
-    const token = localStorage.getItem('token');
-
-    const res = yield call(fetchArticleDetailApi, token, payload);
+    const res = yield call(fetchArticleDetailApi, payload);
 
     yield put(fetchArticleDetail.success(res.data));
   } catch (e) {
@@ -30,13 +25,11 @@ function* fetchArticleDetailAsync({ type, payload }: ReturnType<typeof fetchArti
   }
 }
 
-const createNoteApi = (token: any, payload: NoteInfo) =>
-  axios.post(HOST + '/notes/', payload, { headers: { Authorization: `token ${token}` } });
+const createNoteApi = (payload: NoteInfo) => axios.post(HOST + '/notes/', payload);
 
-function* createNoteAsync({ type, payload }: ReturnType<typeof createNote.request>) {
+function* createNoteAsync({ payload }: ReturnType<typeof createNote.request>) {
   try {
-    const token = localStorage.getItem('token');
-    const res = yield call(createNoteApi, token, payload);
+    const res = yield call(createNoteApi, payload);
 
     yield put(createNote.success(res.data));
   } catch (e) {
@@ -44,17 +37,14 @@ function* createNoteAsync({ type, payload }: ReturnType<typeof createNote.reques
   }
 }
 
-const deleteNoteApi = (token: any, id: number) =>
-  axios.delete(HOST + `/notes/${id}/`, {
-    headers: { Authorization: `token ${token}` },
-  });
+const deleteNoteApi = (id: number) => axios.delete(HOST + `/notes/${id}/`);
 
-function* deleteNoteAsync({ type, payload }: ReturnType<typeof deleteNote.request>) {
+function* deleteNoteAsync({ payload }: ReturnType<typeof deleteNote.request>) {
   try {
-    const token = localStorage.getItem('token');
+    yield call(deleteNoteApi, payload.id);
 
-    yield call(deleteNoteApi, token, payload.id);
     window.location.href = `/article/${payload.article}/`;
+
     yield put(deleteNote.success(payload.id));
   } catch (e) {
     yield put(deleteNote.failure());

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
 import { createNote, deleteNote, fetchArticleDetail } from 'store/article/actions';
-import { updateArticle } from 'store/articles/actions';
+import { updateArticle } from 'store/articleList/actions';
+
 import WriteArticlePresenter from './presenter';
 
 type Props = {
@@ -19,6 +20,7 @@ const WriteArticleContainer = ({ match }) => {
   const dispatch = useDispatch();
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
+  const userReducer = useSelector((state: RootState) => state.userReducer);
 
   const { register, handleSubmit, errors, setValue } = useForm<Props>();
 
@@ -38,8 +40,10 @@ const WriteArticleContainer = ({ match }) => {
   };
 
   useEffect(() => {
-    dispatch(fetchArticleDetail.request(articleId));
-  }, [dispatch, fetchArticleDetail]);
+    if (userReducer.isLoggedIn) {
+      dispatch(fetchArticleDetail.request(articleId));
+    }
+  }, [dispatch, fetchArticleDetail, userReducer.isLoggedIn]);
 
   useEffect(() => {
     setValue('subject', articleDetailReducer.articleDetail.subject);

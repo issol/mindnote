@@ -15,15 +15,13 @@ import {
 import { HOST } from 'constants/requests';
 import { ArticleInfo, UpdatedArticleInfo } from './types';
 
-const fetchArticleListApi = (token) =>
-  axios.get(HOST + '/articles/my-list/', {
-    headers: { Authorization: `token ${token}` },
-  });
+const fetchArticleListApi = () => axios.get(HOST + '/articles/my-list/');
 
 function* fetchArticleListAsync() {
   try {
-    const token = localStorage.getItem('token');
-    const res = yield call(fetchArticleListApi, token);
+    console.log('fetch');
+
+    const res = yield call(fetchArticleListApi);
 
     yield put(fetchArticleList.success(res.data));
   } catch (e) {
@@ -31,15 +29,11 @@ function* fetchArticleListAsync() {
   }
 }
 
-const createArticleApi = (token: any, payload: ArticleInfo) =>
-  axios.post(HOST + '/articles/', payload, {
-    headers: { Authorization: `token ${token}` },
-  });
+const createArticleApi = (payload: ArticleInfo) => axios.post(HOST + '/articles/', payload);
 
-function* createArticleAsync({ type, payload }: ReturnType<typeof createArticle.request>) {
+function* createArticleAsync({ payload }: ReturnType<typeof createArticle.request>) {
   try {
-    const token = localStorage.getItem('token');
-    const res = yield call(createArticleApi, token, payload);
+    const res = yield call(createArticleApi, payload);
 
     yield put(createArticle.success(res.data));
   } catch (e) {
@@ -47,16 +41,11 @@ function* createArticleAsync({ type, payload }: ReturnType<typeof createArticle.
   }
 }
 
-const deleteArticleApi = (token: any, id: number) =>
-  axios.delete(HOST + `/articles/${id}/`, {
-    headers: { Authorization: `token ${token}` },
-  });
+const deleteArticleApi = (id: number) => axios.delete(HOST + `/articles/${id}/`);
 
-function* deleteArticleAsync({ type, payload }: ReturnType<typeof deleteArticle.request>) {
+function* deleteArticleAsync({ payload }: ReturnType<typeof deleteArticle.request>) {
   try {
-    const token = localStorage.getItem('token');
-
-    yield call(deleteArticleApi, token, payload);
+    yield call(deleteArticleApi, payload);
     window.location.href = '/article-list';
     yield put(deleteArticle.success(payload));
   } catch (e) {
@@ -64,16 +53,16 @@ function* deleteArticleAsync({ type, payload }: ReturnType<typeof deleteArticle.
   }
 }
 
-const updateArticleApi = (token: any, id: number, payload: UpdatedArticleInfo) =>
-  axios.patch(HOST + `/articles/${id}/`, payload, {
-    headers: { Authorization: `token ${token}` },
+const updateArticleApi = (id: number, payload: UpdatedArticleInfo) =>
+  axios.patch(HOST + `/articles/${id}/`, {
+    subject: payload.subject,
+    description: payload.description,
   });
 
-function* updateArticleAsync({ type, payload }: ReturnType<typeof updateArticle.request>) {
+function* updateArticleAsync({ payload }: ReturnType<typeof updateArticle.request>) {
   try {
-    const token = localStorage.getItem('token');
+    const res = yield call(updateArticleApi, payload.id, payload);
 
-    const res = yield call(updateArticleApi, token, payload.id, payload);
     window.location.href = '/article-list';
     yield put(updateArticle.success(res.data));
   } catch (e) {

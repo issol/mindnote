@@ -2,14 +2,14 @@ import React from 'react';
 
 import { DeepMap, FieldError } from 'react-hook-form';
 
-import Note from 'modules/Note';
+import Note from 'modules/Note/NoteCard';
 import TextInput from 'components/TextInput';
 import Modal from 'components/Modal';
 import { NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
 
-import CreateNoteModal from 'modules/CreateNoteModal';
+import CreateNoteModal from 'modules/Note/CreateNoteModal';
 
 type InputProps = {
   subject: string;

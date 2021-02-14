@@ -2,23 +2,21 @@ import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { RootState } from 'store';
 
-import { createArticle, deleteArticle, fetchArticleList } from 'store/articles/actions';
+import { createArticle, deleteArticle, fetchArticleList } from 'store/articleList/actions';
 import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { register, handleSubmit, errors } = useForm();
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const articleReducer = useSelector((state: RootState) => state.articleReducer);
+  const userReducer = useSelector((state: RootState) => state.userReducer);
 
   const handleCreateArticle = (data: any) => {
     setIsOpenModal(false);
@@ -34,33 +32,23 @@ const ArticleListContainer = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token') === null) {
-      setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(true);
+    if (userReducer.isLoggedIn) {
+      dispatch(fetchArticleList.request());
     }
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchArticleList.request());
-  }, [dispatch]);
+  }, [dispatch, fetchArticleList, userReducer.isLoggedIn]);
 
   return (
     <>
-      {isLoggedIn ? (
-        <ArticleListPresenter
-          isOpenModal={isOpenModal}
-          openModalToCreateArticle={openModalToCreateArticle}
-          articleList={articleReducer.articleList}
-          handleCreateArticle={handleCreateArticle}
-          handleDeleteArticle={handleDeleteArticle}
-          register={register}
-          handleSubmit={handleSubmit}
-          errors={errors}
-        />
-      ) : (
-        history.push('/')
-      )}
+      <ArticleListPresenter
+        isOpenModal={isOpenModal}
+        openModalToCreateArticle={openModalToCreateArticle}
+        articleList={articleReducer.articleList}
+        handleCreateArticle={handleCreateArticle}
+        handleDeleteArticle={handleDeleteArticle}
+        register={register}
+        handleSubmit={handleSubmit}
+        errors={errors}
+      />
     </>
   );
 };

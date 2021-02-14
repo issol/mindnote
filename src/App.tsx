@@ -1,26 +1,28 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
-import createSagaMiddleware from 'redux-saga';
-
-import { rootSaga } from './store/rootSaga';
-
-import rootReducer from './store';
 import Root from 'router/Root';
-
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(rootSaga);
+import { RootState } from 'store';
+import { logIn } from 'store/user/actions';
 
 function App() {
+  const token = localStorage.getItem('token');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `token ${token}`;
+      dispatch(logIn.success());
+    } else {
+      dispatch(logIn.failure(''));
+    }
+  }, []);
+
   return (
-    <Provider store={store}>
-      <div className="App">
-        <Root />
-      </div>
-    </Provider>
+    <div className="App">
+      <Root />
+    </div>
   );
 }
 

@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { RootState } from 'store';
-import { logIn } from 'store/users/actions';
+import { logIn } from 'store/user/actions';
 import LogInPresenter from './presenter';
-import StatusModal from 'modules/StatusModal';
-import { LogInInfo } from 'store/users/types';
+import StatusModal from 'components/StatusModal';
+import { LogInInfo } from 'store/user/types';
 import Modal from 'components/Modal';
 
 const LogInContainer = () => {

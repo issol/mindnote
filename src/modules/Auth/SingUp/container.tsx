@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { RootState } from 'store';
-import { signUp } from 'store/users/actions';
+import { signUp } from 'store/user/actions';
 import SignUpPresenter from './presenter';
-import StatusModal from 'modules/StatusModal';
-import { SignUpInfo } from 'store/users/types';
+import StatusModal from 'components/StatusModal';
+import { SignUpInfo } from 'store/user/types';
 import Modal from 'components/Modal';
 
 const SignUpContainer = () => {

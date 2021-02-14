@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LogIn from 'modules/LogIn';
-import SignUp from 'modules/SingUp';
+import LogIn from 'modules/Auth/LogIn';
+import SignUp from 'modules/Auth/SingUp';
 
 import styled from 'styled-components';
 

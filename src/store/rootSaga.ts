@@ -1,7 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 
-import { watchUser } from './users/sagas';
-import { watchArticle } from './articles/sagas';
+import { watchUser } from './user/sagas';
+import { watchArticle } from './articleList/sagas';
 import { watchArticleDetail } from './article/sagas';
 
 export function* rootSaga() {

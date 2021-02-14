@@ -9,7 +9,7 @@ type Props = {
   handleDeleteNote: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const Note = ({ id, contents, createdAt, handleDeleteNote }: Props) => {
+const NoteCard = ({ id, contents, createdAt, handleDeleteNote }: Props) => {
   return (
     <Card key={id}>
       <ArticleTitle>{contents}</ArticleTitle>
@@ -39,4 +39,4 @@ const ArticleTitle = styled.h3`
   color: #2c2c2c;
 `;
 
-export default Note;
+export default NoteCard;

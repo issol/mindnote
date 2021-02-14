@@ -3,10 +3,10 @@ import React from 'react';
 import { DeepMap, FieldError } from 'react-hook-form';
 import styled from 'styled-components';
 
-import Article from 'components/Article';
-import CreateArticleModal from 'modules/CreateArticleModal';
+import Article from 'modules/Article/ArticleCard';
+import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
-import { ArticleResponse } from 'store/articles/types';
+import { ArticleResponse } from 'store/articleList/types';
 import Modal from 'components/Modal';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;

@@ -8,19 +8,27 @@ import { theme } from 'assets/styles/theme';
 import GlobalStyle from 'assets/styles/global-styles';
 
 import { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
 
-import './index.css';
+import { applyMiddleware, createStore } from 'redux';
+
+import createSagaMiddleware from 'redux-saga';
+
+import { rootSaga } from './store/rootSaga';
+
+import rootReducer from './store';
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <React.StrictMode>
-      <GlobalStyle />
+    <GlobalStyle />
+    <Provider store={store}>
       <App />
-    </React.StrictMode>
+    </Provider>
   </ThemeProvider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
