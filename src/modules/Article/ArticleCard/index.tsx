@@ -8,7 +8,7 @@ type Props = {
   id: number;
   subject: string;
   description: string;
-  handleDeleteArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
 };
 
 const ArticleCard = ({ id, subject, description, handleDeleteArticle }: Props) => {
@@ -23,9 +23,7 @@ const ArticleCard = ({ id, subject, description, handleDeleteArticle }: Props) =
         <ArticleTitle>{subject}</ArticleTitle>
       </LinkArticle>
       <p className="description">{description.slice(0, 100)}</p>
-      <button onClick={handleDeleteArticle} article-id={id}>
-        삭제
-      </button>
+      <button onClick={handleDeleteArticle(id)}>삭제</button>
     </Card>
   );
 };

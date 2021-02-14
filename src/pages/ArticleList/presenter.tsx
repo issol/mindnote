@@ -20,7 +20,7 @@ type Props = {
   isOpenModal: boolean;
   openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
-  handleDeleteArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
