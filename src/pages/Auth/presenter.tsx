@@ -4,10 +4,11 @@ import LogIn from 'modules/Auth/LogIn';
 import SignUp from 'modules/Auth/SingUp';
 
 import styled from 'styled-components';
+import { AuthType } from './container';
 
 type AuthTypeProps = {
   authType: string;
-  handleAuthType: (event: React.MouseEvent<HTMLElement>) => void;
+  handleAuthType: (type: AuthType) => (event: React.MouseEvent<HTMLElement>) => void;
 };
 type ButtonProps = {
   authType: string;
@@ -18,10 +19,10 @@ const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
     <WholeWrap>
       <FormWrap>
         <ButtonWrap>
-          <LoginButton authType={authType} onClick={handleAuthType}>
+          <LoginButton authType={authType} onClick={handleAuthType('LogIn')}>
             LogIn
           </LoginButton>
-          <SignUpButton authType={authType} onClick={handleAuthType}>
+          <SignUpButton authType={authType} onClick={handleAuthType('SignUp')}>
             SignUp
           </SignUpButton>
         </ButtonWrap>
