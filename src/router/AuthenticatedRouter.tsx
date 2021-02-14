@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 
 import ArticleList from 'pages/ArticleList';
-import WriteArticle from 'pages/WriteArticle';
+import WriteArticle from 'pages/ArticleDetail';
 
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
