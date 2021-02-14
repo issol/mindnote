@@ -1,17 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import ArticleList from 'pages/ArticleList';
-import WriteArticle from 'pages/WriteArticle';
 import Auth from 'pages/Auth';
+import AuthenticatedRouter from './AuthenticatedRouter';
 
 const Root = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Auth} />
-        <Route exact path="/article-list" component={ArticleList} />
-        <Route path="/article/:id" component={WriteArticle} />
+
+        <AuthenticatedRouter />
       </Switch>
     </BrowserRouter>
   );
