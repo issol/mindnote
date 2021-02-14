@@ -1,21 +1,14 @@
 import React from 'react';
 
-import { DeepMap, FieldError } from 'react-hook-form';
-
 import Note from 'modules/Note/NoteCard';
 import TextInput from 'components/TextInput';
-import Modal from 'components/Modal';
+
 import { NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
 
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
 import { ArticleFormType, NoteFormType } from './container';
-
-type InputProps = {
-  subject: string;
-  description: string;
-};
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
@@ -28,10 +21,8 @@ type Props = {
   handleCreateNote: (data: NoteFormType) => void;
   handleDeleteNote: (noteId: number) => () => void;
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
-  articleErrors: DeepMap<InputProps, FieldError>;
-  noteErrors: DeepMap<NoteFormType, FieldError>;
-  isOpenModal: boolean;
-  setIsOpenModal: any;
+  isOpenCreateNoteModal: boolean;
+  setIsOpenCreateNoteModal: (isOpen: boolean) => void;
 };
 
 const ArticleDetailPresenter = ({
@@ -43,16 +34,18 @@ const ArticleDetailPresenter = ({
   handleCreateNote,
   handleDeleteNote,
   handleUpdateArticleInfo,
-  articleErrors,
-  noteErrors,
-  isOpenModal,
-  setIsOpenModal,
+  isOpenCreateNoteModal,
+  setIsOpenCreateNoteModal,
 }: Props) => {
   return (
     <>
-      <Modal isOpen={isOpenModal}>
-        <CreateNoteModal register={noteFormRegister} handleSubmit={noteHandleSubmit} handleCreateNote={handleCreateNote} />
-      </Modal>
+      <CreateNoteModal
+        isOpenCreateNoteModal={isOpenCreateNoteModal}
+        register={noteFormRegister}
+        handleSubmit={noteHandleSubmit}
+        handleCreateNote={handleCreateNote}
+      />
+
       <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
         <div>
           <TextInput type="text" label="subject" register={articleFormRegister} required />
@@ -73,7 +66,7 @@ const ArticleDetailPresenter = ({
           );
         })}
       </CardWrapper>
-      <button onClick={() => setIsOpenModal(true)}>+</button>
+      <button onClick={() => setIsOpenCreateNoteModal(true)}>+</button>
     </>
   );
 };

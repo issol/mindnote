@@ -8,7 +8,7 @@ import { RootState } from 'store';
 import { createNote, deleteNote, fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articleList/actions';
 
-import WriteArticlePresenter from './presenter';
+import ArticleDetailPresenter from './presenter';
 
 export type ArticleFormType = {
   subject: string;
@@ -37,22 +37,16 @@ const ArticleDetailContainer = () => {
     errors: articleErrors,
     setValue: articleSetValue,
   } = useForm<ArticleFormType>();
-  const {
-    register: noteFormRegister,
-    handleSubmit: noteHandleSubmit,
-    errors: noteErrors,
-    setValue: noteSetValue,
-  } = useForm<NoteFormType>();
+  const { register: noteFormRegister, handleSubmit: noteHandleSubmit } = useForm<NoteFormType>();
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenCreateNoteModal, setIsOpenCreateNoteModal] = useState(false);
 
   const handleUpdateArticleInfo = (data: ArticleFormType) => {
     dispatch(updateArticle.request({ id: articleId, ...data }));
   };
 
   const handleCreateNote = (data: NoteFormType) => {
-    console.log(data);
-    setIsOpenModal(false);
+    setIsOpenCreateNoteModal(false);
     dispatch(createNote.request({ article: articleId, contents: data.contents }));
   };
 
@@ -61,10 +55,8 @@ const ArticleDetailContainer = () => {
   };
 
   useEffect(() => {
-    if (userReducer.isLoggedIn) {
-      dispatch(fetchArticleDetail.request(articleId));
-    }
-  }, [dispatch, fetchArticleDetail, userReducer.isLoggedIn, articleId]);
+    dispatch(fetchArticleDetail.request(articleId));
+  }, [dispatch, fetchArticleDetail, articleId]);
 
   useEffect(() => {
     articleSetValue('subject', articleDetailReducer.articleDetail.subject);
@@ -72,7 +64,7 @@ const ArticleDetailContainer = () => {
   }, [articleDetailReducer.articleDetail]);
 
   return (
-    <WriteArticlePresenter
+    <ArticleDetailPresenter
       articleNoteList={articleDetailReducer.noteList}
       articleFormRegister={articleFormRegister}
       noteFormRegister={noteFormRegister}
@@ -81,10 +73,8 @@ const ArticleDetailContainer = () => {
       handleCreateNote={handleCreateNote}
       handleDeleteNote={handleDeleteNote}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
-      articleErrors={articleErrors}
-      noteErrors={noteErrors}
-      isOpenModal={isOpenModal}
-      setIsOpenModal={setIsOpenModal}
+      isOpenCreateNoteModal={isOpenCreateNoteModal}
+      setIsOpenCreateNoteModal={setIsOpenCreateNoteModal}
     />
   );
 };

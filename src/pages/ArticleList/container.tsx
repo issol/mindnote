@@ -6,19 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 
 import { createArticle, deleteArticle, fetchArticleList } from 'store/articleList/actions';
+import { ArticleInfo } from 'store/articleList/types';
 import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {
   const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(false);
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm<ArticleInfo>();
 
   const dispatch = useDispatch();
 
   const articleReducer = useSelector((state: RootState) => state.articleReducer);
 
-  const handleCreateArticle = (data: any) => {
+  const handleCreateArticle = (data: ArticleInfo) => {
     setIsOpenCreateArticleModal(false);
     dispatch(createArticle.request(data));
   };
@@ -32,14 +33,13 @@ const ArticleListContainer = () => {
   };
 
   useEffect(() => {
-    console.log(userReducer.isLoggedIn);
     dispatch(fetchArticleList.request());
   }, [dispatch, fetchArticleList]);
 
   return (
     <>
       <ArticleListPresenter
-        isOpenModal={isOpenCreateArticleModal}
+        isOpenCreateArticleModal={isOpenCreateArticleModal}
         openModalToCreateArticle={openModalToCreateArticle}
         articleList={articleReducer.articleList}
         handleCreateArticle={handleCreateArticle}
