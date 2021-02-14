@@ -13,7 +13,7 @@ import { ArticleFormType, NoteFormType } from './container';
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
-  articleNoteList: NoteResponse[];
+  noteList: NoteResponse[];
   articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   noteFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   articleHandleSubmit: Function;
@@ -26,7 +26,7 @@ type Props = {
 };
 
 const ArticleDetailPresenter = ({
-  articleNoteList,
+  noteList,
   articleFormRegister,
   noteFormRegister,
   articleHandleSubmit,
@@ -54,7 +54,7 @@ const ArticleDetailPresenter = ({
         <SaveButton type="submit" value="저장하기" />
       </ArticleInfoForm>
       <CardWrapper>
-        {articleNoteList.map((note) => {
+        {noteList.map((note) => {
           return (
             <Note
               key={note.id}

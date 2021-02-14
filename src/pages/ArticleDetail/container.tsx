@@ -64,7 +64,7 @@ const ArticleDetailContainer = () => {
 
   return (
     <ArticleDetailPresenter
-      articleNoteList={articleDetailReducer.noteList}
+      noteList={articleDetailReducer.noteList}
       articleFormRegister={articleFormRegister}
       noteFormRegister={noteFormRegister}
       articleHandleSubmit={articleHandleSubmit}

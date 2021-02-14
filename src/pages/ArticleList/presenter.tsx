@@ -3,14 +3,14 @@ import React from 'react';
 import { DeepMap, FieldError } from 'react-hook-form';
 import styled from 'styled-components';
 
-import Article from 'modules/Article/ArticleCard';
+import ArticleCard from 'modules/Article/ArticleCard';
 import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import { ArticleInfo, ArticleResponse } from 'store/articleList/types';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
-type inputProps = {
+type InputProps = {
   subject: string;
   description: string;
 };
@@ -23,7 +23,7 @@ type Props = {
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  errors: DeepMap<inputProps, FieldError>;
+  errors: DeepMap<InputProps, FieldError>;
 };
 
 const ArticleListPresenter = ({
@@ -46,11 +46,10 @@ const ArticleListPresenter = ({
         handleCreateArticle={handleCreateArticle}
         errors={errors}
       />
-      )
       <CardWrapper>
         {articleList.map((article) => {
           return (
-            <Article
+            <ArticleCard
               key={article.id}
               id={article.id}
               subject={article.subject}
