@@ -29,7 +29,6 @@ const ArticleDetailContainer = () => {
   const dispatch = useDispatch();
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
-  const userReducer = useSelector((state: RootState) => state.userReducer);
 
   const {
     register: articleFormRegister,

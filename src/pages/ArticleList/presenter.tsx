@@ -7,7 +7,6 @@ import Article from 'modules/Article/ArticleCard';
 import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import { ArticleInfo, ArticleResponse } from 'store/articleList/types';
-import Modal from 'components/Modal';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
@@ -20,7 +19,7 @@ type Props = {
   isOpenCreateArticleModal: boolean;
   openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (data: ArticleInfo) => void;
-  handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteArticle: (articleId: number) => () => void;
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;

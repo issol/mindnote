@@ -11,7 +11,6 @@ import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {
   const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(false);
-  const userReducer = useSelector((state: RootState) => state.userReducer);
 
   const { register, handleSubmit, errors } = useForm<ArticleInfo>();
 
@@ -24,7 +23,7 @@ const ArticleListContainer = () => {
     dispatch(createArticle.request(data));
   };
 
-  const handleDeleteArticle = (articleId: number) => (e: any) => {
+  const handleDeleteArticle = (articleId: number) => () => {
     dispatch(deleteArticle.request(articleId));
   };
 
