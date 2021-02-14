@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 
 import ArticleList from 'pages/ArticleList';
-import WriteArticle from 'pages/ArticleDetail';
+import ArticleDetail from 'pages/ArticleDetail';
 
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -17,7 +17,7 @@ const AuthenticatedRouter = () => {
         return (
           <>
             <Route exact path="/article-list" component={ArticleList} />
-            <Route path="/article/:id" component={WriteArticle} />
+            <Route path="/article/:id" component={ArticleDetail} />
           </>
         );
       case false:

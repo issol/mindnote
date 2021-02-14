@@ -10,6 +10,7 @@ import { NoteResponse } from 'store/article/types';
 import styled from 'styled-components';
 
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
+import { ArticleFormType, NoteFormType } from './container';
 
 type InputProps = {
   subject: string;
@@ -20,37 +21,42 @@ type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.
 
 type Props = {
   articleNoteList: NoteResponse[];
-  register: ({ required }: { required?: boolean }) => RefReturn;
-  handleSubmit: Function;
-  handleCreateNote: (event: React.MouseEvent<HTMLElement>) => void;
+  articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
+  noteFormRegister: ({ required }: { required?: boolean }) => RefReturn;
+  articleHandleSubmit: Function;
+  noteHandleSubmit: Function;
+  handleCreateNote: (data: NoteFormType) => void;
   handleDeleteNote: (event: React.MouseEvent<HTMLElement>) => void;
-  handleUpdateArticleInfo: (event: React.MouseEvent<HTMLElement>) => void;
-  errors: DeepMap<InputProps, FieldError>;
+  handleUpdateArticleInfo: (data: ArticleFormType) => void;
+  articleErrors: DeepMap<InputProps, FieldError>;
+  noteErrors: DeepMap<NoteFormType, FieldError>;
   isOpenModal: boolean;
   setIsOpenModal: any;
 };
 
 const ArticleDetailPresenter = ({
   articleNoteList,
-  register,
-  handleSubmit,
+  articleFormRegister,
+  noteFormRegister,
+  articleHandleSubmit,
+  noteHandleSubmit,
   handleCreateNote,
   handleDeleteNote,
   handleUpdateArticleInfo,
-  errors,
+  articleErrors,
+  noteErrors,
   isOpenModal,
   setIsOpenModal,
 }: Props) => {
   return (
     <>
-      <Modal
-        isOpen={isOpenModal}
-        children={<CreateNoteModal register={register} handleSubmit={handleSubmit} handleCreateNote={handleCreateNote} />}
-      />
-      <ArticleInfoForm onSubmit={handleSubmit(handleUpdateArticleInfo)}>
+      <Modal isOpen={isOpenModal}>
+        <CreateNoteModal register={noteFormRegister} handleSubmit={noteHandleSubmit} handleCreateNote={handleCreateNote} />
+      </Modal>
+      <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
         <div>
-          <TextInput type="text" label="subject" register={register} required />
-          <TextInput type="text" label="description" register={register} required />
+          <TextInput type="text" label="subject" register={articleFormRegister} required />
+          <TextInput type="text" label="description" register={articleFormRegister} required />
         </div>
         <CardWrapper>
           {articleNoteList.map((note) => {

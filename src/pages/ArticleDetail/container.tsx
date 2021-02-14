@@ -10,9 +10,13 @@ import { updateArticle } from 'store/articleList/actions';
 
 import WriteArticlePresenter from './presenter';
 
-type Props = {
+export type ArticleFormType = {
   subject: string;
   description: string;
+};
+
+export type NoteFormType = {
+  contents: string;
 };
 
 type ParamType = {
@@ -27,17 +31,29 @@ const ArticleDetailContainer = () => {
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const { register, handleSubmit, errors, setValue } = useForm<Props>();
+  const {
+    register: articleFormRegister,
+    handleSubmit: articleHandleSubmit,
+    errors: articleErrors,
+    setValue: articleSetValue,
+  } = useForm<ArticleFormType>();
+  const {
+    register: noteFormRegister,
+    handleSubmit: noteHandleSubmit,
+    errors: noteErrors,
+    setValue: noteSetValue,
+  } = useForm<NoteFormType>();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleUpdateArticleInfo = (data: any) => {
-    dispatch(updateArticle.request({ id: articleId, subject: data.subject, description: data.description }));
+  const handleUpdateArticleInfo = (data: ArticleFormType) => {
+    dispatch(updateArticle.request({ id: articleId, ...data }));
   };
 
-  const handleCreateNote = (data: any) => {
+  const handleCreateNote = (data: NoteFormType) => {
+    console.log(data);
     setIsOpenModal(false);
-    dispatch(createNote.request({ article: articleId, contents: data.content }));
+    dispatch(createNote.request({ article: articleId, contents: data.contents }));
   };
 
   const handleDeleteNote = (e: any) => {
@@ -51,19 +67,22 @@ const ArticleDetailContainer = () => {
   }, [dispatch, fetchArticleDetail, userReducer.isLoggedIn, articleId]);
 
   useEffect(() => {
-    setValue('subject', articleDetailReducer.articleDetail.subject);
-    setValue('description', articleDetailReducer.articleDetail.description);
+    articleSetValue('subject', articleDetailReducer.articleDetail.subject);
+    articleSetValue('description', articleDetailReducer.articleDetail.description);
   }, [articleDetailReducer.articleDetail]);
 
   return (
     <WriteArticlePresenter
       articleNoteList={articleDetailReducer.noteList}
-      register={register}
-      handleSubmit={handleSubmit}
+      articleFormRegister={articleFormRegister}
+      noteFormRegister={noteFormRegister}
+      articleHandleSubmit={articleHandleSubmit}
+      noteHandleSubmit={noteHandleSubmit}
       handleCreateNote={handleCreateNote}
       handleDeleteNote={handleDeleteNote}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
-      errors={errors}
+      articleErrors={articleErrors}
+      noteErrors={noteErrors}
       isOpenModal={isOpenModal}
       setIsOpenModal={setIsOpenModal}
     />
