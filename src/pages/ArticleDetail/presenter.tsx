@@ -30,7 +30,7 @@ type Props = {
   setIsOpenModal: any;
 };
 
-const WriteArticlePresenter = ({
+const ArticleDetailPresenter = ({
   articleNoteList,
   register,
   handleSubmit,
@@ -100,4 +100,4 @@ const SaveButton = styled.input`
   outline: none;
   border-radius: 30px;
 `;
-export default WriteArticlePresenter;
+export default ArticleDetailPresenter;

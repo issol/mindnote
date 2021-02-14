@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
 import { createNote, deleteNote, fetchArticleDetail } from 'store/article/actions';
@@ -19,7 +19,7 @@ type ParamType = {
   id: string;
 };
 
-const WriteArticleContainer = () => {
+const ArticleDetailContainer = () => {
   const articleId = Number(useParams<ParamType>().id);
 
   const dispatch = useDispatch();
@@ -70,4 +70,4 @@ const WriteArticleContainer = () => {
   );
 };
 
-export default WriteArticleContainer;
+export default ArticleDetailContainer;
