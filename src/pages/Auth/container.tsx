@@ -6,17 +6,15 @@ import { Redirect } from 'react-router-dom';
 import { RootState } from 'store';
 import AuthPresenter from './presenter';
 
+export type AuthType = 'LogIn' | 'SignUp';
+
 const AuthContainer = () => {
-  const [authType, setAuthType] = useState('LogIn');
+  const [authType, setAuthType] = useState<AuthType>('LogIn');
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const handleAuthType = () => {
-    if (authType === 'LogIn') {
-      setAuthType('SignUp');
-    } else if (authType === 'SignUp') {
-      setAuthType('LogIn');
-    }
+  const handleAuthType = (type: AuthType) => (e: any) => {
+    setAuthType(type);
   };
 
   return (
