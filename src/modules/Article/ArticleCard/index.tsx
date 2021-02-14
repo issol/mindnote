@@ -11,9 +11,10 @@ type Props = {
   handleDeleteArticle: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const Article = ({ id, subject, description, handleDeleteArticle }: Props) => {
+const ArticleCard = ({ id, subject, description, handleDeleteArticle }: Props) => {
   return (
     <Card>
+      <div>{id}</div>
       <LinkArticle
         to={{
           pathname: `/article/${id}`,
@@ -58,4 +59,4 @@ const ArticleTitle = styled.h3`
   color: #2c2c2c;
 `;
 
-export default Article;
+export default ArticleCard;

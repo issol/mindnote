@@ -19,6 +19,8 @@ const fetchArticleListApi = () => axios.get(HOST + '/articles/my-list/');
 
 function* fetchArticleListAsync() {
   try {
+    console.log('fetch');
+
     const res = yield call(fetchArticleListApi);
 
     yield put(fetchArticleList.success(res.data));
@@ -29,7 +31,7 @@ function* fetchArticleListAsync() {
 
 const createArticleApi = (payload: ArticleInfo) => axios.post(HOST + '/articles/', payload);
 
-function* createArticleAsync({ type, payload }: ReturnType<typeof createArticle.request>) {
+function* createArticleAsync({ payload }: ReturnType<typeof createArticle.request>) {
   try {
     const res = yield call(createArticleApi, payload);
 
@@ -41,7 +43,7 @@ function* createArticleAsync({ type, payload }: ReturnType<typeof createArticle.
 
 const deleteArticleApi = (id: number) => axios.delete(HOST + `/articles/${id}/`);
 
-function* deleteArticleAsync({ type, payload }: ReturnType<typeof deleteArticle.request>) {
+function* deleteArticleAsync({ payload }: ReturnType<typeof deleteArticle.request>) {
   try {
     yield call(deleteArticleApi, payload);
     window.location.href = '/article-list';
@@ -51,9 +53,13 @@ function* deleteArticleAsync({ type, payload }: ReturnType<typeof deleteArticle.
   }
 }
 
-const updateArticleApi = (id: number, payload: UpdatedArticleInfo) => axios.patch(HOST + `/articles/${id}/`, payload);
+const updateArticleApi = (id: number, payload: UpdatedArticleInfo) =>
+  axios.patch(HOST + `/articles/${id}/`, {
+    subject: payload.subject,
+    description: payload.description,
+  });
 
-function* updateArticleAsync({ type, payload }: ReturnType<typeof updateArticle.request>) {
+function* updateArticleAsync({ payload }: ReturnType<typeof updateArticle.request>) {
   try {
     const res = yield call(updateArticleApi, payload.id, payload);
 

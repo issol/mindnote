@@ -15,7 +15,7 @@ import { NoteInfo } from './types';
 
 const fetchArticleDetailApi = (id: number) => axios.get(HOST + `/articles/${id}/`);
 
-function* fetchArticleDetailAsync({ type, payload }: ReturnType<typeof fetchArticleDetail.request>) {
+function* fetchArticleDetailAsync({ payload }: ReturnType<typeof fetchArticleDetail.request>) {
   try {
     const res = yield call(fetchArticleDetailApi, payload);
 
@@ -27,7 +27,7 @@ function* fetchArticleDetailAsync({ type, payload }: ReturnType<typeof fetchArti
 
 const createNoteApi = (payload: NoteInfo) => axios.post(HOST + '/notes/', payload);
 
-function* createNoteAsync({ type, payload }: ReturnType<typeof createNote.request>) {
+function* createNoteAsync({ payload }: ReturnType<typeof createNote.request>) {
   try {
     const res = yield call(createNoteApi, payload);
 
@@ -39,9 +39,10 @@ function* createNoteAsync({ type, payload }: ReturnType<typeof createNote.reques
 
 const deleteNoteApi = (id: number) => axios.delete(HOST + `/notes/${id}/`);
 
-function* deleteNoteAsync({ type, payload }: ReturnType<typeof deleteNote.request>) {
+function* deleteNoteAsync({ payload }: ReturnType<typeof deleteNote.request>) {
   try {
     yield call(deleteNoteApi, payload.id);
+
     window.location.href = `/article/${payload.article}/`;
 
     yield put(deleteNote.success(payload.id));
