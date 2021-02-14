@@ -19,11 +19,11 @@ const AuthContainer = () => {
 
   return (
     <>
-      {userReducer.isLoggedIn ? (
+      {/* {userReducer.isLoggedIn ? (
         <Redirect to="/article-list" />
-      ) : (
-        <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
-      )}
+      ) : ( */}
+      <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
+      {/* )} */}
     </>
   );
 };

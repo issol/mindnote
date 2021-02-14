@@ -43,7 +43,7 @@ const WriteArticleContainer = ({ match }) => {
     if (userReducer.isLoggedIn) {
       dispatch(fetchArticleDetail.request(articleId));
     }
-  }, [dispatch, fetchArticleDetail, userReducer.isLoggedIn]);
+  }, [dispatch, fetchArticleDetail, userReducer.isLoggedIn, articleId]);
 
   useEffect(() => {
     setValue('subject', articleDetailReducer.articleDetail.subject);

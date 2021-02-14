@@ -10,6 +10,7 @@ import ArticleListPresenter from './presenter';
 
 const ArticleListContainer = () => {
   const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(false);
+  const userReducer = useSelector((state: RootState) => state.userReducer);
 
   const { register, handleSubmit, errors } = useForm();
 
@@ -31,6 +32,7 @@ const ArticleListContainer = () => {
   };
 
   useEffect(() => {
+    console.log(userReducer.isLoggedIn);
     dispatch(fetchArticleList.request());
   }, [dispatch, fetchArticleList]);
 

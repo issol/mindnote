@@ -1,9 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Root from 'router/Root';
-import { RootState } from 'store';
 import { logIn } from 'store/user/actions';
 
 function App() {
