@@ -56,8 +56,8 @@ const ArticleDetailContainer = () => {
     dispatch(createNote.request({ article: articleId, contents: data.contents }));
   };
 
-  const handleDeleteNote = (e: any) => {
-    dispatch(deleteNote.request({ id: e.target.getAttribute('note-id'), article: articleId }));
+  const handleDeleteNote = (noteId: number) => () => {
+    dispatch(deleteNote.request({ id: noteId }));
   };
 
   useEffect(() => {

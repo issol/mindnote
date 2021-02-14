@@ -26,7 +26,7 @@ type Props = {
   articleHandleSubmit: Function;
   noteHandleSubmit: Function;
   handleCreateNote: (data: NoteFormType) => void;
-  handleDeleteNote: (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteNote: (noteId: number) => () => void;
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
   articleErrors: DeepMap<InputProps, FieldError>;
   noteErrors: DeepMap<NoteFormType, FieldError>;
@@ -58,22 +58,21 @@ const ArticleDetailPresenter = ({
           <TextInput type="text" label="subject" register={articleFormRegister} required />
           <TextInput type="text" label="description" register={articleFormRegister} required />
         </div>
-        <CardWrapper>
-          {articleNoteList.map((note) => {
-            return (
-              <Note
-                key={note.id}
-                id={note.id}
-                contents={note.contents}
-                createdAt={note.createdAt}
-                handleDeleteNote={handleDeleteNote}
-              />
-            );
-          })}
-        </CardWrapper>
-
         <SaveButton type="submit" value="저장하기" />
       </ArticleInfoForm>
+      <CardWrapper>
+        {articleNoteList.map((note) => {
+          return (
+            <Note
+              key={note.id}
+              id={note.id}
+              contents={note.contents}
+              createdAt={note.createdAt}
+              handleDeleteNote={handleDeleteNote}
+            />
+          );
+        })}
+      </CardWrapper>
       <button onClick={() => setIsOpenModal(true)}>+</button>
     </>
   );
