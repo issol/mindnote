@@ -34,8 +34,6 @@ const ArticleListContainer = () => {
   };
 
   useEffect(() => {
-    console.log(axios.defaults.headers.common);
-
     dispatch(fetchArticleList.request());
   }, [dispatch, fetchArticleList]);
 
