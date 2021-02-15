@@ -13,17 +13,17 @@ const AuthContainer = () => {
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const handleAuthType = (type: AuthType) => (e: any) => {
+  const handleAuthType = (type: AuthType) => () => {
     setAuthType(type);
   };
 
   return (
     <>
-      {/* {userReducer.isLoggedIn ? (
+      {userReducer.isLoggedIn ? (
         <Redirect to="/article-list" />
-      ) : ( */}
-      <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
-      {/* )} */}
+      ) : (
+        <AuthPresenter authType={authType} handleAuthType={handleAuthType} />
+      )}
     </>
   );
 };

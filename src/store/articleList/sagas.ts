@@ -19,8 +19,6 @@ const fetchArticleListApi = () => axios.get(HOST + '/articles/my-list/');
 
 function* fetchArticleListAsync() {
   try {
-    console.log('fetch');
-
     const res = yield call(fetchArticleListApi);
 
     yield put(fetchArticleList.success(res.data));

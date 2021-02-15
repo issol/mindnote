@@ -8,30 +8,33 @@ import { signUp } from 'store/user/actions';
 import SignUpPresenter from './presenter';
 import StatusModal from 'components/StatusModal';
 import { SignUpInfo } from 'store/user/types';
-import Modal from 'components/Modal';
 
 const SignUpContainer = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
 
   const { register, errors, handleSubmit } = useForm<SignUpInfo>();
 
-  const handelSignUp = (data) => {
+  const handelSignUp = (data: SignUpInfo) => {
     dispatch(signUp.request(data));
   };
 
   useEffect(() => {
     if (userReducer.errorMessage !== '') {
       setErrorMessage(userReducer.errorMessage);
-      setIsOpenModal(true);
+      setIsOpenStatusModal(true);
     }
   }, [userReducer.errorMessage]);
 
   return (
     <>
-      <Modal isOpen={isOpenModal} children={<StatusModal statusMessage={errorMessage} onClose={() => setIsOpenModal(false)} />} />
+      <StatusModal
+        isOpenStatusModal={isOpenStatusModal}
+        statusMessage={errorMessage}
+        onClose={() => setIsOpenStatusModal(false)}
+      />
 
       <SignUpPresenter handelSignUp={handelSignUp} register={register} errors={errors} handleSubmit={handleSubmit} />
     </>

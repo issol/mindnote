@@ -8,7 +8,7 @@ import { AuthType } from './container';
 
 type AuthTypeProps = {
   authType: string;
-  handleAuthType: (type: AuthType) => (event: React.MouseEvent<HTMLElement>) => void;
+  handleAuthType: (type: AuthType) => () => void;
 };
 type ButtonProps = {
   authType: string;

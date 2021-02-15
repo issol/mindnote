@@ -5,8 +5,9 @@ import { DeepMap, FieldError } from 'react-hook-form';
 import TextInput from 'components/TextInput';
 
 import styled from 'styled-components';
+import { SignUpInfo } from 'store/user/types';
 
-type inputProps = {
+type InputProps = {
   email: string;
   password: string;
   name: string;
@@ -15,22 +16,22 @@ type inputProps = {
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
-  handelSignUp: (event: React.FormEvent<HTMLFormElement>) => void;
+  handelSignUp: (data: SignUpInfo) => void;
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  errors: DeepMap<inputProps, FieldError>;
+  errors: DeepMap<InputProps, FieldError>;
 };
 
 const SignUpPresenter = ({ handelSignUp, register, errors, handleSubmit }: Props) => {
   return (
     <SignUpForm onSubmit={handleSubmit(handelSignUp)} className="input-group">
-      <TextInput type="email" label="email" register={register} required placeholder="" />
+      <TextInput type="email" label="email" register={register} required />
       {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
 
-      <TextInput type="password" label="password" register={register} required placeholder="" />
+      <TextInput type="password" label="password" register={register} required />
       {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
 
-      <TextInput type="text" label="name" register={register} required placeholder="" />
+      <TextInput type="text" label="name" register={register} required />
       {errors.name && <ErrorMessage>⚠이름을 입력해주세요</ErrorMessage>}
 
       <SignUpButton type="submit" value="SignUp" />

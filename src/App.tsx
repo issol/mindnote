@@ -16,7 +16,7 @@ function App() {
     } else {
       dispatch(logIn.failure(''));
     }
-  }, []);
+  }, [dispatch, token]);
 
   return (
     <div className="App">
