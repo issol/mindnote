@@ -1,19 +1,22 @@
 import React from 'react';
 
-import Note from 'modules/Note/NoteCard';
 import TextInput from 'components/TextInput';
 
-import { NoteResponse } from 'store/article/types';
+import { ConnectionResponse, NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
 
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
 import { ArticleFormType, NoteFormType } from './container';
 
+import NoteCard from 'modules/Note/NoteCard';
+import ConnectionCard from 'modules/Connection/ConnectionCard';
+
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
   noteList: NoteResponse[];
+  connectionList: ConnectionResponse[];
   articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   noteFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   articleHandleSubmit: Function;
@@ -27,6 +30,7 @@ type Props = {
 
 const ArticleDetailPresenter = ({
   noteList,
+  connectionList,
   articleFormRegister,
   noteFormRegister,
   articleHandleSubmit,
@@ -55,18 +59,23 @@ const ArticleDetailPresenter = ({
       </ArticleInfoForm>
       <CardWrapper>
         {noteList.map((note) => {
+          return <NoteCard key={note.id} id={note.id} contents={note.contents} handleDeleteNote={handleDeleteNote} />;
+        })}
+      </CardWrapper>
+      <button onClick={() => setIsOpenCreateNoteModal(true)}>노트추가</button>
+      <CardWrapper>
+        {connectionList.map((connection) => {
           return (
-            <Note
-              key={note.id}
-              id={note.id}
-              contents={note.contents}
-              createdAt={note.createdAt}
-              handleDeleteNote={handleDeleteNote}
+            <ConnectionCard
+              key={connection.id}
+              id={connection.id}
+              reason={connection.reason}
+              leftNote={connection.leftNote}
+              rightNote={connection.rightNote}
             />
           );
         })}
       </CardWrapper>
-      <button onClick={() => setIsOpenCreateNoteModal(true)}>+</button>
     </>
   );
 };

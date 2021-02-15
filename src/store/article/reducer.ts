@@ -16,8 +16,10 @@ const initialState: ArticleDetailState = {
     subject: '',
     description: '',
     notes: [],
+    connections: [],
   },
   noteList: [],
+  connectionList: [],
 };
 
 const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailAction>(initialState, {
@@ -25,6 +27,7 @@ const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailActi
     ...state,
     articleDetail: action.payload,
     noteList: action.payload.notes,
+    connectionList: action.payload.connections,
   }),
   [FETCH_ARTICLE_DETAIL_FAILURE]: (state) => ({
     ...state,

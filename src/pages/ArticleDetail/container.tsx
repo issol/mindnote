@@ -58,6 +58,8 @@ const ArticleDetailContainer = () => {
   }, [dispatch, fetchArticleDetail, articleId]);
 
   useEffect(() => {
+    console.log(articleDetailReducer.articleDetail.connections);
+
     articleSetValue('subject', articleDetailReducer.articleDetail.subject);
     articleSetValue('description', articleDetailReducer.articleDetail.description);
   }, [articleDetailReducer.articleDetail]);
@@ -65,6 +67,7 @@ const ArticleDetailContainer = () => {
   return (
     <ArticleDetailPresenter
       noteList={articleDetailReducer.noteList}
+      connectionList={articleDetailReducer.connectionList}
       articleFormRegister={articleFormRegister}
       noteFormRegister={noteFormRegister}
       articleHandleSubmit={articleHandleSubmit}

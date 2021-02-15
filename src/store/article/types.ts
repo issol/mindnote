@@ -5,6 +5,7 @@ export type ArticleDetail = {
   subject: string;
   description: string;
   notes: [];
+  connections: [];
 };
 
 export type NoteResponse = {
@@ -20,6 +21,22 @@ export type NoteInfo = {
   contents: string;
 };
 
+export type ConnectionResponse = {
+  article: number;
+  createdAt: string;
+  id: number;
+  leftNote: number;
+  reason: string;
+  rightNote: number;
+  updatedAt: string;
+};
+
+export type ConnectionInfo = {
+  leftNote: number;
+  rightNote: number;
+  reason: string;
+};
+
 export type ArticleNoteId = {
   id: number;
 };
@@ -27,6 +44,7 @@ export type ArticleNoteId = {
 export type ArticleDetailState = {
   articleDetail: ArticleDetail;
   noteList: NoteResponse[];
+  connectionList: ConnectionResponse[];
 };
 
 export type ArticleDetailAction =
