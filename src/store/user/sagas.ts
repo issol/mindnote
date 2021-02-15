@@ -16,6 +16,7 @@ function* LogInAsync({ payload }: ReturnType<typeof logIn.request>) {
   try {
     const res = yield call(LogInApi, payload);
     localStorage.setItem('token', res.data.token);
+    axios.defaults.headers.common['Authorization'] = `token ${res.data.token}`;
     yield put(logIn.success());
   } catch (e) {
     if (e.request.status >= 400 && e.request.status <= 599) {
@@ -30,9 +31,8 @@ const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + '/users/', payload)
 function* SignUpAsync({ type, payload }: ReturnType<typeof signUp.request>) {
   try {
     const res = yield call(SignUpApi, payload);
-
     localStorage.setItem('token', res.data.token);
-
+    axios.defaults.headers.common['Authorization'] = `token ${res.data.token}`;
     yield put(signUp.success());
   } catch (e) {
     if (e.request.status >= 400 && e.request.status <= 599) {

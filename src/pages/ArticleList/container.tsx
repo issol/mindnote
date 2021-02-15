@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +18,7 @@ const ArticleListContainer = () => {
   const dispatch = useDispatch();
 
   const articleReducer = useSelector((state: RootState) => state.articleReducer);
+  const userReducer = useSelector((state: RootState) => state.userReducer);
 
   const handleCreateArticle = (data: ArticleInfo) => {
     setIsOpenCreateArticleModal(false);
@@ -32,6 +34,8 @@ const ArticleListContainer = () => {
   };
 
   useEffect(() => {
+    console.log(axios.defaults.headers.common);
+
     dispatch(fetchArticleList.request());
   }, [dispatch, fetchArticleList]);
 
