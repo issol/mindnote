@@ -5,8 +5,9 @@ import { DeepMap, FieldError } from 'react-hook-form';
 import TextInput from 'components/TextInput';
 
 import styled from 'styled-components';
+import { LogInInfo } from 'store/user/types';
 
-type inputProps = {
+type InputProps = {
   email: string;
   password: string;
 };
@@ -14,18 +15,18 @@ type inputProps = {
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
-  handleLogin: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleLogin: (data: LogInInfo) => void;
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  errors: DeepMap<inputProps, FieldError>;
+  errors: DeepMap<InputProps, FieldError>;
 };
 
 const LogInPresenter = ({ handleLogin, handleSubmit, register, errors }: Props) => {
   return (
     <LoginForm onSubmit={handleSubmit(handleLogin)} className="input-group">
-      <TextInput type="email" label="email" register={register} required placeholder="" />
+      <TextInput type="email" label="email" register={register} required />
       {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
-      <TextInput type="password" label="password" register={register} required placeholder="" />
+      <TextInput type="password" label="password" register={register} required />
       {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
       <LoginButton type="submit" className="login" value="Login" />
     </LoginForm>

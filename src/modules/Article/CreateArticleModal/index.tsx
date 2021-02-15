@@ -5,6 +5,8 @@ import { DeepMap, FieldError } from 'react-hook-form';
 import TextInput from 'components/TextInput';
 
 import styled from 'styled-components';
+import { ArticleInfo } from 'store/articleList/types';
+import Modal from 'components/Modal';
 
 type InputProps = {
   subject: string;
@@ -16,18 +18,21 @@ type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.
 type Props = {
   register: ({ required }: { required?: boolean }) => RefReturn;
   handleSubmit: Function;
-  handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  handleCreateArticle: (data: ArticleInfo) => void;
+  isOpenCreateArticleModal: boolean;
   errors: DeepMap<InputProps, FieldError>;
 };
 
-const CreateArticleModal = ({ register, handleSubmit, handleCreateArticle, errors }: Props) => {
+const CreateArticleModal = ({ isOpenCreateArticleModal, register, handleSubmit, handleCreateArticle, errors }: Props) => {
   return (
-    <form onSubmit={handleSubmit(handleCreateArticle)}>
-      <TextInput type="text" label="subject" register={register} required />
-      {errors.subject && <p>제목을 입력해주세요.</p>}
-      <TextInput type="text" label="description" register={register} />
-      <CreateArticleButton type="submit" value="저장" />
-    </form>
+    <Modal isOpen={isOpenCreateArticleModal}>
+      <form onSubmit={handleSubmit(handleCreateArticle)}>
+        <TextInput type="text" label="subject" register={register} required />
+        {errors.subject && <p>제목을 입력해주세요.</p>}
+        <TextInput type="text" label="description" register={register} />
+        <CreateArticleButton type="submit" value="저장" />
+      </form>
+    </Modal>
   );
 };
 

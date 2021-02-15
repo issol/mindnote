@@ -1,23 +1,31 @@
-import React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 import ArticleList from 'pages/ArticleList';
-import WriteArticle from 'pages/WriteArticle';
-import Auth from 'pages/Auth';
+import ArticleDetail from 'pages/ArticleDetail';
+
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
 const AuthenticatedRouter = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  return (
-    <>
-      {userReducer.isLoggedIn ? null : <Redirect to="/" />}
+  const getRouteListOrRedirect = () => {
+    switch (userReducer.isLoggedIn) {
+      case null:
+        return null;
+      case true:
+        return (
+          <>
+            <Route exact path="/article-list" component={ArticleList} />
+            <Route path="/article/:id" component={ArticleDetail} />
+          </>
+        );
+      case false:
+        return <Redirect to="/" />;
+    }
+  };
 
-      <Route exact path="/article-list" component={ArticleList} />
-      <Route path="/article/:id" component={WriteArticle} />
-    </>
-  );
+  return getRouteListOrRedirect();
 };
 
 export default AuthenticatedRouter;

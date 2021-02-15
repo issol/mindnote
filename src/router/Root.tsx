@@ -9,7 +9,6 @@ const Root = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Auth} />
-
         <AuthenticatedRouter />
       </Switch>
     </BrowserRouter>

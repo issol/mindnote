@@ -6,16 +6,14 @@ type Props = {
   id: number;
   contents: string;
   createdAt: string;
-  handleDeleteNote: (event: React.MouseEvent<HTMLElement>) => void;
+  handleDeleteNote: (noteId: number) => () => void;
 };
 
 const NoteCard = ({ id, contents, createdAt, handleDeleteNote }: Props) => {
   return (
-    <Card key={id}>
-      <ArticleTitle>{contents}</ArticleTitle>
-      <button onClick={handleDeleteNote} note-id={id}>
-        삭제
-      </button>
+    <Card>
+      <NoteTitle>{contents}</NoteTitle>
+      <button onClick={handleDeleteNote(id)}>삭제</button>
     </Card>
   );
 };
@@ -31,7 +29,7 @@ const Card = styled.div`
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
 `;
 
-const ArticleTitle = styled.h3`
+const NoteTitle = styled.h3`
   margin: 0;
   font-weight: 300;
   margin-bottom: 5px;

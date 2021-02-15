@@ -43,8 +43,6 @@ function* deleteNoteAsync({ payload }: ReturnType<typeof deleteNote.request>) {
   try {
     yield call(deleteNoteApi, payload.id);
 
-    window.location.href = `/article/${payload.article}/`;
-
     yield put(deleteNote.success(payload.id));
   } catch (e) {
     yield put(deleteNote.failure());

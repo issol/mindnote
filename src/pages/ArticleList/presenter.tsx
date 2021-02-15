@@ -3,32 +3,31 @@ import React from 'react';
 import { DeepMap, FieldError } from 'react-hook-form';
 import styled from 'styled-components';
 
-import Article from 'modules/Article/ArticleCard';
+import ArticleCard from 'modules/Article/ArticleCard';
 import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
-import { ArticleResponse } from 'store/articleList/types';
-import Modal from 'components/Modal';
+import { ArticleInfo, ArticleResponse } from 'store/articleList/types';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
-type inputProps = {
+type InputProps = {
   subject: string;
   description: string;
 };
 
 type Props = {
-  isOpenModal: boolean;
+  isOpenCreateArticleModal: boolean;
   openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
-  handleCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
-  handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
+  handleCreateArticle: (data: ArticleInfo) => void;
+  handleDeleteArticle: (articleId: number) => () => void;
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  errors: DeepMap<inputProps, FieldError>;
+  errors: DeepMap<InputProps, FieldError>;
 };
 
 const ArticleListPresenter = ({
-  isOpenModal,
+  isOpenCreateArticleModal,
   openModalToCreateArticle,
   handleCreateArticle,
   handleDeleteArticle,
@@ -40,22 +39,17 @@ const ArticleListPresenter = ({
   return (
     <>
       <Navigation />
-      <Modal
-        isOpen={isOpenModal}
-        children={
-          <CreateArticleModal
-            register={register}
-            handleSubmit={handleSubmit}
-            handleCreateArticle={handleCreateArticle}
-            errors={errors}
-          />
-        }
+      <CreateArticleModal
+        isOpenCreateArticleModal={isOpenCreateArticleModal}
+        register={register}
+        handleSubmit={handleSubmit}
+        handleCreateArticle={handleCreateArticle}
+        errors={errors}
       />
-      )
       <CardWrapper>
         {articleList.map((article) => {
           return (
-            <Article
+            <ArticleCard
               key={article.id}
               id={article.id}
               subject={article.subject}

@@ -13,7 +13,7 @@ const AuthContainer = () => {
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
-  const handleAuthType = (type: AuthType) => (e: any) => {
+  const handleAuthType = (type: AuthType) => () => {
     setAuthType(type);
   };
 

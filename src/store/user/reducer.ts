@@ -4,7 +4,7 @@ import { LOG_IN_FAILURE, LOG_IN_SUCCESS, SET_LOG_IN_INFO, SIGN_UP_FAILURE, SET_S
 import { UserState, UserAction } from './types';
 
 const initialState: UserState = {
-  isLoggedIn: false,
+  isLoggedIn: null,
   errorMessage: '',
   logInInfo: {
     email: '',

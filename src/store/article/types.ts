@@ -21,7 +21,6 @@ export type NoteInfo = {
 };
 
 export type ArticleNoteId = {
-  article: number;
   id: number;
 };
 
