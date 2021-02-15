@@ -22,9 +22,10 @@ const SignUpContainer = () => {
   };
 
   useEffect(() => {
-    if (userReducer.errorMessage !== '') {
+    if (userReducer.errorMessage) {
       setErrorMessage(userReducer.errorMessage);
       setIsOpenStatusModal(true);
+      dispatch(signUp.failure(''));
     }
   }, [userReducer.errorMessage]);
 
