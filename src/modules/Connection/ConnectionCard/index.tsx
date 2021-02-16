@@ -7,15 +7,17 @@ type Props = {
   reason: string;
   leftNote: number;
   rightNote: number;
+  handleDeleteConnection: (connectionId: number) => () => void;
 };
 
-const ConnectionCard = ({ id, reason, leftNote, rightNote }: Props) => {
+const ConnectionCard = ({ id, reason, leftNote, rightNote, handleDeleteConnection }: Props) => {
   return (
     <Card>
       <ConnectionReason>{reason}</ConnectionReason>
       <div>
         {leftNote}, {rightNote}
       </div>
+      <button onClick={handleDeleteConnection(id)}>삭제</button>
     </Card>
   );
 };
