@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
-import { createNote, deleteNote, fetchArticleDetail } from 'store/article/actions';
+import { createConnection, createNote, deleteConnection, deleteNote, fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articleList/actions';
-
 import ArticleDetailPresenter from './presenter';
 
 export type ArticleFormType = {
@@ -17,6 +16,12 @@ export type ArticleFormType = {
 
 export type NoteFormType = {
   contents: string;
+};
+
+export type ConnectionFormType = {
+  leftNote: number;
+  rightNote: number;
+  reason: string;
 };
 
 type ParamType = {
@@ -33,12 +38,14 @@ const ArticleDetailContainer = () => {
   const {
     register: articleFormRegister,
     handleSubmit: articleHandleSubmit,
-    errors: articleErrors,
+    //errors: articleErrors,
     setValue: articleSetValue,
   } = useForm<ArticleFormType>();
   const { register: noteFormRegister, handleSubmit: noteHandleSubmit } = useForm<NoteFormType>();
+  const { register: connectionFormRegister, handleSubmit: connectionHandleSubmit } = useForm<ConnectionFormType>();
 
   const [isOpenCreateNoteModal, setIsOpenCreateNoteModal] = useState(false);
+  const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
 
   const handleUpdateArticleInfo = (data: ArticleFormType) => {
     dispatch(updateArticle.request({ id: articleId, ...data }));
@@ -53,27 +60,43 @@ const ArticleDetailContainer = () => {
     dispatch(deleteNote.request({ id: noteId }));
   };
 
+  const handleCreateConnection = (data: ConnectionFormType) => {
+    setIsOpenCreateConnectionModal(false);
+    dispatch(createConnection.request({ article: articleId, ...data }));
+  };
+
+  const handleDeleteConnection = (connectionId: number) => () => {
+    dispatch(deleteConnection.request({ id: connectionId }));
+  };
+
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
-  }, [dispatch, fetchArticleDetail, articleId]);
+  }, [dispatch, articleId]);
 
   useEffect(() => {
     articleSetValue('subject', articleDetailReducer.articleDetail.subject);
     articleSetValue('description', articleDetailReducer.articleDetail.description);
-  }, [articleDetailReducer.articleDetail]);
+  }, [articleSetValue, articleDetailReducer.articleDetail]);
 
   return (
     <ArticleDetailPresenter
       noteList={articleDetailReducer.noteList}
+      connectionList={articleDetailReducer.connectionList}
       articleFormRegister={articleFormRegister}
       noteFormRegister={noteFormRegister}
+      connectionFormRegister={connectionFormRegister}
       articleHandleSubmit={articleHandleSubmit}
       noteHandleSubmit={noteHandleSubmit}
+      connectionHandleSubmit={connectionHandleSubmit}
       handleCreateNote={handleCreateNote}
       handleDeleteNote={handleDeleteNote}
+      handleDeleteConnection={handleDeleteConnection}
+      handleCreateConnection={handleCreateConnection}
       handleUpdateArticleInfo={handleUpdateArticleInfo}
       isOpenCreateNoteModal={isOpenCreateNoteModal}
       setIsOpenCreateNoteModal={setIsOpenCreateNoteModal}
+      isOpenCreateConnectionModal={isOpenCreateConnectionModal}
+      setIsOpenCreateConnectionModal={setIsOpenCreateConnectionModal}
     />
   );
 };

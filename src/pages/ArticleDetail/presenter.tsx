@@ -1,41 +1,58 @@
 import React from 'react';
 
-import Note from 'modules/Note/NoteCard';
 import TextInput from 'components/TextInput';
 
-import { NoteResponse } from 'store/article/types';
+import { ConnectionResponse, NoteResponse } from 'store/article/types';
 
 import styled from 'styled-components';
 
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
-import { ArticleFormType, NoteFormType } from './container';
+import { ArticleFormType, ConnectionFormType, NoteFormType } from './container';
+
+import NoteCard from 'modules/Note/NoteCard';
+import ConnectionCard from 'modules/Connection/ConnectionCard';
+import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
   noteList: NoteResponse[];
+  connectionList: ConnectionResponse[];
   articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   noteFormRegister: ({ required }: { required?: boolean }) => RefReturn;
+  connectionFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   articleHandleSubmit: Function;
   noteHandleSubmit: Function;
+  connectionHandleSubmit: Function;
   handleCreateNote: (data: NoteFormType) => void;
   handleDeleteNote: (noteId: number) => () => void;
+  handleCreateConnection: (data: ConnectionFormType) => void;
+  handleDeleteConnection: (connectionId: number) => () => void;
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
   isOpenCreateNoteModal: boolean;
   setIsOpenCreateNoteModal: (isOpen: boolean) => void;
+  isOpenCreateConnectionModal: boolean;
+  setIsOpenCreateConnectionModal: (isOpen: boolean) => void;
 };
 
 const ArticleDetailPresenter = ({
   noteList,
+  connectionList,
   articleFormRegister,
   noteFormRegister,
+  connectionFormRegister,
   articleHandleSubmit,
   noteHandleSubmit,
+  connectionHandleSubmit,
   handleCreateNote,
   handleDeleteNote,
+  handleCreateConnection,
+  handleDeleteConnection,
   handleUpdateArticleInfo,
   isOpenCreateNoteModal,
   setIsOpenCreateNoteModal,
+  isOpenCreateConnectionModal,
+  setIsOpenCreateConnectionModal,
 }: Props) => {
   return (
     <>
@@ -44,6 +61,12 @@ const ArticleDetailPresenter = ({
         register={noteFormRegister}
         handleSubmit={noteHandleSubmit}
         handleCreateNote={handleCreateNote}
+      />
+      <CreateConnectionModal
+        isOpenCreateConnectionModal={isOpenCreateConnectionModal}
+        register={connectionFormRegister}
+        handleSubmit={connectionHandleSubmit}
+        handleCreateConnection={handleCreateConnection}
       />
 
       <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
@@ -55,18 +78,25 @@ const ArticleDetailPresenter = ({
       </ArticleInfoForm>
       <CardWrapper>
         {noteList.map((note) => {
+          return <NoteCard key={note.id} id={note.id} contents={note.contents} handleDeleteNote={handleDeleteNote} />;
+        })}
+      </CardWrapper>
+      <button onClick={() => setIsOpenCreateNoteModal(true)}>노트추가</button>
+      <CardWrapper>
+        {connectionList.map((connection) => {
           return (
-            <Note
-              key={note.id}
-              id={note.id}
-              contents={note.contents}
-              createdAt={note.createdAt}
-              handleDeleteNote={handleDeleteNote}
+            <ConnectionCard
+              key={connection.id}
+              id={connection.id}
+              reason={connection.reason}
+              leftNote={connection.leftNote}
+              rightNote={connection.rightNote}
+              handleDeleteConnection={handleDeleteConnection}
             />
           );
         })}
       </CardWrapper>
-      <button onClick={() => setIsOpenCreateNoteModal(true)}>+</button>
+      <button onClick={() => setIsOpenCreateConnectionModal(true)}>커넥션추가</button>
     </>
   );
 };

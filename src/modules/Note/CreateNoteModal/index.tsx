@@ -1,12 +1,8 @@
 import Modal from 'components/Modal';
 import TextInput from 'components/TextInput';
 import React from 'react';
-import { DeepMap, FieldError } from 'react-hook-form';
-import { NoteInfo } from 'store/article/types';
 
-type InputProps = {
-  contents: string;
-};
+import { NoteInfo } from 'store/article/types';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 

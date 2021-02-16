@@ -8,7 +8,6 @@ import { logIn } from 'store/user/actions';
 import LogInPresenter from './presenter';
 import StatusModal from 'components/StatusModal';
 import { LogInInfo } from 'store/user/types';
-import { ErrorMessage } from '@hookform/error-message';
 
 const LogInContainer = () => {
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ const LogInContainer = () => {
       setIsOpenStatusModal(true);
       dispatch(logIn.failure(''));
     }
-  }, [userReducer.errorMessage]);
+  }, [dispatch, userReducer.errorMessage]);
 
   return (
     <>

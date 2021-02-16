@@ -27,7 +27,7 @@ const SignUpContainer = () => {
       setIsOpenStatusModal(true);
       dispatch(signUp.failure(''));
     }
-  }, [userReducer.errorMessage]);
+  }, [dispatch, userReducer.errorMessage]);
 
   return (
     <>
