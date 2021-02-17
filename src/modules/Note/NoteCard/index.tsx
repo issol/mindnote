@@ -1,20 +1,62 @@
-import React from 'react';
+import TextInput from 'components/TextInput';
+import { NoteFormType } from 'pages/ArticleDetail/container';
+import React, { useEffect, useState } from 'react';
+import { UpdatedNoteInfo } from 'store/article/types';
 
 import styled from 'styled-components';
+import UpdateNote from '../UpdateNote';
+
+type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
   id: number;
   contents: string;
   handleDeleteNote: (noteId: number) => () => void;
+  handleUpdateNote: (data: UpdatedNoteInfo) => void;
+  handleSubmit: Function;
+  register: ({ required }: { required?: boolean }) => RefReturn;
+  isOpenUpdateNoteModal: boolean;
+  setIsOpenUpdateNoteModal: (isOpen: boolean) => void;
+  noteSetValue: any;
 };
 
-const NoteCard = ({ id, contents, handleDeleteNote }: Props) => {
+const NoteCard = ({
+  id,
+  contents,
+  handleDeleteNote,
+  handleUpdateNote,
+  handleSubmit,
+  register,
+  isOpenUpdateNoteModal,
+  setIsOpenUpdateNoteModal,
+  noteSetValue,
+}: Props) => {
+  const [isUpdate, setIsUpdate] = useState(false);
+
   return (
-    <Card>
-      <div>{id}</div>
-      <NoteTitle>{contents}</NoteTitle>
-      <button onClick={handleDeleteNote(id)}>삭제</button>
-    </Card>
+    <>
+      <Card>
+        <div>{id}</div>
+
+        {isUpdate ? (
+          <UpdateNote
+            id={id}
+            setIsUpdate={setIsUpdate}
+            register={register}
+            contents={contents}
+            noteSetValue={noteSetValue}
+            handleUpdateNote={handleUpdateNote}
+            handleSubmit={handleSubmit}
+          />
+        ) : (
+          <>
+            <NoteTitle>{contents}</NoteTitle>
+            <button onClick={() => setIsUpdate(true)}>수정</button>
+            <button onClick={handleDeleteNote(id)}>삭제</button>
+          </>
+        )}
+      </Card>
+    </>
   );
 };
 

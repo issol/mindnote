@@ -1,3 +1,4 @@
+import { updateArticle } from 'store/articleList/actions';
 import { ActionType } from 'typesafe-actions';
 import { createConnection, createNote, deleteConnection, deleteNote, fetchArticleDetail } from './actions';
 
@@ -18,6 +19,11 @@ export type NoteResponse = {
 
 export type NoteInfo = {
   article: number;
+  contents: string;
+};
+
+export type UpdatedNoteInfo = {
+  id: number;
   contents: string;
 };
 
@@ -55,6 +61,7 @@ export type ArticleDetailState = {
 export type ArticleDetailAction =
   | ActionType<typeof fetchArticleDetail>
   | ActionType<typeof createNote>
+  | ActionType<typeof updateArticle>
   | ActionType<typeof deleteNote>
   | ActionType<typeof createConnection>
   | ActionType<typeof deleteConnection>;

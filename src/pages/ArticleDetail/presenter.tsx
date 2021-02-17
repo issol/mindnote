@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextInput from 'components/TextInput';
 
-import { ConnectionResponse, NoteResponse } from 'store/article/types';
+import { ConnectionResponse, NoteResponse, UpdatedNoteInfo } from 'store/article/types';
 
 import styled from 'styled-components';
 
@@ -25,14 +25,18 @@ type Props = {
   noteHandleSubmit: Function;
   connectionHandleSubmit: Function;
   handleCreateNote: (data: NoteFormType) => void;
+  handleUpdateNote: (data: UpdatedNoteInfo) => void;
   handleDeleteNote: (noteId: number) => () => void;
   handleCreateConnection: (data: ConnectionFormType) => void;
   handleDeleteConnection: (connectionId: number) => () => void;
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
   isOpenCreateNoteModal: boolean;
   setIsOpenCreateNoteModal: (isOpen: boolean) => void;
+  isOpenUpdateNoteModal: boolean;
+  setIsOpenUpdateNoteModal: (isOpen: boolean) => void;
   isOpenCreateConnectionModal: boolean;
   setIsOpenCreateConnectionModal: (isOpen: boolean) => void;
+  noteSetValue: any;
 };
 
 const ArticleDetailPresenter = ({
@@ -45,14 +49,18 @@ const ArticleDetailPresenter = ({
   noteHandleSubmit,
   connectionHandleSubmit,
   handleCreateNote,
+  handleUpdateNote,
   handleDeleteNote,
   handleCreateConnection,
   handleDeleteConnection,
   handleUpdateArticleInfo,
   isOpenCreateNoteModal,
   setIsOpenCreateNoteModal,
+  isOpenUpdateNoteModal,
+  setIsOpenUpdateNoteModal,
   isOpenCreateConnectionModal,
   setIsOpenCreateConnectionModal,
+  noteSetValue,
 }: Props) => {
   return (
     <>
@@ -62,6 +70,7 @@ const ArticleDetailPresenter = ({
         handleSubmit={noteHandleSubmit}
         handleCreateNote={handleCreateNote}
       />
+
       <CreateConnectionModal
         isOpenCreateConnectionModal={isOpenCreateConnectionModal}
         register={connectionFormRegister}
@@ -78,7 +87,20 @@ const ArticleDetailPresenter = ({
       </ArticleInfoForm>
       <CardWrapper>
         {noteList.map((note) => {
-          return <NoteCard key={note.id} id={note.id} contents={note.contents} handleDeleteNote={handleDeleteNote} />;
+          return (
+            <NoteCard
+              key={note.id}
+              id={note.id}
+              contents={note.contents}
+              handleDeleteNote={handleDeleteNote}
+              isOpenUpdateNoteModal={isOpenUpdateNoteModal}
+              setIsOpenUpdateNoteModal={setIsOpenUpdateNoteModal}
+              register={noteFormRegister}
+              handleSubmit={noteHandleSubmit}
+              handleUpdateNote={handleUpdateNote}
+              noteSetValue={noteSetValue}
+            />
+          );
         })}
       </CardWrapper>
       <button onClick={() => setIsOpenCreateNoteModal(true)}>노트추가</button>
