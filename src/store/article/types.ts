@@ -23,6 +23,7 @@ export type NoteInfo = {
 };
 
 export type UpdatedNoteInfo = {
+  article: number;
   id: number;
   contents: string;
 };

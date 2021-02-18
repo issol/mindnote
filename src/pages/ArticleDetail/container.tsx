@@ -53,7 +53,7 @@ const ArticleDetailContainer = () => {
   const { register: connectionFormRegister, handleSubmit: connectionHandleSubmit } = useForm<ConnectionFormType>();
 
   const [isOpenCreateNoteModal, setIsOpenCreateNoteModal] = useState(false);
-  const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
+
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
 
   const handleUpdateArticleInfo = (data: ArticleFormType) => {
@@ -66,8 +66,7 @@ const ArticleDetailContainer = () => {
   };
 
   const handleUpdateNote = (data: UpdatedNoteInfo) => {
-    setIsOpenUpdateNoteModal(true);
-    dispatch(updateNote.request({ id: Number(data.id), contents: data.contents }));
+    dispatch(updateNote.request({ article: articleId, id: Number(data.id), contents: data.contents }));
   };
 
   const handleDeleteNote = (noteId: number) => () => {
@@ -110,8 +109,6 @@ const ArticleDetailContainer = () => {
       handleUpdateArticleInfo={handleUpdateArticleInfo}
       isOpenCreateNoteModal={isOpenCreateNoteModal}
       setIsOpenCreateNoteModal={setIsOpenCreateNoteModal}
-      isOpenUpdateNoteModal={isOpenUpdateNoteModal}
-      setIsOpenUpdateNoteModal={setIsOpenUpdateNoteModal}
       isOpenCreateConnectionModal={isOpenCreateConnectionModal}
       setIsOpenCreateConnectionModal={setIsOpenCreateConnectionModal}
       noteSetValue={noteSetValue}

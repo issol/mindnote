@@ -32,8 +32,6 @@ type Props = {
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
   isOpenCreateNoteModal: boolean;
   setIsOpenCreateNoteModal: (isOpen: boolean) => void;
-  isOpenUpdateNoteModal: boolean;
-  setIsOpenUpdateNoteModal: (isOpen: boolean) => void;
   isOpenCreateConnectionModal: boolean;
   setIsOpenCreateConnectionModal: (isOpen: boolean) => void;
   noteSetValue: any;
@@ -56,8 +54,6 @@ const ArticleDetailPresenter = ({
   handleUpdateArticleInfo,
   isOpenCreateNoteModal,
   setIsOpenCreateNoteModal,
-  isOpenUpdateNoteModal,
-  setIsOpenUpdateNoteModal,
   isOpenCreateConnectionModal,
   setIsOpenCreateConnectionModal,
   noteSetValue,
@@ -93,8 +89,6 @@ const ArticleDetailPresenter = ({
               id={note.id}
               contents={note.contents}
               handleDeleteNote={handleDeleteNote}
-              isOpenUpdateNoteModal={isOpenUpdateNoteModal}
-              setIsOpenUpdateNoteModal={setIsOpenUpdateNoteModal}
               register={noteFormRegister}
               handleSubmit={noteHandleSubmit}
               handleUpdateNote={handleUpdateNote}

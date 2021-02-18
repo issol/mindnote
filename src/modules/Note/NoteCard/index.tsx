@@ -15,22 +15,10 @@ type Props = {
   handleUpdateNote: (data: UpdatedNoteInfo) => void;
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  isOpenUpdateNoteModal: boolean;
-  setIsOpenUpdateNoteModal: (isOpen: boolean) => void;
   noteSetValue: any;
 };
 
-const NoteCard = ({
-  id,
-  contents,
-  handleDeleteNote,
-  handleUpdateNote,
-  handleSubmit,
-  register,
-  isOpenUpdateNoteModal,
-  setIsOpenUpdateNoteModal,
-  noteSetValue,
-}: Props) => {
+const NoteCard = ({ id, contents, handleDeleteNote, handleUpdateNote, handleSubmit, register, noteSetValue }: Props) => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   return (
