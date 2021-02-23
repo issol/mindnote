@@ -5,11 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 import CreateNoteModal from '../CreateNoteModal';
-import UpdateNoteModal from '../UpdateNoteModal';
 import '/Users/issol/mindnote/node_modules/vis-network/styles/vis-network.css';
-import { ContentsForUpdate } from 'pages/ArticleDetail/container';
-import { createNote, updateNote, deleteNote, deleteConnection, createConnection } from 'store/article/actions';
-import { UpdatedNoteInfo } from 'store/article/types';
+import { createNote, deleteNote, deleteConnection, createConnection } from 'store/article/actions';
 
 type EdgeDataType = {
   from: number;
@@ -66,10 +63,6 @@ const graphDefaultVisualOptions = {
   },
 };
 
-export type NoteFormType = {
-  contents: string;
-};
-
 export type ConnectionFormType = {
   leftNote: number;
   rightNote: number;
@@ -84,30 +77,18 @@ const NoteGraph = ({ articleId }: Props) => {
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
   const dispatch = useDispatch();
 
-  const { register: noteFormRegister, handleSubmit: noteHandleSubmit, setValue: noteSetValue } = useForm<NoteFormType>();
   const { register: connectionFormRegister, handleSubmit: connectionHandleSubmit } = useForm<ConnectionFormType>();
 
   const [isOpenCreateNoteModal, setIsOpenCreateNoteModal] = useState(false);
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
-  const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
 
-  const [noteInfo, setNoteInfo] = useState<ContentsForUpdate>({ id: 0, contents: 'test' });
   const [connectionInfo, setConnectionInfo] = useState({ leftNote: 0, rightNote: 0 });
 
-  const noteUpdate = (data) => {
-    setNoteInfo(data);
-    setIsOpenUpdateNoteModal(true);
-  };
+  // const handleCreateNote = (data: NoteFormType) => {
+  //   setIsOpenCreateNoteModal(false);
 
-  const handleCreateNote = (data: NoteFormType) => {
-    setIsOpenCreateNoteModal(false);
-
-    dispatch(createNote.request({ article: articleId, contents: data.contents }));
-  };
-
-  const handleUpdateNote = (data: UpdatedNoteInfo) => {
-    dispatch(updateNote.request({ article: articleId, id: Number(data.id), contents: data.contents }));
-  };
+  //   dispatch(createNote.request({ article: articleId, contents: data.contents }));
+  // };
 
   const handleCreateConnection = (data: ConnectionFormType) => {
     setIsOpenCreateConnectionModal(false);
@@ -130,7 +111,7 @@ const NoteGraph = ({ articleId }: Props) => {
     enabled: true,
     addNode: (_nodeData, _callback) => setIsOpenCreateNoteModal(true),
     editNode: (nodeData, _callback) => {
-      noteUpdate({ id: nodeData.id, contents: nodeData.label });
+      // noteUpdate({ id: nodeData.id, contents: nodeData.label });
     },
     deleteNode: (nodeData, _callback) => {
       dispatch(deleteNote.request({ id: nodeData.nodes[0] }));
@@ -159,27 +140,18 @@ const NoteGraph = ({ articleId }: Props) => {
   return (
     <>
       <Graph graph={graph} options={{ ...graphDefaultVisualOptions, manipulation }} events={events} />
-      <CreateNoteModal
+      {/* <CreateNoteModal
         isOpenCreateNoteModal={isOpenCreateNoteModal}
         register={noteFormRegister}
         handleSubmit={noteHandleSubmit}
         handleCreateNote={handleCreateNote}
-      />
+      /> */}
 
       <CreateConnectionModal
         isOpenCreateConnectionModal={isOpenCreateConnectionModal}
         register={connectionFormRegister}
         handleSubmit={connectionHandleSubmit}
         handleCreateConnection={handleCreateConnection}
-      />
-
-      <UpdateNoteModal
-        isOpenUpdateNoteModal={isOpenUpdateNoteModal}
-        register={noteFormRegister}
-        handleSubmit={noteHandleSubmit}
-        handleUpdateNote={handleUpdateNote}
-        noteInfo={noteInfo}
-        noteSetValue={noteSetValue}
       />
     </>
   );

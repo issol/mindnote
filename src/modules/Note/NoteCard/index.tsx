@@ -1,35 +1,69 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { updateNote } from 'store/article/actions';
 import { UpdatedNoteInfo } from 'store/article/types';
 
 import styled from 'styled-components';
+import UpdateNoteModal from '../UpdateNoteModal';
 import UpdateNote from '../UpdateNoteModal';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
+type NoteFormType = {
+  contents: string;
+};
+
+export type ContentsForUpdate = {
+  id: number;
+  contents: string;
+};
+
 type Props = {
   id: number;
   contents: string;
+  articleId: number;
   handleDeleteNote: (noteId: number) => () => void;
-  handleUpdateNote: (data: UpdatedNoteInfo) => void;
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  noteSetValue: any;
 };
 
-const NoteCard = ({ id, contents, handleDeleteNote, handleUpdateNote, handleSubmit, register, noteSetValue }: Props) => {
+const NoteCard = ({ articleId, id, contents, handleDeleteNote, handleSubmit, register }: Props) => {
+  const dispatch = useDispatch();
+
   const [isUpdate, setIsUpdate] = useState(false);
+  const [noteInfo, setNoteInfo] = useState<ContentsForUpdate>({ id: 0, contents: 'test' });
+  const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
+
+  const { register: noteFormRegister, handleSubmit: noteHandleSubmit, setValue: noteSetValue } = useForm<NoteFormType>();
+
+  const noteUpdate = (data) => {
+    setNoteInfo(data);
+    setIsOpenUpdateNoteModal(true);
+  };
+
+  const handleUpdateNote = (data: UpdatedNoteInfo) => {
+    dispatch(updateNote.request({ article: articleId, id: Number(data.id), contents: data.contents }));
+  };
 
   return (
     <>
       <Card>
         <div>{id}</div>
-
         <>
           <NoteTitle>{contents}</NoteTitle>
           <button onClick={() => setIsUpdate(true)}>수정</button>
           <button onClick={handleDeleteNote(id)}>삭제</button>
         </>
       </Card>
+      <UpdateNoteModal
+        isOpenUpdateNoteModal={isOpenUpdateNoteModal}
+        register={noteFormRegister}
+        handleSubmit={noteHandleSubmit}
+        handleUpdateNote={handleUpdateNote}
+        noteInfo={noteInfo}
+        noteSetValue={noteSetValue}
+      />
     </>
   );
 };

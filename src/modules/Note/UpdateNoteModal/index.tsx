@@ -1,8 +1,9 @@
+import React from 'react';
+
 import Modal from 'components/Modal';
 import TextInput from 'components/TextInput';
-import { ContentsForUpdate } from 'pages/ArticleDetail/container';
-import React from 'react';
 import { UpdatedNoteInfo } from 'store/article/types';
+import { ContentsForUpdate } from '../NoteCard';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 

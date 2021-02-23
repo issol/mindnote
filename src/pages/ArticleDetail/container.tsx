@@ -19,11 +19,6 @@ type ParamType = {
   id: string;
 };
 
-export type ContentsForUpdate = {
-  id: number;
-  contents: string;
-};
-
 const ArticleDetailContainer = () => {
   const articleId = Number(useParams<ParamType>().id);
 
