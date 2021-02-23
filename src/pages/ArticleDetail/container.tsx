@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import NoteGraph from 'modules/Note/NoteGraph';
+import React, { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
-import {
-  createConnection,
-  createNote,
-  deleteConnection,
-  deleteNote,
-  fetchArticleDetail,
-  updateNote,
-} from 'store/article/actions';
-import { UpdatedNoteInfo } from 'store/article/types';
+import { fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articleList/actions';
 import ArticleDetailPresenter from './presenter';
 
@@ -22,18 +15,13 @@ export type ArticleFormType = {
   description: string;
 };
 
-export type NoteFormType = {
-  contents: string;
-};
-
-export type ConnectionFormType = {
-  leftNote: number;
-  rightNote: number;
-  reason: string;
-};
-
 type ParamType = {
   id: string;
+};
+
+export type ContentsForUpdate = {
+  id: number;
+  contents: string;
 };
 
 const ArticleDetailContainer = () => {
@@ -46,40 +34,11 @@ const ArticleDetailContainer = () => {
   const {
     register: articleFormRegister,
     handleSubmit: articleHandleSubmit,
-    //errors: articleErrors,
     setValue: articleSetValue,
   } = useForm<ArticleFormType>();
-  const { register: noteFormRegister, handleSubmit: noteHandleSubmit, setValue: noteSetValue } = useForm<NoteFormType>();
-  const { register: connectionFormRegister, handleSubmit: connectionHandleSubmit } = useForm<ConnectionFormType>();
-
-  const [isOpenCreateNoteModal, setIsOpenCreateNoteModal] = useState(false);
-
-  const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
 
   const handleUpdateArticleInfo = (data: ArticleFormType) => {
     dispatch(updateArticle.request({ id: articleId, ...data }));
-  };
-
-  const handleCreateNote = (data: NoteFormType) => {
-    setIsOpenCreateNoteModal(false);
-    dispatch(createNote.request({ article: articleId, contents: data.contents }));
-  };
-
-  const handleUpdateNote = (data: UpdatedNoteInfo) => {
-    dispatch(updateNote.request({ article: articleId, id: Number(data.id), contents: data.contents }));
-  };
-
-  const handleDeleteNote = (noteId: number) => () => {
-    dispatch(deleteNote.request({ id: noteId }));
-  };
-
-  const handleCreateConnection = (data: ConnectionFormType) => {
-    setIsOpenCreateConnectionModal(false);
-    dispatch(createConnection.request({ article: articleId, ...data }));
-  };
-
-  const handleDeleteConnection = (connectionId: number) => () => {
-    dispatch(deleteConnection.request({ id: connectionId }));
   };
 
   useEffect(() => {
@@ -92,27 +51,15 @@ const ArticleDetailContainer = () => {
   }, [articleSetValue, articleDetailReducer.articleDetail]);
 
   return (
-    <ArticleDetailPresenter
-      noteList={articleDetailReducer.noteList}
-      connectionList={articleDetailReducer.connectionList}
-      articleFormRegister={articleFormRegister}
-      noteFormRegister={noteFormRegister}
-      connectionFormRegister={connectionFormRegister}
-      articleHandleSubmit={articleHandleSubmit}
-      noteHandleSubmit={noteHandleSubmit}
-      connectionHandleSubmit={connectionHandleSubmit}
-      handleCreateNote={handleCreateNote}
-      handleUpdateNote={handleUpdateNote}
-      handleDeleteNote={handleDeleteNote}
-      handleDeleteConnection={handleDeleteConnection}
-      handleCreateConnection={handleCreateConnection}
-      handleUpdateArticleInfo={handleUpdateArticleInfo}
-      isOpenCreateNoteModal={isOpenCreateNoteModal}
-      setIsOpenCreateNoteModal={setIsOpenCreateNoteModal}
-      isOpenCreateConnectionModal={isOpenCreateConnectionModal}
-      setIsOpenCreateConnectionModal={setIsOpenCreateConnectionModal}
-      noteSetValue={noteSetValue}
-    />
+    <>
+      <ArticleDetailPresenter
+        articleFormRegister={articleFormRegister}
+        articleHandleSubmit={articleHandleSubmit}
+        handleUpdateArticleInfo={handleUpdateArticleInfo}
+      />
+
+      <NoteGraph articleId={articleId} />
+    </>
   );
 };
 

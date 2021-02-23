@@ -1,33 +1,30 @@
+import Modal from 'components/Modal';
 import TextInput from 'components/TextInput';
-import React, { useEffect } from 'react';
+import { ContentsForUpdate } from 'pages/ArticleDetail/container';
+import React from 'react';
 import { UpdatedNoteInfo } from 'store/article/types';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
-  id: number;
-  setIsUpdate: (isOpen: boolean) => void;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  contents: string;
-  noteSetValue: any;
   handleUpdateNote: (data: UpdatedNoteInfo) => void;
   handleSubmit: Function;
+  isOpenUpdateNoteModal: boolean;
+  noteInfo: ContentsForUpdate;
+  noteSetValue: any;
 };
 
-const UpdateNote = ({ id, setIsUpdate, register, contents, noteSetValue, handleSubmit, handleUpdateNote }: Props) => {
-  useEffect(() => {
-    noteSetValue('contents', contents);
-  }, [noteSetValue, contents]);
+const UpdateNoteModal = ({ register, handleSubmit, handleUpdateNote, isOpenUpdateNoteModal, noteInfo, noteSetValue }: Props) => {
   return (
-    <>
+    <Modal isOpen={isOpenUpdateNoteModal}>
       <form onSubmit={handleSubmit(handleUpdateNote)}>
         <TextInput type="text" label="contents" register={register} required />
-        <input type="hidden" value={id} name="id" ref={register({})} />
+        <input type="hidden" value={noteInfo.id} name="id" ref={register({})} />
         <input type="submit" value="저장" />
-        <button onClick={() => setIsUpdate(false)}>취소</button>
       </form>
-    </>
+    </Modal>
   );
 };
 
-export default UpdateNote;
+export default UpdateNoteModal;

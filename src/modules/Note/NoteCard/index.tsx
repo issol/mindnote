@@ -1,10 +1,8 @@
-import TextInput from 'components/TextInput';
-import { NoteFormType } from 'pages/ArticleDetail/container';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { UpdatedNoteInfo } from 'store/article/types';
 
 import styled from 'styled-components';
-import UpdateNote from '../UpdateNote';
+import UpdateNote from '../UpdateNoteModal';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
@@ -26,23 +24,11 @@ const NoteCard = ({ id, contents, handleDeleteNote, handleUpdateNote, handleSubm
       <Card>
         <div>{id}</div>
 
-        {isUpdate ? (
-          <UpdateNote
-            id={id}
-            setIsUpdate={setIsUpdate}
-            register={register}
-            contents={contents}
-            noteSetValue={noteSetValue}
-            handleUpdateNote={handleUpdateNote}
-            handleSubmit={handleSubmit}
-          />
-        ) : (
-          <>
-            <NoteTitle>{contents}</NoteTitle>
-            <button onClick={() => setIsUpdate(true)}>수정</button>
-            <button onClick={handleDeleteNote(id)}>삭제</button>
-          </>
-        )}
+        <>
+          <NoteTitle>{contents}</NoteTitle>
+          <button onClick={() => setIsUpdate(true)}>수정</button>
+          <button onClick={handleDeleteNote(id)}>삭제</button>
+        </>
       </Card>
     </>
   );
