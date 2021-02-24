@@ -19,8 +19,20 @@ const ArticleDetailPresenter = ({ articleFormRegister, articleHandleSubmit, hand
     <>
       <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
         <div>
-          <TextInput type="text" label="subject" register={articleFormRegister} required />
-          <TextInput type="text" label="description" register={articleFormRegister} required />
+          <TextInput
+            type="text"
+            label="subject"
+            register={articleFormRegister}
+            required
+            errorHandler={{ isError: false, errorMessage: '' }}
+          />
+          <TextInput
+            type="text"
+            label="description"
+            register={articleFormRegister}
+            required
+            errorHandler={{ isError: false, errorMessage: '' }}
+          />
         </div>
         <SaveButton type="submit" value="저장하기" />
       </ArticleInfoForm>

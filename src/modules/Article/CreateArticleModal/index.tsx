@@ -27,9 +27,20 @@ const CreateArticleModal = ({ isOpenCreateArticleModal, register, handleSubmit, 
   return (
     <Modal isOpen={isOpenCreateArticleModal}>
       <form onSubmit={handleSubmit(handleCreateArticle)}>
-        <TextInput type="text" label="subject" register={register} required />
-        {errors.subject && <p>제목을 입력해주세요.</p>}
-        <TextInput type="text" label="description" register={register} />
+        <TextInput
+          type="text"
+          label="subject"
+          register={register}
+          required
+          errorHandler={{ isError: !!errors.subject, errorMessage: '제목을 입력해주세요.' }}
+        />
+
+        <TextInput
+          type="text"
+          label="description"
+          register={register}
+          errorHandler={{ isError: !!errors.description, errorMessage: '' }}
+        />
         <CreateArticleButton type="submit" value="저장" />
       </form>
     </Modal>

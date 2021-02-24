@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -12,8 +12,6 @@ import { SignUpInfo } from 'store/user/types';
 const SignUpContainer = () => {
   const userReducer = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
 
   const { register, errors, handleSubmit } = useForm<SignUpInfo>();
 
