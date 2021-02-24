@@ -5,8 +5,8 @@ import { createConnection, createNote, deleteConnection, deleteNote, fetchArticl
 export type ArticleDetail = {
   subject: string;
   description: string;
-  notes: [];
-  connections: [];
+  notes: NoteResponse[];
+  connections: ConnectionResponse[];
 };
 
 export type NoteResponse = {
@@ -55,8 +55,6 @@ export type ConnectionId = {
 
 export type ArticleDetailState = {
   articleDetail: ArticleDetail;
-  noteList: NoteResponse[];
-  connectionList: ConnectionResponse[];
 };
 
 export type ArticleDetailAction =

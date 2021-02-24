@@ -24,16 +24,12 @@ const initialState: ArticleDetailState = {
     notes: [],
     connections: [],
   },
-  noteList: [],
-  connectionList: [],
 };
 
 const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailAction>(initialState, {
   [FETCH_ARTICLE_DETAIL_SUCCESS]: (state, action) => ({
     ...state,
     articleDetail: action.payload,
-    noteList: action.payload.notes,
-    connectionList: action.payload.connections,
   }),
   [FETCH_ARTICLE_DETAIL_FAILURE]: (state) => ({
     ...state,
@@ -41,35 +37,54 @@ const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailActi
 
   [CREATE_NOTE_SUCCESS]: (state, action) => ({
     ...state,
-    noteList: [...state.noteList, action.payload],
+    articleDetail: {
+      ...state.articleDetail,
+      notes: [...state.articleDetail.notes, action.payload],
+    },
   }),
   [CREATE_NOTE_FAILURE]: (state) => ({
     ...state,
   }),
+
   [UPDATE_NOTE_SUCCESS]: (state, action) => ({
     ...state,
-    noteList: state.noteList.map((note) => (note.id === action.payload.id ? action.payload : note)),
+    articleDetail: {
+      ...state.articleDetail,
+      notes: state.articleDetail.notes.map((note) => (note.id === action.payload.id ? action.payload : note)),
+    },
   }),
   [UPDATE_NOTE_FAILURE]: (state) => ({
     ...state,
   }),
+
   [DELETE_NOTE_SUCCESS]: (state, action) => ({
     ...state,
-    noteList: state.noteList.filter((note) => note.id !== action.payload),
+    articleDetail: {
+      ...state.articleDetail,
+      notes: state.articleDetail.notes.filter((note) => note.id !== action.payload),
+    },
   }),
   [DELETE_NOTE_FAILURE]: (state) => ({
     ...state,
   }),
+
   [CREATE_CONNECTION_SUCCESS]: (state, action) => ({
     ...state,
-    connectionList: [...state.connectionList, action.payload],
+    articleDetail: {
+      ...state.articleDetail,
+      connections: [...state.articleDetail.connections, action.payload],
+    },
   }),
   [CREATE_CONNECTION_FAILURE]: (state) => ({
     ...state,
   }),
+
   [DELETE_CONNECTION_SUCCESS]: (state, action) => ({
     ...state,
-    connectionList: state.connectionList.filter((connection) => connection.id !== action.payload),
+    articleDetail: {
+      ...state.articleDetail,
+      connections: state.articleDetail.connections.filter((connection) => connection.id !== action.payload),
+    },
   }),
   [DELETE_CONNECTION_FAILURE]: (state) => ({
     ...state,
