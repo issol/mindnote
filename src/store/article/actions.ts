@@ -9,6 +9,7 @@ import {
   ConnectionResponse,
   ConnectionId,
   UpdatedNoteInfo,
+  UpdatedConnectionInfo,
 } from './types';
 
 export const FETCH_ARTICLE_DETAIL_REQUEST = 'article/FETCH_ARTICLE_DETAIL_REQUEST';
@@ -34,6 +35,10 @@ export const CREATE_CONNECTION_FAILURE = 'article/CREATE_CONNECTION_FAILURE';
 export const DELETE_CONNECTION_REQUEST = 'article/DELETE_CONNECTION_REQUEST';
 export const DELETE_CONNECTION_SUCCESS = 'article/DELETE_CONNECTION_SUCCESS';
 export const DELETE_CONNECTION_FAILURE = 'article/DELETE_CONNECTION_FAILURE';
+
+export const UPDATE_CONNECTION_REQUEST = 'article/UPDATE_CONNECTION_REQUEST';
+export const UPDATE_CONNECTION_SUCCESS = 'article/UPDATE_CONNECTION_SUCCESS';
+export const UPDATE_CONNECTION_FAILURE = 'article/UPDATE_CONNECTION_FAILURE';
 
 export const fetchArticleDetail = createAsyncAction(
   FETCH_ARTICLE_DETAIL_REQUEST,
@@ -70,3 +75,9 @@ export const deleteConnection = createAsyncAction(
   DELETE_CONNECTION_SUCCESS,
   DELETE_CONNECTION_FAILURE
 )<ConnectionId, number, void>();
+
+export const updateConnection = createAsyncAction(
+  UPDATE_CONNECTION_REQUEST,
+  UPDATE_CONNECTION_SUCCESS,
+  UPDATE_CONNECTION_FAILURE
+)<UpdatedConnectionInfo, ConnectionResponse, void>();
