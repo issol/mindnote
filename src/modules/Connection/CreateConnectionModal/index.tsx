@@ -16,7 +16,7 @@ const CreateConnectionModal = ({ isOpenCreateConnectionModal, register, handleCr
   return (
     <Modal isOpen={isOpenCreateConnectionModal}>
       <form onSubmit={handleSubmit(handleCreateConnection)}>
-        <TextInput type="text" label="reason" register={register} required />
+        <TextInput type="text" label="reason" register={register} required errorHandler={{ isError: false, errorMessage: '' }} />
         <input type="submit" value="저장" />
       </form>
     </Modal>

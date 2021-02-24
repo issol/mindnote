@@ -17,7 +17,13 @@ const CreateNoteModal = ({ isOpenCreateNoteModal, register, handleCreateNote, ha
   return (
     <Modal isOpen={isOpenCreateNoteModal}>
       <form onSubmit={handleSubmit(handleCreateNote)}>
-        <TextInput type="text" label="contents" register={register} required />
+        <TextInput
+          type="text"
+          label="contents"
+          register={register}
+          required
+          errorHandler={{ isError: false, errorMessage: '' }}
+        />
         <input type="submit" value="저장" />
       </form>
     </Modal>

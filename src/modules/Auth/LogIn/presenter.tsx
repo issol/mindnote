@@ -24,10 +24,22 @@ type Props = {
 const LogInPresenter = ({ handleLogin, handleSubmit, register, errors }: Props) => {
   return (
     <LoginForm onSubmit={handleSubmit(handleLogin)} className="input-group">
-      <TextInput type="email" label="email" register={register} required />
-      {errors.email && <ErrorMessage>⚠이메일을 입력해주세요</ErrorMessage>}
-      <TextInput type="password" label="password" register={register} required />
-      {errors.password && <ErrorMessage>⚠비밀번호를 입력해주세요</ErrorMessage>}
+      <TextInput
+        type="email"
+        label="email"
+        register={register}
+        required
+        errorHandler={{ isError: !!errors.email, errorMessage: '⚠아이디를 입력해주세요' }}
+      />
+
+      <TextInput
+        type="password"
+        label="password"
+        register={register}
+        required
+        errorHandler={{ isError: !!errors.password, errorMessage: '⚠비밀번호를 입력해주세요' }}
+      />
+
       <LoginButton type="submit" className="login" value="Login" />
     </LoginForm>
   );
@@ -51,11 +63,6 @@ const LoginButton = styled.input`
   border: 0;
   outline: none;
   border-radius: 30px;
-`;
-
-const ErrorMessage = styled.p`
-  color: #bf1650;
-  display: inline;
 `;
 
 export default LogInPresenter;

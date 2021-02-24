@@ -8,7 +8,6 @@ import CreateNoteModal from '../CreateNoteModal';
 import '/Users/issol/mindnote/node_modules/vis-network/styles/vis-network.css';
 import { createNote, deleteNote, deleteConnection, createConnection, updateNote } from 'store/article/actions';
 import UpdateNoteModal from '../UpdateNoteModal';
-import { UpdatedNoteInfo } from 'store/article/types';
 
 type EdgeDataType = {
   from: number;
@@ -83,7 +82,7 @@ const NoteGraph = ({ articleId }: Props) => {
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
   const dispatch = useDispatch();
 
-  const { register: noteFormRegister, handleSubmit: noteHandleSubmit, setValue } = useForm<NoteFormType>();
+  const { register: noteFormRegister, handleSubmit: noteHandleSubmit } = useForm<NoteFormType>();
   const [noteFormData, setNoteFormData] = useState({ contents: '' });
   const [selectedNoteId, setSelectedNoteId] = useState(-1);
   const { register: connectionFormRegister, handleSubmit: connectionHandleSubmit } = useForm<ConnectionFormType>();
