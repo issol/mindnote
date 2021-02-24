@@ -1,29 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Modal from 'components/Modal';
-import TextInput from 'components/TextInput';
-import { UpdatedNoteInfo } from 'store/article/types';
-import { ContentsForUpdate } from '../NoteCard';
 
-type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
+import { NoteFormType } from '../NoteGraph';
 
 type Props = {
-  register: ({ required }: { required?: boolean }) => RefReturn;
-  handleUpdateNote: (data: UpdatedNoteInfo) => void;
-  handleSubmit: Function;
+  handleUpdateNote: any;
   isOpenUpdateNoteModal: boolean;
-  noteInfo: ContentsForUpdate;
-  noteSetValue: any;
+  data: NoteFormType;
+  changeNoteFormData: any;
 };
 
-const UpdateNoteModal = ({ register, handleSubmit, handleUpdateNote, isOpenUpdateNoteModal, noteInfo, noteSetValue }: Props) => {
+const UpdateNoteModal = ({ handleUpdateNote, isOpenUpdateNoteModal, data, changeNoteFormData }: Props) => {
   return (
     <Modal isOpen={isOpenUpdateNoteModal}>
-      <form onSubmit={handleSubmit(handleUpdateNote)}>
-        <TextInput type="text" label="contents" register={register} required />
-        <input type="hidden" value={noteInfo.id} name="id" ref={register({})} />
-        <input type="submit" value="저장" />
-      </form>
+      {/* <TextInput type="text" label="contents" register={register} required /> */}
+      <input type="text" value={data.contents} onChange={changeNoteFormData} />
+      {/* <input type="hidden" value={noteInfo.id} name="id" ref={register({})} /> */}
+      <button onClick={handleUpdateNote}>save</button>
     </Modal>
   );
 };
