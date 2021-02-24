@@ -11,6 +11,8 @@ import {
   CREATE_CONNECTION_FAILURE,
   DELETE_CONNECTION_SUCCESS,
   DELETE_CONNECTION_FAILURE,
+  UPDATE_NOTE_SUCCESS,
+  UPDATE_NOTE_FAILURE,
 } from './actions';
 
 import { ArticleDetailState, ArticleDetailAction } from './types';
@@ -42,6 +44,13 @@ const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailActi
     noteList: [...state.noteList, action.payload],
   }),
   [CREATE_NOTE_FAILURE]: (state) => ({
+    ...state,
+  }),
+  [UPDATE_NOTE_SUCCESS]: (state, action) => ({
+    ...state,
+    noteList: state.noteList.map((note) => (note.id === action.payload.id ? action.payload : note)),
+  }),
+  [UPDATE_NOTE_FAILURE]: (state) => ({
     ...state,
   }),
   [DELETE_NOTE_SUCCESS]: (state, action) => ({

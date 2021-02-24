@@ -1,6 +1,6 @@
 import Modal from 'components/Modal';
 import TextInput from 'components/TextInput';
-import { ConnectionFormType } from 'pages/ArticleDetail/container';
+import { ConnectionFormType } from 'modules/Note/NoteGraph';
 import React from 'react';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
@@ -16,8 +16,6 @@ const CreateConnectionModal = ({ isOpenCreateConnectionModal, register, handleCr
   return (
     <Modal isOpen={isOpenCreateConnectionModal}>
       <form onSubmit={handleSubmit(handleCreateConnection)}>
-        <TextInput type="text" label="leftNote" register={register} required />
-        <TextInput type="text" label="rightNote" register={register} required />
         <TextInput type="text" label="reason" register={register} required />
         <input type="submit" value="저장" />
       </form>

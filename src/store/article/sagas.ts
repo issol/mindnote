@@ -49,7 +49,7 @@ const updateNoteApi = (id: number, payload: UpdatedNoteInfo) =>
 function* updateNoteAsync({ payload }: ReturnType<typeof updateNote.request>) {
   try {
     const res = yield call(updateNoteApi, payload.id, payload);
-    window.location.href = `/article/${payload.article}/`;
+    // window.location.href = `/article/${payload.article}/`;
     yield put(updateNote.success(res.data));
   } catch (e) {
     yield put(updateNote.failure());
