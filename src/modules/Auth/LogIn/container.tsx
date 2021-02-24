@@ -4,15 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { RootState } from 'store';
-import { logIn } from 'store/user/actions';
+import { eraseErrorMessage, logIn } from 'store/user/actions';
 import LogInPresenter from './presenter';
 import StatusModal from 'components/StatusModal';
 import { LogInInfo } from 'store/user/types';
 
 const LogInContainer = () => {
   const dispatch = useDispatch();
-  const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
@@ -22,20 +20,16 @@ const LogInContainer = () => {
     dispatch(logIn.request(data));
   };
 
-  useEffect(() => {
-    if (userReducer.errorMessage) {
-      setErrorMessage(userReducer.errorMessage);
-      setIsOpenStatusModal(true);
-      dispatch(logIn.failure(''));
-    }
-  }, [dispatch, userReducer.errorMessage]);
+  const handleEraseErrorMessage = () => {
+    dispatch(eraseErrorMessage());
+  };
 
   return (
     <>
       <StatusModal
-        isOpenStatusModal={isOpenStatusModal}
-        statusMessage={errorMessage}
-        onClose={() => setIsOpenStatusModal(false)}
+        isOpenStatusModal={!!userReducer.errorMessage}
+        statusMessage={userReducer.errorMessage}
+        onClose={handleEraseErrorMessage}
       />
 
       <LogInPresenter handleLogin={handleLogin} handleSubmit={handleSubmit} register={register} errors={errors} />

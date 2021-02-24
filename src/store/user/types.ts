@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 
-import { logIn, setLogInInfo, signUp, setSignUpInfo } from './actions';
+import { logIn, setLogInInfo, signUp, setSignUpInfo, eraseErrorMessage } from './actions';
 
 export type LogInInfo = {
   email: string;
@@ -27,4 +27,5 @@ export type UserAction =
   | ActionType<typeof logIn>
   | ActionType<typeof signUp>
   | ActionType<typeof setSignUpInfo>
-  | ActionType<typeof setLogInInfo>;
+  | ActionType<typeof setLogInInfo>
+  | ActionType<typeof eraseErrorMessage>;
