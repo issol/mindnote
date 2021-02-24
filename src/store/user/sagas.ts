@@ -28,7 +28,7 @@ function* LogInAsync({ payload }: ReturnType<typeof logIn.request>) {
 
 const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + '/users/', payload);
 
-function* SignUpAsync({ type, payload }: ReturnType<typeof signUp.request>) {
+function* SignUpAsync({ payload }: ReturnType<typeof signUp.request>) {
   try {
     const res = yield call(SignUpApi, payload);
     localStorage.setItem('token', res.data.token);

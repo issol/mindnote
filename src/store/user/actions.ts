@@ -12,6 +12,8 @@ export const SIGN_UP_SUCCESS = 'users/SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'users/SIGN_UP_FAILURE';
 export const SET_SIGN_UP_INFO = 'users/SET_SIGN_UP_INFO';
 
+export const ERASE_ERROR_MESSAGE = 'users/ERASE_ERROR_MESSAGE';
+
 export const logIn = createAsyncAction(LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE)<LogInInfo, void, string>();
 
 export const setLogInInfo = createAction(SET_LOG_IN_INFO)<SetLogInInfoPayload>();
@@ -19,3 +21,5 @@ export const setLogInInfo = createAction(SET_LOG_IN_INFO)<SetLogInInfoPayload>()
 export const signUp = createAsyncAction(SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE)<SignUpInfo, void, string>();
 
 export const setSignUpInfo = createAction(SET_SIGN_UP_INFO)<SetSignUpInfoPayload>();
+
+export const eraseErrorMessage = createAction(ERASE_ERROR_MESSAGE)();
