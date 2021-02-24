@@ -15,9 +15,11 @@ import {
   DELETE_CONNECTION_REQUEST,
   updateNote,
   UPDATE_NOTE_REQUEST,
+  updateConnection,
+  UPDATE_CONNECTION_REQUEST,
 } from './actions';
 import { HOST } from 'constants/requests';
-import { ConnectionInfo, NoteInfo, UpdatedNoteInfo } from './types';
+import { ConnectionInfo, NoteInfo, UpdatedConnectionInfo, UpdatedNoteInfo } from './types';
 
 const fetchArticleDetailApi = (id: number) => axios.get(HOST + `/articles/${id}/`);
 
@@ -79,6 +81,18 @@ function* createConnectionAsync({ payload }: ReturnType<typeof createConnection.
   }
 }
 
+const updateConnectionApi = (payload: UpdatedConnectionInfo) => axios.patch(HOST + `/connections/${payload.id}/`, payload);
+
+function* updateConnectionAsync({ payload }: ReturnType<typeof updateConnection.request>) {
+  try {
+    const res = yield call(updateConnectionApi, payload);
+
+    yield put(updateConnection.success(res.data));
+  } catch (e) {
+    yield put(updateConnection.failure());
+  }
+}
+
 const deleteConnectionApi = (id: number) => axios.delete(HOST + `/connections/${id}/`);
 
 function* deleteConnectionAsync({ payload }: ReturnType<typeof deleteConnection.request>) {
@@ -96,5 +110,6 @@ export function* watchArticleDetail() {
   yield takeEvery(UPDATE_NOTE_REQUEST, updateNoteAsync);
   yield takeEvery(DELETE_NOTE_REQUEST, deleteNoteAsync);
   yield takeEvery(CREATE_CONNECTION_REQUEST, createConnectionAsync);
+  yield takeEvery(UPDATE_CONNECTION_REQUEST, updateConnectionAsync);
   yield takeEvery(DELETE_CONNECTION_REQUEST, deleteConnectionAsync);
 }

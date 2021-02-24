@@ -1,6 +1,14 @@
 import { updateArticle } from 'store/articleList/actions';
 import { ActionType } from 'typesafe-actions';
-import { createConnection, createNote, deleteConnection, deleteNote, fetchArticleDetail, updateNote } from './actions';
+import {
+  createConnection,
+  createNote,
+  deleteConnection,
+  deleteNote,
+  fetchArticleDetail,
+  updateConnection,
+  updateNote,
+} from './actions';
 
 export type ArticleDetail = {
   subject: string;
@@ -45,6 +53,14 @@ export type ConnectionInfo = {
   reason: string;
 };
 
+export type UpdatedConnectionInfo = {
+  id: number;
+  article: number;
+  leftNote: number;
+  rightNote: number;
+  reason: string;
+};
+
 export type NoteId = {
   id: number;
 };
@@ -64,4 +80,5 @@ export type ArticleDetailAction =
   | ActionType<typeof updateNote>
   | ActionType<typeof deleteNote>
   | ActionType<typeof createConnection>
+  | ActionType<typeof updateConnection>
   | ActionType<typeof deleteConnection>;
