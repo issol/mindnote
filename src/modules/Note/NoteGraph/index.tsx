@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
 import Graph from 'react-graph-vis';
 import { useForm } from 'react-hook-form';
@@ -122,22 +122,26 @@ const NoteGraph = ({ articleId }: Props) => {
   };
 
   const events = {
-    selectNode: (event: any) => {
-      const selectedNoteId = event.nodes[0];
-      const foundNote = articleDetailReducer.noteList.find((note) => note.id === selectedNoteId);
+    doubleClick: (event: any) => {
+      const { nodes, edges } = event;
 
-      setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
-      setSelectedNoteId(selectedNoteId);
-      setIsOpenUpdateNoteModal(true);
+      if (nodes.length !== 0) {
+        const selectedNoteId = nodes[0];
+        const foundNote = articleDetailReducer.articleDetail.notes.find((note) => note.id === selectedNoteId);
+
+        setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
+        setSelectedNoteId(selectedNoteId);
+        setIsOpenUpdateNoteModal(true);
+      } else if (edges.length !== 0) {
+        //TODO : connection 수정
+      }
     },
   };
 
   const manipulation = {
     enabled: true,
     addNode: (_nodeData, _callback) => setIsOpenCreateNoteModal(true),
-    editNode: (nodeData, _callback) => {
-      // noteUpdate({ id: nodeData.id, contents: nodeData.label });
-    },
+
     deleteNode: (nodeData, _callback) => {
       dispatch(deleteNote.request({ id: nodeData.nodes[0] }));
     },
@@ -153,8 +157,8 @@ const NoteGraph = ({ articleId }: Props) => {
   };
 
   const graph = {
-    nodes: articleDetailReducer.noteList.map((note) => ({ id: note.id, label: note.contents })),
-    edges: articleDetailReducer.connectionList.map((connection) => ({
+    nodes: articleDetailReducer.articleDetail.notes.map((note) => ({ id: note.id, label: note.contents })),
+    edges: articleDetailReducer.articleDetail.connections.map((connection) => ({
       id: connection.id,
       from: connection.leftNote,
       to: connection.rightNote,
