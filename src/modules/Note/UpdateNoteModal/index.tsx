@@ -2,7 +2,7 @@ import React from 'react';
 
 import Modal from 'components/Modal';
 
-import { NoteFormType } from 'modules/NoteGraph';
+import { NoteFormType } from 'modules/NoteGraph/container';
 
 type Props = {
   handleUpdateNote: any;

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Modal from 'components/Modal';
-import { ConnectionFormType } from 'modules/NoteGraph';
+import { ConnectionReason } from 'modules/NoteGraph/container';
 
 type Props = {
-  handleUpdateConnection: () => void;
+  handleUpdateConnection: (event: React.MouseEvent<HTMLElement>) => void;
   isOpenUpdateConnectionModal: boolean;
-  data: ConnectionFormType;
-  changeConnectionFormData: any;
+  data: ConnectionReason;
+  changeConnectionFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const UpdateConnectionModal = ({

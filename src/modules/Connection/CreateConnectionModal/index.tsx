@@ -1,6 +1,6 @@
 import Modal from 'components/Modal';
 import TextInput from 'components/TextInput';
-import { ConnectionFormType } from 'modules/NoteGraph';
+import { ConnectionFormType } from 'modules/NoteGraph/container';
 import React from 'react';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
