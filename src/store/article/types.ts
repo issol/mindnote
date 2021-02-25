@@ -36,6 +36,10 @@ export type UpdatedNoteInfo = {
   contents: string;
 };
 
+export type NoteId = {
+  id: number;
+};
+
 export type ConnectionResponse = {
   article: number;
   createdAt: string;
@@ -59,10 +63,6 @@ export type UpdatedConnectionInfo = {
   leftNote: number;
   rightNote: number;
   reason: string;
-};
-
-export type NoteId = {
-  id: number;
 };
 
 export type ConnectionId = {
