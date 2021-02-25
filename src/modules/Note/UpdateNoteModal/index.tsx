@@ -5,18 +5,16 @@ import Modal from 'components/Modal';
 import { NoteFormType } from 'modules/NoteGraph/container';
 
 type Props = {
-  handleUpdateNote: any;
+  handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
   isOpenUpdateNoteModal: boolean;
   data: NoteFormType;
-  changeNoteFormData: any;
+  changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const UpdateNoteModal = ({ handleUpdateNote, isOpenUpdateNoteModal, data, changeNoteFormData }: Props) => {
   return (
     <Modal isOpen={isOpenUpdateNoteModal}>
-      {/* <TextInput type="text" label="contents" register={register} required /> */}
       <input type="text" value={data.contents} onChange={changeNoteFormData} />
-      {/* <input type="hidden" value={noteInfo.id} name="id" ref={register({})} /> */}
       <button onClick={handleUpdateNote}>save</button>
     </Modal>
   );
