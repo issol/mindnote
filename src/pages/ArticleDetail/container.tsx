@@ -1,4 +1,5 @@
-import NoteGraph from 'modules/Note/NoteGraph';
+import NoteGraph from 'modules/NoteGraph';
+
 import React, { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';

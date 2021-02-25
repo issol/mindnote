@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Modal from 'components/Modal';
-import { ConnectionFormType } from 'modules/Note/NoteGraph';
+import { ConnectionFormType } from 'modules/NoteGraph';
 
 type Props = {
   handleUpdateConnection: () => void;
