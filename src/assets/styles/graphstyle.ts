@@ -1,13 +1,25 @@
 export const graphDefaultVisualOptions = {
   autoResize: true,
-  height: '600px',
+  height: '800px',
+  width: '100%',
   layout: {
-    randomSeed: 2,
-    improvedLayout: true,
+    randomSeed: 1,
   },
+
+  physics: {
+    enabled: true,
+    barnesHut: {
+      springLength: 150,
+      springConstant: 0.02,
+      avoidOverlap: 0.2,
+    },
+  },
+
   interaction: {
     zoomView: false,
+    navigationButtons: true,
   },
+
   edges: {
     arrows: {
       to: {
@@ -17,7 +29,8 @@ export const graphDefaultVisualOptions = {
         enabled: false,
       },
     },
-    width: 1,
+
+    width: 1.5,
     color: {
       color: '#D3D3D3',
       highlight: '#797979',
@@ -25,18 +38,23 @@ export const graphDefaultVisualOptions = {
       opacity: 1.0,
     },
   },
+
   nodes: {
     fixed: {
       x: false,
       y: false,
     },
     widthConstraint: {
-      minimum: 1,
-      maximum: 200,
+      minimum: 100,
+      maximum: 500,
     },
+    heightConstraint: {
+      minimum: 50,
+    },
+
     shape: 'box',
     size: 10,
-    borderWidth: 1.5,
+    borderWidth: 0.5,
     borderWidthSelected: 2,
     font: {
       color: '#adaeb9',

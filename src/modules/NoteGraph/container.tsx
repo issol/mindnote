@@ -1,3 +1,4 @@
+import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -129,7 +130,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
 
   const manipulation = {
     enabled: true,
-
+    initiallyActive: true,
     addNode: (_nodeData: VisSelectAdd, _callback: any) => setIsOpenCreateNoteModal(true),
 
     deleteNode: (nodeData: VisSelectDelete, _callback: any) => dispatch(deleteNote.request({ id: nodeData.nodes[0] })),

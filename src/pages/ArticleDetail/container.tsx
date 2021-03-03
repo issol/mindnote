@@ -1,5 +1,3 @@
-import NoteGraph from 'modules/NoteGraph';
-
 import React, { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -52,9 +50,8 @@ const ArticleDetailContainer = () => {
         articleFormRegister={articleFormRegister}
         articleHandleSubmit={articleHandleSubmit}
         handleUpdateArticleInfo={handleUpdateArticleInfo}
+        articleId={articleId}
       />
-
-      <NoteGraph articleId={articleId} />
     </>
   );
 };
