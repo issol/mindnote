@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { RootState } from 'store';
 import { fetchArticleDetail } from 'store/article/actions';
@@ -14,7 +14,7 @@ export type ArticleFormType = {
   description: string;
 };
 
-type ParamType = {
+export type ParamType = {
   id: string;
 };
 
@@ -22,6 +22,7 @@ const ArticleDetailContainer = () => {
   const articleId = Number(useParams<ParamType>().id);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
 
@@ -33,6 +34,10 @@ const ArticleDetailContainer = () => {
 
   const handleUpdateArticleInfo = (data: ArticleFormType) => {
     dispatch(updateArticle.request({ id: articleId, ...data }));
+  };
+
+  const handleRedirectWriteArtilcePage = () => {
+    history.push(`/write-article/${articleId}`);
   };
 
   useEffect(() => {
@@ -50,6 +55,7 @@ const ArticleDetailContainer = () => {
         articleFormRegister={articleFormRegister}
         articleHandleSubmit={articleHandleSubmit}
         handleUpdateArticleInfo={handleUpdateArticleInfo}
+        handleRedirectWriteArtilcePage={handleRedirectWriteArtilcePage}
         articleId={articleId}
       />
     </>

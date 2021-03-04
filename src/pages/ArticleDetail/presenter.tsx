@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import { ArticleFormType } from './container';
 import NoteGraph from 'modules/NoteGraph';
+import { Redirect } from 'react-router-dom';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
@@ -13,13 +14,20 @@ type Props = {
   articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   articleHandleSubmit: Function;
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
+  handleRedirectWriteArtilcePage: (event: React.MouseEvent<HTMLElement>) => void;
   articleId: number;
 };
 
-const ArticleDetailPresenter = ({ articleFormRegister, articleHandleSubmit, handleUpdateArticleInfo, articleId }: Props) => {
+const ArticleDetailPresenter = ({
+  articleFormRegister,
+  articleHandleSubmit,
+  handleUpdateArticleInfo,
+  handleRedirectWriteArtilcePage,
+  articleId,
+}: Props) => {
   return (
     <>
-      <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
+      {/* <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
         <div>
           <TextInput
             type="text"
@@ -38,8 +46,9 @@ const ArticleDetailPresenter = ({ articleFormRegister, articleHandleSubmit, hand
         </div>
 
         <SaveButton type="submit" value="저장하기" />
-      </ArticleInfoForm>
+      </ArticleInfoForm>*/}
       <NoteGraph articleId={articleId} />
+      <button onClick={handleRedirectWriteArtilcePage}>글 작성하기</button>
     </>
   );
 };
