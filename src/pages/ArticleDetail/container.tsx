@@ -24,18 +24,6 @@ const ArticleDetailContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
-
-  const {
-    register: articleFormRegister,
-    handleSubmit: articleHandleSubmit,
-    setValue: articleSetValue,
-  } = useForm<ArticleFormType>();
-
-  const handleUpdateArticleInfo = (data: ArticleFormType) => {
-    dispatch(updateArticle.request({ id: articleId, ...data }));
-  };
-
   const handleRedirectWriteArtilcePage = () => {
     history.push(`/write-article/${articleId}`);
   };
@@ -44,20 +32,9 @@ const ArticleDetailContainer = () => {
     dispatch(fetchArticleDetail.request(articleId));
   }, [dispatch, articleId]);
 
-  useEffect(() => {
-    articleSetValue('subject', articleDetailReducer.articleDetail.subject);
-    articleSetValue('description', articleDetailReducer.articleDetail.description);
-  }, [articleSetValue, articleDetailReducer.articleDetail]);
-
   return (
     <>
-      <ArticleDetailPresenter
-        articleFormRegister={articleFormRegister}
-        articleHandleSubmit={articleHandleSubmit}
-        handleUpdateArticleInfo={handleUpdateArticleInfo}
-        handleRedirectWriteArtilcePage={handleRedirectWriteArtilcePage}
-        articleId={articleId}
-      />
+      <ArticleDetailPresenter handleRedirectWriteArtilcePage={handleRedirectWriteArtilcePage} articleId={articleId} />
     </>
   );
 };

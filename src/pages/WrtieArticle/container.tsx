@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from 'store';
+import { fetchArticleDetail } from 'store/article/actions';
 import { updateArticle } from 'store/articleList/actions';
 import WriteArticlePresenter from './presenter';
 
@@ -21,12 +22,22 @@ const WriteArticleContainer = () => {
   const handleUpdateArticleInfo = (data: ArticleFormType) => {
     dispatch(updateArticle.request({ id: articleId, ...data }));
   };
+  useEffect(() => {
+    dispatch(fetchArticleDetail.request(articleId));
+  }, [dispatch, articleId]);
 
   useEffect(() => {
     articleSetValue('subject', articleDetailReducer.articleDetail.subject);
     articleSetValue('description', articleDetailReducer.articleDetail.description);
   }, [articleSetValue, articleDetailReducer.articleDetail]);
-  return <WriteArticlePresenter />;
+
+  return (
+    <WriteArticlePresenter
+      articleFormRegister={articleFormRegister}
+      articleHandleSubmit={articleHandleSubmit}
+      handleUpdateArticleInfo={handleUpdateArticleInfo}
+    />
+  );
 };
 
 export default WriteArticleContainer;
