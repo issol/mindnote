@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
 
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { RootState } from 'store';
 import { fetchArticleDetail } from 'store/article/actions';
-import { updateArticle } from 'store/articleList/actions';
 import ArticleDetailPresenter from './presenter';
 
 export type ArticleFormType = {

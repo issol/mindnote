@@ -1,27 +1,48 @@
-import TextInput from 'components/TextInput';
-import { ArticleFormType } from 'pages/ArticleDetail/container';
 import React from 'react';
+
+import { ArticleFormType } from 'pages/ArticleDetail/container';
+
 import styled from 'styled-components';
 
-type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
+
+type RefReturn = ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+  articleDetail: any;
   articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
   articleHandleSubmit: Function;
   handleUpdateArticleInfo: (data: ArticleFormType) => void;
 };
 
-const WriteArticlePresenter = ({ articleFormRegister, articleHandleSubmit, handleUpdateArticleInfo }: Props) => {
+const WriteArticlePresenter = ({ articleDetail, articleFormRegister, articleHandleSubmit, handleUpdateArticleInfo }: Props) => {
+  const mdParser = new MarkdownIt();
+  const handleEditorChange = ({ html, text }) => {};
+
   return (
     <WriteArticlePage>
-      <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
-        <div>
-          <input type="text" name="subject" ref={articleFormRegister({ required: true })} />
-          <input type="text" name="description" ref={articleFormRegister({ required: false })} />
-        </div>
-      </ArticleInfoForm>
+      <WrtieArticleForm>
+        <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
+          <SubjectInput
+            type="text"
+            name="subject"
+            ref={articleFormRegister({ required: true })}
+            placeholder="제목을 입력해주세요."
+          />
+          <SubjectLine />
+          <DescriptionInput
+            type="text"
+            name="description"
+            ref={articleFormRegister({ required: false })}
+            placeholder="(선택)설명을 입력해보세요."
+          />
+        </ArticleInfoForm>
+        <MdEditor style={{ height: '560px' }} renderHTML={(text) => mdParser.render(text)} onChange={handleEditorChange} />
+      </WrtieArticleForm>
 
-      <div>오예</div>
+      <NoteConnectionInfo></NoteConnectionInfo>
     </WriteArticlePage>
   );
 };
@@ -30,16 +51,40 @@ const WriteArticlePage = styled.div`
   display: flex;
 `;
 
+const WrtieArticleForm = styled.div`
+  width: 60%;
+`;
+
 const ArticleInfoForm = styled.form`
   box-sizing: border-box;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  width: 60%;
-  height: 240px;
+  margin: 50px 0 0 50px;
+  width: 100%;
+  height: 150px;
+`;
+
+const NoteConnectionInfo = styled.div`
+  background: rgb(204, 204, 204);
+  width: 40%;
 `;
 
 const SubjectInput = styled.input`
   border: none;
+  font-size: 50px;
+  outline: none;
+`;
+
+const SubjectLine = styled.div`
+  background: rgb(73, 80, 87);
+  height: 6px;
+  width: 4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 1px;
+`;
+
+const DescriptionInput = styled.input`
+  border: none;
+  outline: none;
 `;
 
 export default WriteArticlePresenter;
