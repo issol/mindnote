@@ -7,7 +7,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   mdParser: any;
-  articleDetailReducer: any;
+  articleDetail: any;
   handleEditorChange: any;
   handleSubjectChange: any;
   handleDescriptionChange: any;
@@ -15,7 +15,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 
 const WriteArticlePresenter = ({
   mdParser,
-  articleDetailReducer,
+  articleDetail,
   handleEditorChange,
   handleSubjectChange,
   handleDescriptionChange,
@@ -27,7 +27,7 @@ const WriteArticlePresenter = ({
           <SubjectInput
             type="text"
             name="subject"
-            value={articleDetailReducer.subject}
+            value={articleDetail.subject}
             onChange={handleSubjectChange}
             placeholder="제목을 입력해주세요."
           />
@@ -35,7 +35,7 @@ const WriteArticlePresenter = ({
           <DescriptionInput
             type="text"
             name="description"
-            value={articleDetailReducer.description}
+            value={articleDetail.description}
             onChange={handleDescriptionChange}
             placeholder="(선택)설명을 입력해보세요."
           />
@@ -44,7 +44,20 @@ const WriteArticlePresenter = ({
         <MdEditor style={{ height: '560px' }} renderHTML={(text) => mdParser.render(text)} onChange={handleEditorChange} />
       </WrtieArticleForm>
 
-      <NoteConnectionInfo></NoteConnectionInfo>
+      <NoteConnectionInfo>
+        {articleDetail.connections.map((conn) => {
+          return (
+            <ReasonForm key={conn.id}>
+              {conn.id} :
+              {articleDetail.notes.map((note) => {
+                if (note.id === conn.leftNote || note.id === conn.rightNote) {
+                  return <NoteForm key={note.id}>{note.contents}</NoteForm>;
+                }
+              })}
+            </ReasonForm>
+          );
+        })}
+      </NoteConnectionInfo>
     </WriteArticlePage>
   );
 };
@@ -66,6 +79,7 @@ const ArticleInfoForm = styled.div`
 
 const NoteConnectionInfo = styled.div`
   background: rgb(204, 204, 204);
+
   width: 40%;
 `;
 
@@ -87,6 +101,15 @@ const SubjectLine = styled.div`
 const DescriptionInput = styled.input`
   border: none;
   outline: none;
+`;
+
+const ReasonForm = styled.div`
+  margin: 30px 0 0 30px;
+  display: flex;
+`;
+
+const NoteForm = styled.div`
+  padding-left: 20px;
 `;
 
 export default WriteArticlePresenter;
