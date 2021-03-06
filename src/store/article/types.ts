@@ -13,6 +13,7 @@ import {
 export type ArticleDetail = {
   subject: string;
   description: string;
+  body: string;
   notes: NoteResponse[];
   connections: ConnectionResponse[];
 };

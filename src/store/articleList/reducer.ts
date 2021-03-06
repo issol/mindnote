@@ -17,6 +17,7 @@ const initialState: ArticleState = {
   articleInfo: {
     subject: '',
     description: '',
+    body: '',
   },
   articleList: [],
 };

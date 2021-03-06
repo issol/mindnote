@@ -22,6 +22,7 @@ const initialState: ArticleDetailState = {
   articleDetail: {
     subject: '',
     description: '',
+    body: '',
     notes: [],
     connections: [],
   },
