@@ -5,12 +5,14 @@ import { createArticle, deleteArticle, fetchArticleList, updateArticle } from '.
 export type ArticleInfo = {
   subject: string;
   description: string;
+  body: string;
 };
 
 export type UpdatedArticleInfo = {
   id: number;
   subject: string;
   description: string;
+  body: string;
 };
 
 export type ArticleResponse = {
@@ -18,6 +20,7 @@ export type ArticleResponse = {
   user: number;
   subject: string;
   description: string;
+  body: string;
   createdAt: string;
   updatedAt: string;
 };

@@ -55,6 +55,7 @@ const updateArticleApi = (id: number, payload: UpdatedArticleInfo) =>
   axios.patch(HOST + `/articles/${id}/`, {
     subject: payload.subject,
     description: payload.description,
+    body: payload.body,
   });
 
 function* updateArticleAsync({ payload }: ReturnType<typeof updateArticle.request>) {

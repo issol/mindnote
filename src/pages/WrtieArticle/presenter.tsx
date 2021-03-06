@@ -4,21 +4,28 @@ import styled from 'styled-components';
 
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
+import { ConnectionFormType } from 'modules/NoteGraph/container';
+import { ArticleDetailFormType, ArticleInfoType, NoteFormType } from './container';
+import MarkdownIt from 'markdown-it';
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-  mdParser: any;
-  articleDetail: any;
-  handleEditorChange: any;
-  handleSubjectChange: any;
-  handleDescriptionChange: any;
+  mdParser: MarkdownIt;
+  articleDetail: ArticleDetailFormType;
+  articleInfo: ArticleInfoType;
+  handleEditorChange: ({ text: string }) => void;
+  handleSubjectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUpdateArticleForm: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const WriteArticlePresenter = ({
   mdParser,
   articleDetail,
+  articleInfo,
   handleEditorChange,
   handleSubjectChange,
   handleDescriptionChange,
+  handleUpdateArticleForm,
 }: Props) => {
   return (
     <WriteArticlePage>
@@ -27,7 +34,7 @@ const WriteArticlePresenter = ({
           <SubjectInput
             type="text"
             name="subject"
-            value={articleDetail.subject}
+            defaultValue={articleDetail.subject}
             onChange={handleSubjectChange}
             placeholder="제목을 입력해주세요."
           />
@@ -35,21 +42,29 @@ const WriteArticlePresenter = ({
           <DescriptionInput
             type="text"
             name="description"
-            value={articleDetail.description}
+            defaultValue={articleDetail.description}
             onChange={handleDescriptionChange}
             placeholder="(선택)설명을 입력해보세요."
           />
         </ArticleInfoForm>
+        <div>
+          <MdEditor
+            style={{ height: '560px' }}
+            value={articleInfo.body}
+            renderHTML={(text) => mdParser.render(text)}
+            onChange={handleEditorChange}
+          />
+        </div>
 
-        <MdEditor style={{ height: '560px' }} renderHTML={(text) => mdParser.render(text)} onChange={handleEditorChange} />
+        <button onClick={handleUpdateArticleForm}>저장하기</button>
       </WrtieArticleForm>
 
       <NoteConnectionInfo>
-        {articleDetail.connections.map((conn) => {
+        {articleDetail.connections.map((conn: ConnectionFormType) => {
           return (
             <ReasonForm key={conn.id}>
               {conn.id} :
-              {articleDetail.notes.map((note) => {
+              {articleDetail.notes.map((note: NoteFormType) => {
                 if (note.id === conn.leftNote || note.id === conn.rightNote) {
                   return <NoteForm key={note.id}>{note.contents}</NoteForm>;
                 }
