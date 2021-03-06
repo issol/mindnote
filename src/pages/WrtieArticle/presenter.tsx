@@ -1,44 +1,46 @@
 import React from 'react';
 
-import { ArticleFormType } from 'pages/ArticleDetail/container';
-
 import styled from 'styled-components';
 
-import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
-type RefReturn = ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
-
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-  articleDetail: any;
-  articleFormRegister: ({ required }: { required?: boolean }) => RefReturn;
-  articleHandleSubmit: Function;
-  handleUpdateArticleInfo: (data: ArticleFormType) => void;
+  mdParser: any;
+  articleDetailReducer: any;
+  handleEditorChange: any;
+  handleSubjectChange: any;
+  handleDescriptionChange: any;
 };
 
-const WriteArticlePresenter = ({ articleDetail, articleFormRegister, articleHandleSubmit, handleUpdateArticleInfo }: Props) => {
-  const mdParser = new MarkdownIt();
-  const handleEditorChange = ({ html, text }) => {};
-
+const WriteArticlePresenter = ({
+  mdParser,
+  articleDetailReducer,
+  handleEditorChange,
+  handleSubjectChange,
+  handleDescriptionChange,
+}: Props) => {
   return (
     <WriteArticlePage>
       <WrtieArticleForm>
-        <ArticleInfoForm onSubmit={articleHandleSubmit(handleUpdateArticleInfo)}>
+        <ArticleInfoForm>
           <SubjectInput
             type="text"
             name="subject"
-            ref={articleFormRegister({ required: true })}
+            value={articleDetailReducer.subject}
+            onChange={handleSubjectChange}
             placeholder="제목을 입력해주세요."
           />
           <SubjectLine />
           <DescriptionInput
             type="text"
             name="description"
-            ref={articleFormRegister({ required: false })}
+            value={articleDetailReducer.description}
+            onChange={handleDescriptionChange}
             placeholder="(선택)설명을 입력해보세요."
           />
         </ArticleInfoForm>
+
         <MdEditor style={{ height: '560px' }} renderHTML={(text) => mdParser.render(text)} onChange={handleEditorChange} />
       </WrtieArticleForm>
 
@@ -55,7 +57,7 @@ const WrtieArticleForm = styled.div`
   width: 60%;
 `;
 
-const ArticleInfoForm = styled.form`
+const ArticleInfoForm = styled.div`
   box-sizing: border-box;
   margin: 50px 0 0 50px;
   width: 100%;
