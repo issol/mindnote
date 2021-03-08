@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -118,10 +118,13 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     setConnectionFormData((originData) => ({ ...originData, reason: event.target.value }));
   };
 
-  window.history.pushState(null, '', window.location.href);
+  useEffect(() => {
+    if (isOpenCreateNoteModal || isOpenUpdateNoteModal || isOpenCreateConnectionModal || isOpenUpdateConnectionModal) {
+      window.history.pushState(null, '', window.location.href);
+    }
+  }, [isOpenCreateNoteModal, isOpenUpdateNoteModal, isOpenCreateConnectionModal, isOpenUpdateConnectionModal]);
 
   window.onpopstate = () => {
-    window.history.go(1);
     setIsOpenCreateNoteModal(false);
     setIsOpenUpdateNoteModal(false);
     setIsOpenCreateConnectionModal(false);

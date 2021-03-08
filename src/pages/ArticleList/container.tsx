@@ -33,10 +33,13 @@ const ArticleListContainer = () => {
     }
   };
 
-  window.history.pushState(null, '', window.location.href);
+  useEffect(() => {
+    if (isOpenCreateArticleModal) {
+      window.history.pushState(null, '', window.location.href);
+    }
+  }, [isOpenCreateArticleModal]);
 
   window.onpopstate = () => {
-    history.go(1);
     setIsOpenCreateArticleModal(false);
   };
 
