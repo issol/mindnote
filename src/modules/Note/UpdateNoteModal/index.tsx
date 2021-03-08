@@ -7,7 +7,7 @@ import { NoteFormType } from 'modules/NoteGraph/container';
 type Props = {
   handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
   isOpenUpdateNoteModal: boolean;
-  setIsOpenUpdateNoteModal: any;
+  setIsOpenUpdateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
   data: NoteFormType;
   changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
