@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { RootState } from 'store';
 import { eraseErrorMessage, logIn } from 'store/user/actions';
 import LogInPresenter from './presenter';
-import StatusModal from 'components/StatusModal';
 import { LogInInfo } from 'store/user/types';
 
 const LogInContainer = () => {
@@ -27,16 +26,15 @@ const LogInContainer = () => {
   };
 
   return (
-    <>
-      <StatusModal
-        isOpenStatusModal={!!userReducer.errorMessage}
-        setIsOpenStatusModal={setIsOpenStatusModal}
-        statusMessage={userReducer.errorMessage}
-        onClose={handleEraseErrorMessage}
-      />
-
-      <LogInPresenter handleLogin={handleLogin} handleSubmit={handleSubmit} register={register} errors={errors} />
-    </>
+    <LogInPresenter
+      handleLogin={handleLogin}
+      handleSubmit={handleSubmit}
+      register={register}
+      errors={errors}
+      userReducer={userReducer}
+      setIsOpenStatusModal={setIsOpenStatusModal}
+      handleEraseErrorMessage={handleEraseErrorMessage}
+    />
   );
 };
 

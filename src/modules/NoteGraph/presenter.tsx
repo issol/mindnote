@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
 import './styles.css';
 
-import { Menu, Item, Separator, Submenu, useContextMenu } from 'react-contexify';
+import { Menu, Item, useContextMenu } from 'react-contexify';
 
 import 'react-contexify/dist/ReactContexify.css';
 

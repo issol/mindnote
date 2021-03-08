@@ -3,10 +3,6 @@ import React from 'react';
 import NoteGraph from 'modules/NoteGraph';
 import styled from 'styled-components';
 import Navigation from 'components/Navigation';
-import CreateNoteModal from 'modules/Note/CreateNoteModal';
-import UpdateNoteModal from 'modules/Note/UpdateNoteModal';
-import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
-import UpdateConnectionModal from 'modules/Connection/UpdateConnectionModal';
 
 type Props = {
   handleRedirectWriteArtilcePage: (event: React.MouseEvent<HTMLElement>) => void;

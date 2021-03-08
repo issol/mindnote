@@ -15,7 +15,7 @@ type Props = {
 const ArticleCard = ({ id, subject, description, handleDeleteArticle, history }: Props) => {
   return (
     <Card
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
         history.push(`/article/${id}`);
       }}
