@@ -1,5 +1,6 @@
 import Modal from 'components/Modal';
 import React from 'react';
+import styled from 'styled-components';
 
 type Props = {
   isOpenStatusModal: boolean;
@@ -12,9 +13,23 @@ const StatusModal = ({ isOpenStatusModal, setIsOpenStatusModal, statusMessage, o
   return (
     <Modal isOpen={isOpenStatusModal} setIsOpen={setIsOpenStatusModal}>
       <div>{statusMessage}</div>
-      <button onClick={onClose}>close</button>
+      <CloseStatusModalButton onClick={onClose}>close</CloseStatusModalButton>
     </Modal>
   );
 };
+
+const CloseStatusModalButton = styled.button`
+  width: 50%;
+  padding: 10px 30px;
+  margin: 30px auto 0 auto;
+
+  cursor: pointer;
+  display: block;
+
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+`;
 
 export default StatusModal;
