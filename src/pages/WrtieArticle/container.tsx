@@ -9,8 +9,6 @@ import { RootState } from 'store';
 import { fetchArticleDetail } from 'store/article/actions';
 import WriteArticlePresenter from './presenter';
 import { updateArticle } from 'store/articleList/actions';
-import articleReducer from 'store/articleList/reducer';
-import { ArticleDetail } from 'store/article/types';
 
 export type ArticleInfoType = {
   subject: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,8 @@ const LogInContainer = () => {
 
   const userReducer = useSelector((state: RootState) => state.userReducer);
 
+  const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
+
   const { register, errors, handleSubmit } = useForm<LogInInfo>();
 
   const handleLogin = (data: LogInInfo) => {
@@ -28,6 +30,7 @@ const LogInContainer = () => {
     <>
       <StatusModal
         isOpenStatusModal={!!userReducer.errorMessage}
+        setIsOpenStatusModal={setIsOpenStatusModal}
         statusMessage={userReducer.errorMessage}
         onClose={handleEraseErrorMessage}
       />

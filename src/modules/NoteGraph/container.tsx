@@ -173,6 +173,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         changeNoteFormData,
         isOpenCreateNoteModal,
         isOpenUpdateNoteModal,
+        setIsOpenCreateNoteModal,
+        setIsOpenUpdateNoteModal,
         noteFormData,
       }}
       connectionProps={{
@@ -183,6 +185,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         changeConnectionFormData,
         isOpenCreateConnectionModal,
         isOpenUpdateConnectionModal,
+        setIsOpenCreateConnectionModal,
+        setIsOpenUpdateConnectionModal,
         connectionFormData,
       }}
       visProps={{ events, graph, manipulation }}

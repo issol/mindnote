@@ -39,6 +39,7 @@ const ArticleListContainer = () => {
     <>
       <ArticleListPresenter
         isOpenCreateArticleModal={isOpenCreateArticleModal}
+        setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}
         openModalToCreateArticle={openModalToCreateArticle}
         articleList={articleReducer.articleList}
         handleCreateArticle={handleCreateArticle}
