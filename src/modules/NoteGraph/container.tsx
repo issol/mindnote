@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -37,6 +37,25 @@ export type ConnectionFormType = {
 
 export type ConnectionReason = {
   reason: string;
+};
+
+export type GraphType = {
+  nodes: { id: number; label: string }[];
+  edges: { id: number; from: number; to: number; label: string }[];
+};
+
+export type ManiPulationType = {
+  enabled: boolean;
+  initiallyActive: boolean;
+  addNode: (_nodeData: VisSelectAdd, _callback: any) => void;
+  deleteNode: (nodeData: VisSelectDelete, _callback: any) => void;
+  addEdge: (edgeData: EdgeDataType, _callback: any) => void;
+  editEdge: (edgeData: EdgeDataType, _callback: any) => void;
+  deleteEdge: (edgeData: VisSelectDelete, _callback: any) => void;
+};
+
+export type EventType = {
+  doubleClick: (event: any) => void;
 };
 
 type Props = {
@@ -97,6 +116,19 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   };
   const changeConnectionFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
     setConnectionFormData((originData) => ({ ...originData, reason: event.target.value }));
+  };
+
+  useEffect(() => {
+    if (isOpenCreateNoteModal || isOpenUpdateNoteModal || isOpenCreateConnectionModal || isOpenUpdateConnectionModal) {
+      window.history.pushState(null, '', window.location.href);
+    }
+  }, [isOpenCreateNoteModal, isOpenUpdateNoteModal, isOpenCreateConnectionModal, isOpenUpdateConnectionModal]);
+
+  window.onpopstate = () => {
+    setIsOpenCreateNoteModal(false);
+    setIsOpenUpdateNoteModal(false);
+    setIsOpenCreateConnectionModal(false);
+    setIsOpenUpdateConnectionModal(false);
   };
 
   const events = {

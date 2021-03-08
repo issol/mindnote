@@ -6,7 +6,7 @@ import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
 import UpdateConnectionModal from 'modules/Connection/UpdateConnectionModal';
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
 import UpdateNoteModal from 'modules/Note/UpdateNoteModal';
-import { ConnectionFormType, ConnectionReason, NoteFormType } from './container';
+import { ConnectionFormType, ConnectionReason, EventType, GraphType, ManiPulationType, NoteFormType } from './container';
 
 import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
@@ -40,9 +40,9 @@ type Props = {
     connectionFormData: ConnectionReason;
   };
   visProps: {
-    events: any;
-    graph: any;
-    manipulation: any;
+    events: EventType;
+    graph: GraphType;
+    manipulation: ManiPulationType;
   };
 };
 
@@ -55,37 +55,37 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
           options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
           events={visProps.events}
         />
+        <CreateNoteModal
+          isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
+          setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
+          register={noteProps.noteFormRegister}
+          handleSubmit={noteProps.noteHandleSubmit}
+          handleCreateNote={noteProps.handleCreateNote}
+        />
+        <UpdateNoteModal
+          isOpenUpdateNoteModal={noteProps.isOpenUpdateNoteModal}
+          setIsOpenUpdateNoteModal={noteProps.setIsOpenUpdateNoteModal}
+          handleUpdateNote={noteProps.handleUpdateNote}
+          data={noteProps.noteFormData}
+          changeNoteFormData={noteProps.changeNoteFormData}
+        />
+
+        <CreateConnectionModal
+          isOpenCreateConnectionModal={connectionProps.isOpenCreateConnectionModal}
+          setIsOpenCreateConnectionModal={connectionProps.setIsOpenCreateConnectionModal}
+          register={connectionProps.connectionFormRegister}
+          handleSubmit={connectionProps.connectionHandleSubmit}
+          handleCreateConnection={connectionProps.handleCreateConnection}
+        />
+
+        <UpdateConnectionModal
+          isOpenUpdateConnectionModal={connectionProps.isOpenUpdateConnectionModal}
+          setIsOpenUpdateConnectionModal={connectionProps.setIsOpenUpdateConnectionModal}
+          handleUpdateConnection={connectionProps.handleUpdateConnection}
+          data={connectionProps.connectionFormData}
+          changeConnectionFormData={connectionProps.changeConnectionFormData}
+        />
       </NoteGraphWrapper>
-      <CreateNoteModal
-        isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
-        setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
-        register={noteProps.noteFormRegister}
-        handleSubmit={noteProps.noteHandleSubmit}
-        handleCreateNote={noteProps.handleCreateNote}
-      />
-      <UpdateNoteModal
-        isOpenUpdateNoteModal={noteProps.isOpenUpdateNoteModal}
-        setIsOpenUpdateNoteModal={noteProps.setIsOpenUpdateNoteModal}
-        handleUpdateNote={noteProps.handleUpdateNote}
-        data={noteProps.noteFormData}
-        changeNoteFormData={noteProps.changeNoteFormData}
-      />
-
-      <CreateConnectionModal
-        isOpenCreateConnectionModal={connectionProps.isOpenCreateConnectionModal}
-        setIsOpenCreateConnectionModal={connectionProps.setIsOpenCreateConnectionModal}
-        register={connectionProps.connectionFormRegister}
-        handleSubmit={connectionProps.connectionHandleSubmit}
-        handleCreateConnection={connectionProps.handleCreateConnection}
-      />
-
-      <UpdateConnectionModal
-        isOpenUpdateConnectionModal={connectionProps.isOpenUpdateConnectionModal}
-        setIsOpenUpdateConnectionModal={connectionProps.setIsOpenUpdateConnectionModal}
-        handleUpdateConnection={connectionProps.handleUpdateConnection}
-        data={connectionProps.connectionFormData}
-        changeConnectionFormData={connectionProps.changeConnectionFormData}
-      />
     </>
   );
 };
