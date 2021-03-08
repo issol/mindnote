@@ -25,14 +25,10 @@ const ArticleListContainer = () => {
     dispatch(createArticle.request(data));
   };
 
-  const handleDeleteArticle = (articleId: number) => (e: any) => {
+  const handleDeleteArticle = (articleId: number) => (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
     dispatch(deleteArticle.request(articleId));
-  };
-
-  const openModalToCreateArticle = () => {
-    setIsOpenCreateArticleModal(true);
   };
 
   useEffect(() => {
@@ -44,7 +40,6 @@ const ArticleListContainer = () => {
       <ArticleListPresenter
         isOpenCreateArticleModal={isOpenCreateArticleModal}
         setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}
-        openModalToCreateArticle={openModalToCreateArticle}
         articleList={articleReducer.articleList}
         handleCreateArticle={handleCreateArticle}
         handleDeleteArticle={handleDeleteArticle}

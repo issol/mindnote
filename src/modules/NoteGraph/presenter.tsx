@@ -11,7 +11,6 @@ import { ConnectionFormType, ConnectionReason, NoteFormType } from './container'
 import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
 import './styles.css';
-import Navigation from 'components/Navigation';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 

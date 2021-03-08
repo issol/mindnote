@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 type Props = {
   isOpenStatusModal: boolean;
-  setIsOpenStatusModal: any;
+  setIsOpenStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
   statusMessage: string;
   onClose: (event: React.MouseEvent<HTMLElement>) => void;
 };

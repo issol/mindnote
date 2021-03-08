@@ -7,7 +7,7 @@ import styled from 'styled-components';
 type Props = {
   handleUpdateConnection: (event: React.MouseEvent<HTMLElement>) => void;
   isOpenUpdateConnectionModal: boolean;
-  setIsOpenUpdateConnectionModal: any;
+  setIsOpenUpdateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
   data: ConnectionReason;
   changeConnectionFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

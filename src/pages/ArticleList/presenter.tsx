@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { DeepMap, FieldError } from 'react-hook-form';
+import { RouteComponentProps } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 import ArticleCard from 'modules/Article/ArticleCard';
@@ -17,21 +19,19 @@ type InputProps = {
 
 type Props = {
   isOpenCreateArticleModal: boolean;
-  setIsOpenCreateArticleModal: any;
-  openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
+  setIsOpenCreateArticleModal: React.Dispatch<React.SetStateAction<boolean>>;
   handleCreateArticle: (data: ArticleInfo) => void;
-  handleDeleteArticle: (articleId: number) => (event: any) => void;
+  handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
   errors: DeepMap<InputProps, FieldError>;
-  history: any;
+  history: RouteComponentProps['history'];
 };
 
 const ArticleListPresenter = ({
   isOpenCreateArticleModal,
   setIsOpenCreateArticleModal,
-  openModalToCreateArticle,
   handleCreateArticle,
   handleDeleteArticle,
   articleList,
@@ -66,7 +66,7 @@ const ArticleListPresenter = ({
             />
           );
         })}
-        <CreateArticleButton onClick={openModalToCreateArticle}>+</CreateArticleButton>
+        <CreateArticleButton onClick={() => setIsOpenCreateArticleModal(true)}>+</CreateArticleButton>
       </CardWrapper>
     </Container>
   );

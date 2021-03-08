@@ -20,7 +20,7 @@ type Props = {
   handleSubmit: Function;
   handleCreateArticle: (data: ArticleInfo) => void;
   isOpenCreateArticleModal: boolean;
-  setIsOpenCreateArticleModal: any;
+  setIsOpenCreateArticleModal: React.Dispatch<React.SetStateAction<boolean>>;
   errors: DeepMap<InputProps, FieldError>;
 };
 

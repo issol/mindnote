@@ -12,7 +12,7 @@ type Props = {
   handleSubmit: Function;
   handleCreateNote: (data: NoteInfo) => void;
   isOpenCreateNoteModal: boolean;
-  setIsOpenCreateNoteModal: any;
+  setIsOpenCreateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CreateNoteModal = ({
