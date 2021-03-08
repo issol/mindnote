@@ -27,6 +27,7 @@ type Props = {
     handleCreateNote: (data: NoteFormType) => void;
     handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
     handleDeleteNote: (id: number) => void;
+    getSelectedNoteInfo: () => void;
     changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isOpenCreateNoteModal: boolean;
     isOpenUpdateNoteModal: boolean;
@@ -52,11 +53,9 @@ type Props = {
     graph: GraphType;
     manipulation: ManiPulationType;
   };
-  isOpenContextMenu: boolean;
-  setIsOpenContextMenu: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, isOpenContextMenu, setIsOpenContextMenu }: Props) => {
+const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => {
   const { show } = useContextMenu({ id: MENU_ID });
 
   return (
@@ -103,9 +102,12 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, isOpenContex
         <Item id="1" onClick={() => noteProps.setIsOpenCreateNoteModal(true)}>
           노트추가
         </Item>
-        <Separator />
+
         {noteProps.selectedNoteId >= 0 ? (
-          <Item onClick={() => noteProps.handleDeleteNote(noteProps.selectedNoteId)}>노트삭제</Item>
+          <>
+            <Item onClick={noteProps.getSelectedNoteInfo}>노트수정</Item>
+            <Item onClick={() => noteProps.handleDeleteNote(noteProps.selectedNoteId)}>노트삭제</Item>
+          </>
         ) : (
           <></>
         )}

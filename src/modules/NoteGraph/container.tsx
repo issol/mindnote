@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { RootState } from 'store';
 import { createNote, updateNote, updateConnection, deleteNote, createConnection, deleteConnection } from 'store/article/actions';
 import NoteGraphPresenter from './presenter';
-
-type VisSelectAdd = {
-  id: string;
-  x: number;
-  y: number;
-  label: string;
-};
 
 type VisSelectDelete = {
   nodes: [number];
@@ -47,8 +42,7 @@ export type GraphType = {
 export type ManiPulationType = {
   enabled: boolean;
   initiallyActive: boolean;
-  addNode: (_nodeData: VisSelectAdd, _callback: any) => void;
-  deleteNode: (nodeData: VisSelectDelete, _callback: any) => void;
+
   addEdge: (edgeData: EdgeDataType, _callback: any) => void;
   editEdge: (edgeData: EdgeDataType, _callback: any) => void;
   deleteEdge: (edgeData: VisSelectDelete, _callback: any) => void;
@@ -83,7 +77,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
   const [isOpenUpdateConnectionModal, setIsOpenUpdateConnectionModal] = useState(false);
-  const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
 
   const handleCreateNote = (data: NoteFormType) => {
     dispatch(createNote.request({ article: articleId, contents: data.contents }));
@@ -93,6 +86,14 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const handleUpdateNote = () => {
     dispatch(updateNote.request({ article: articleId, id: selectedNoteId, ...noteFormData }));
     setIsOpenUpdateNoteModal(false);
+  };
+
+  const getSelectedNoteInfo = () => {
+    const foundNote = articleDetailReducer.articleDetail.notes.find((note) => note.id === selectedNoteId);
+
+    setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
+
+    setIsOpenUpdateNoteModal(true);
   };
 
   const handleDeleteNote = (id: number) => {
@@ -148,7 +149,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         const foundNote = articleDetailReducer.articleDetail.notes.find((note) => note.id === selectedNoteId);
 
         setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
-        setSelectedNoteId(selectedNoteId);
+
         setIsOpenUpdateNoteModal(true);
       } else if (edges.length !== 0) {
         const selectedConnectionId = edges[0];
@@ -166,26 +167,15 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       }
     },
     click: (event: any) => {
-      const { nodes, edges } = event;
+      const { nodes } = event;
+
       setSelectedNoteId(nodes[0]);
     },
   };
 
-  useEffect(() => {
-    console.log(selectedNoteId);
-  }, [selectedNoteId]);
-
   const manipulation = {
     enabled: true,
     initiallyActive: true,
-    addNode: (_nodeData: VisSelectAdd, _callback: any) => setIsOpenCreateNoteModal(true),
-
-    deleteNode: (nodeData: VisSelectDelete, _callback: any) => {
-      if (window.confirm('삭제하시겠습니까?')) {
-        dispatch(deleteNote.request({ id: nodeData.nodes[0] }));
-        window.alert('삭제되었습니다.');
-      }
-    },
 
     addEdge: (edgeData: EdgeDataType, _callback: any) => {
       setConnectionInfo({ leftNote: edgeData.from, rightNote: edgeData.to });
@@ -229,6 +219,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         handleCreateNote,
         handleUpdateNote,
         handleDeleteNote,
+        getSelectedNoteInfo,
         changeNoteFormData,
         isOpenCreateNoteModal,
         isOpenUpdateNoteModal,
@@ -250,8 +241,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         connectionFormData,
       }}
       visProps={{ events, graph, manipulation }}
-      isOpenContextMenu={isOpenContextMenu}
-      setIsOpenContextMenu={setIsOpenContextMenu}
     />
   );
 };
