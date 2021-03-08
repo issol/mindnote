@@ -9,9 +9,10 @@ export const graphDefaultVisualOptions = {
   physics: {
     enabled: true,
     barnesHut: {
-      springLength: 150,
-      springConstant: 0.02,
-      avoidOverlap: 0.2,
+      centralGravity: 0,
+      gravitationalConstant: -1000,
+      springConstant: 0.0,
+      avoidOverlap: 0,
     },
   },
 

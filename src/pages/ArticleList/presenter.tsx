@@ -12,7 +12,7 @@ import { ArticleInfo, ArticleResponse } from 'store/articleList/types';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
-type InputProps = {
+type InputValueType = {
   subject: string;
   description: string;
 };
@@ -25,7 +25,7 @@ type Props = {
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
-  errors: DeepMap<InputProps, FieldError>;
+  errors: DeepMap<InputValueType, FieldError>;
   history: RouteComponentProps['history'];
 };
 

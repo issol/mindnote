@@ -13,7 +13,7 @@ const StatusModal = ({ isOpenStatusModal, setIsOpenStatusModal, statusMessage, o
   return (
     <Modal isOpen={isOpenStatusModal} setIsOpen={setIsOpenStatusModal}>
       <div>{statusMessage}</div>
-      <CloseStatusModalButton onClick={onClose}>close</CloseStatusModalButton>
+      <CloseStatusModalButton onClick={onClose}>Close</CloseStatusModalButton>
     </Modal>
   );
 };

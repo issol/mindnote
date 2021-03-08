@@ -31,11 +31,7 @@ const ArticleDetailContainer = () => {
     dispatch(fetchArticleDetail.request(articleId));
   }, [dispatch, articleId]);
 
-  return (
-    <>
-      <ArticleDetailPresenter handleRedirectWriteArtilcePage={handleRedirectWriteArtilcePage} articleId={articleId} />
-    </>
-  );
+  return <ArticleDetailPresenter handleRedirectWriteArtilcePage={handleRedirectWriteArtilcePage} articleId={articleId} />;
 };
 
 export default ArticleDetailContainer;

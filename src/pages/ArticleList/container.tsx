@@ -48,19 +48,17 @@ const ArticleListContainer = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <ArticleListPresenter
-        isOpenCreateArticleModal={isOpenCreateArticleModal}
-        setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}
-        articleList={articleReducer.articleList}
-        handleCreateArticle={handleCreateArticle}
-        handleDeleteArticle={handleDeleteArticle}
-        history={history}
-        register={register}
-        handleSubmit={handleSubmit}
-        errors={errors}
-      />
-    </>
+    <ArticleListPresenter
+      isOpenCreateArticleModal={isOpenCreateArticleModal}
+      setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}
+      articleList={articleReducer.articleList}
+      handleCreateArticle={handleCreateArticle}
+      handleDeleteArticle={handleDeleteArticle}
+      history={history}
+      register={register}
+      handleSubmit={handleSubmit}
+      errors={errors}
+    />
   );
 };
 

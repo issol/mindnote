@@ -25,16 +25,15 @@ const SignUpContainer = () => {
   };
 
   return (
-    <>
-      <StatusModal
-        isOpenStatusModal={!!userReducer.errorMessage}
-        setIsOpenStatusModal={setIsOpenStatusModal}
-        statusMessage={userReducer.errorMessage}
-        onClose={handleEraseErrorMessage}
-      />
-
-      <SignUpPresenter handelSignUp={handelSignUp} register={register} errors={errors} handleSubmit={handleSubmit} />
-    </>
+    <SignUpPresenter
+      handelSignUp={handelSignUp}
+      register={register}
+      errors={errors}
+      handleSubmit={handleSubmit}
+      userReducer={userReducer}
+      setIsOpenStatusModal={setIsOpenStatusModal}
+      handleEraseErrorMessage={handleEraseErrorMessage}
+    />
   );
 };
 

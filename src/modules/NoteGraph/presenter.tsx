@@ -12,6 +12,12 @@ import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
 import './styles.css';
 
+import { Menu, Item, useContextMenu } from 'react-contexify';
+
+import 'react-contexify/dist/ReactContexify.css';
+
+const MENU_ID = 'menu_id';
+
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
@@ -20,12 +26,15 @@ type Props = {
     noteHandleSubmit: Function;
     handleCreateNote: (data: NoteFormType) => void;
     handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
+    handleDeleteNote: (id: number) => void;
+    getSelectedNoteInfo: () => void;
     changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isOpenCreateNoteModal: boolean;
     isOpenUpdateNoteModal: boolean;
     setIsOpenCreateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     setIsOpenUpdateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     noteFormData: NoteFormType;
+    selectedNoteId: number;
   };
   connectionProps: {
     connectionFormRegister: ({ required }: { required?: boolean }) => RefReturn;
@@ -47,14 +56,17 @@ type Props = {
 };
 
 const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => {
+  const { show } = useContextMenu({ id: MENU_ID });
+
   return (
     <>
-      <NoteGraphWrapper>
+      <NoteGraphWrapper onContextMenu={show}>
         <Graph
           graph={visProps.graph}
           options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
           events={visProps.events}
         />
+
         <CreateNoteModal
           isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
           setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
@@ -86,6 +98,22 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
           changeConnectionFormData={connectionProps.changeConnectionFormData}
         />
       </NoteGraphWrapper>
+      <Menu id={MENU_ID}>
+        <Item id="1" onClick={() => noteProps.setIsOpenCreateNoteModal(true)}>
+          노트추가
+        </Item>
+
+        {noteProps.selectedNoteId >= 0 ? (
+          <>
+            <Item onClick={noteProps.getSelectedNoteInfo}>노트수정</Item>
+            <Item onClick={() => noteProps.handleDeleteNote(noteProps.selectedNoteId)}>노트삭제</Item>
+          </>
+        ) : (
+          <></>
+        )}
+
+        <Item disabled>Disabled</Item>
+      </Menu>
     </>
   );
 };
