@@ -130,8 +130,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
 
   const events = {
     doubleClick: (event: any) => {
-      console.log(event);
-
       const { nodes, edges } = event;
 
       if (nodes.length !== 0) {
