@@ -17,6 +17,7 @@ type InputProps = {
 
 type Props = {
   isOpenCreateArticleModal: boolean;
+  setIsOpenCreateArticleModal: any;
   openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (data: ArticleInfo) => void;
   handleDeleteArticle: (articleId: number) => () => void;
@@ -28,6 +29,7 @@ type Props = {
 
 const ArticleListPresenter = ({
   isOpenCreateArticleModal,
+  setIsOpenCreateArticleModal,
   openModalToCreateArticle,
   handleCreateArticle,
   handleDeleteArticle,
@@ -37,15 +39,18 @@ const ArticleListPresenter = ({
   errors,
 }: Props) => {
   return (
-    <>
-      <Navigation />
-      <CreateArticleModal
-        isOpenCreateArticleModal={isOpenCreateArticleModal}
-        register={register}
-        handleSubmit={handleSubmit}
-        handleCreateArticle={handleCreateArticle}
-        errors={errors}
-      />
+    <Container>
+      <Overlay>
+        <Navigation />
+        <CreateArticleModal
+          isOpenCreateArticleModal={isOpenCreateArticleModal}
+          setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}
+          register={register}
+          handleSubmit={handleSubmit}
+          handleCreateArticle={handleCreateArticle}
+          errors={errors}
+        />
+      </Overlay>
       <CardWrapper>
         {articleList.map((article) => {
           return (
@@ -60,9 +65,26 @@ const ArticleListPresenter = ({
         })}
         <CreateArticleButton onClick={openModalToCreateArticle}>+</CreateArticleButton>
       </CardWrapper>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
+const Overlay = styled.div`
+  position: absoulte;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+`;
 
 const CardWrapper = styled.div`
   display: flex;

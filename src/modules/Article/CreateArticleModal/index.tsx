@@ -20,12 +20,20 @@ type Props = {
   handleSubmit: Function;
   handleCreateArticle: (data: ArticleInfo) => void;
   isOpenCreateArticleModal: boolean;
+  setIsOpenCreateArticleModal: any;
   errors: DeepMap<InputProps, FieldError>;
 };
 
-const CreateArticleModal = ({ isOpenCreateArticleModal, register, handleSubmit, handleCreateArticle, errors }: Props) => {
+const CreateArticleModal = ({
+  isOpenCreateArticleModal,
+  setIsOpenCreateArticleModal,
+  register,
+  handleSubmit,
+  handleCreateArticle,
+  errors,
+}: Props) => {
   return (
-    <Modal isOpen={isOpenCreateArticleModal}>
+    <Modal isOpen={isOpenCreateArticleModal} setIsOpen={setIsOpenCreateArticleModal}>
       <form onSubmit={handleSubmit(handleCreateArticle)}>
         <TextInput
           type="text"

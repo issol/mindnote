@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,7 @@ const SignUpContainer = () => {
   const dispatch = useDispatch();
 
   const { register, errors, handleSubmit } = useForm<SignUpInfo>();
+  const [isOpenStatusModal, setIsOpenStatusModal] = useState(false);
 
   const handelSignUp = (data: SignUpInfo) => {
     dispatch(signUp.request(data));
@@ -27,6 +28,7 @@ const SignUpContainer = () => {
     <>
       <StatusModal
         isOpenStatusModal={!!userReducer.errorMessage}
+        setIsOpenStatusModal={setIsOpenStatusModal}
         statusMessage={userReducer.errorMessage}
         onClose={handleEraseErrorMessage}
       />

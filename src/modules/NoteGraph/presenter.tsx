@@ -1,15 +1,17 @@
-import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
+import React from 'react';
 
 import Graph from 'react-graph-vis';
-import './styles.css';
 
 import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
 import UpdateConnectionModal from 'modules/Connection/UpdateConnectionModal';
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
 import UpdateNoteModal from 'modules/Note/UpdateNoteModal';
-import React from 'react';
 import { ConnectionFormType, ConnectionReason, NoteFormType } from './container';
+
 import styled from 'styled-components';
+import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
+import './styles.css';
+import Navigation from 'components/Navigation';
 
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
@@ -22,6 +24,8 @@ type Props = {
     changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isOpenCreateNoteModal: boolean;
     isOpenUpdateNoteModal: boolean;
+    setIsOpenCreateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpenUpdateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     noteFormData: NoteFormType;
   };
   connectionProps: {
@@ -32,6 +36,8 @@ type Props = {
     changeConnectionFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isOpenCreateConnectionModal: boolean;
     isOpenUpdateConnectionModal: boolean;
+    setIsOpenCreateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpenUpdateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
     connectionFormData: ConnectionReason;
   };
   visProps: {
@@ -43,20 +49,24 @@ type Props = {
 
 const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => {
   return (
-    <NoteGraphWrapper>
-      <Graph
-        graph={visProps.graph}
-        options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
-        events={visProps.events}
-      />
+    <>
+      <NoteGraphWrapper>
+        <Graph
+          graph={visProps.graph}
+          options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
+          events={visProps.events}
+        />
+      </NoteGraphWrapper>
       <CreateNoteModal
         isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
+        setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
         register={noteProps.noteFormRegister}
         handleSubmit={noteProps.noteHandleSubmit}
         handleCreateNote={noteProps.handleCreateNote}
       />
       <UpdateNoteModal
         isOpenUpdateNoteModal={noteProps.isOpenUpdateNoteModal}
+        setIsOpenUpdateNoteModal={noteProps.setIsOpenUpdateNoteModal}
         handleUpdateNote={noteProps.handleUpdateNote}
         data={noteProps.noteFormData}
         changeNoteFormData={noteProps.changeNoteFormData}
@@ -64,6 +74,7 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
 
       <CreateConnectionModal
         isOpenCreateConnectionModal={connectionProps.isOpenCreateConnectionModal}
+        setIsOpenCreateConnectionModal={connectionProps.setIsOpenCreateConnectionModal}
         register={connectionProps.connectionFormRegister}
         handleSubmit={connectionProps.connectionHandleSubmit}
         handleCreateConnection={connectionProps.handleCreateConnection}
@@ -71,18 +82,18 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
 
       <UpdateConnectionModal
         isOpenUpdateConnectionModal={connectionProps.isOpenUpdateConnectionModal}
+        setIsOpenUpdateConnectionModal={connectionProps.setIsOpenUpdateConnectionModal}
         handleUpdateConnection={connectionProps.handleUpdateConnection}
         data={connectionProps.connectionFormData}
         changeConnectionFormData={connectionProps.changeConnectionFormData}
       />
-    </NoteGraphWrapper>
+    </>
   );
 };
 
 const NoteGraphWrapper = styled.div`
-  width: 70%;
+  width: 80%;
   box-sizing: border-box;
-
   margin: 0 auto;
 `;
 
