@@ -20,11 +20,12 @@ type Props = {
   setIsOpenCreateArticleModal: any;
   openModalToCreateArticle: (event: React.MouseEvent<HTMLElement>) => void;
   handleCreateArticle: (data: ArticleInfo) => void;
-  handleDeleteArticle: (articleId: number) => () => void;
+  handleDeleteArticle: (articleId: number) => (event: any) => void;
   articleList: ArticleResponse[];
   handleSubmit: Function;
   register: ({ required }: { required?: boolean }) => RefReturn;
   errors: DeepMap<InputProps, FieldError>;
+  history: any;
 };
 
 const ArticleListPresenter = ({
@@ -37,6 +38,7 @@ const ArticleListPresenter = ({
   register,
   handleSubmit,
   errors,
+  history,
 }: Props) => {
   return (
     <Container>
@@ -60,6 +62,7 @@ const ArticleListPresenter = ({
               subject={article.subject}
               description={article.description}
               handleDeleteArticle={handleDeleteArticle}
+              history={history}
             />
           );
         })}

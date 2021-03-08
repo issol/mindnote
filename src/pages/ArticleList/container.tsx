@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { RootState } from 'store';
 
@@ -15,6 +16,7 @@ const ArticleListContainer = () => {
   const { register, handleSubmit, errors } = useForm<ArticleInfo>();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const articleReducer = useSelector((state: RootState) => state.articleReducer);
 
@@ -23,7 +25,9 @@ const ArticleListContainer = () => {
     dispatch(createArticle.request(data));
   };
 
-  const handleDeleteArticle = (articleId: number) => () => {
+  const handleDeleteArticle = (articleId: number) => (e: any) => {
+    e.stopPropagation();
+
     dispatch(deleteArticle.request(articleId));
   };
 
@@ -44,6 +48,7 @@ const ArticleListContainer = () => {
         articleList={articleReducer.articleList}
         handleCreateArticle={handleCreateArticle}
         handleDeleteArticle={handleDeleteArticle}
+        history={history}
         register={register}
         handleSubmit={handleSubmit}
         errors={errors}
