@@ -12,7 +12,7 @@ const Modal = ({ isOpen, children, setIsOpen }: Props) => {
   return isOpen ? (
     <Container>
       <Overlay
-        onClick={(event) => {
+        onClick={() => {
           setIsOpen(false);
         }}
       />

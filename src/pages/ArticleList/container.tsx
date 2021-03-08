@@ -33,6 +33,13 @@ const ArticleListContainer = () => {
     }
   };
 
+  window.history.pushState(null, '', window.location.href);
+
+  window.onpopstate = () => {
+    history.go(1);
+    setIsOpenCreateArticleModal(false);
+  };
+
   useEffect(() => {
     dispatch(fetchArticleList.request());
   }, [dispatch]);

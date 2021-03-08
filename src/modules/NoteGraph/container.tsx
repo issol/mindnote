@@ -39,6 +39,25 @@ export type ConnectionReason = {
   reason: string;
 };
 
+export type GraphType = {
+  nodes: { id: number; label: string }[];
+  edges: { id: number; from: number; to: number; label: string }[];
+};
+
+export type ManiPulationType = {
+  enabled: boolean;
+  initiallyActive: boolean;
+  addNode: (_nodeData: VisSelectAdd, _callback: any) => void;
+  deleteNode: (nodeData: VisSelectDelete, _callback: any) => void;
+  addEdge: (edgeData: EdgeDataType, _callback: any) => void;
+  editEdge: (edgeData: EdgeDataType, _callback: any) => void;
+  deleteEdge: (edgeData: VisSelectDelete, _callback: any) => void;
+};
+
+export type EventType = {
+  doubleClick: (event: any) => void;
+};
+
 type Props = {
   articleId: number;
 };
@@ -99,8 +118,20 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     setConnectionFormData((originData) => ({ ...originData, reason: event.target.value }));
   };
 
+  window.history.pushState(null, '', window.location.href);
+
+  window.onpopstate = () => {
+    window.history.go(1);
+    setIsOpenCreateNoteModal(false);
+    setIsOpenUpdateNoteModal(false);
+    setIsOpenCreateConnectionModal(false);
+    setIsOpenUpdateConnectionModal(false);
+  };
+
   const events = {
     doubleClick: (event: any) => {
+      console.log(event);
+
       const { nodes, edges } = event;
 
       if (nodes.length !== 0) {
