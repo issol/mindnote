@@ -132,7 +132,12 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     initiallyActive: true,
     addNode: (_nodeData: VisSelectAdd, _callback: any) => setIsOpenCreateNoteModal(true),
 
-    deleteNode: (nodeData: VisSelectDelete, _callback: any) => dispatch(deleteNote.request({ id: nodeData.nodes[0] })),
+    deleteNode: (nodeData: VisSelectDelete, _callback: any) => {
+      if (window.confirm('삭제하시겠습니까?')) {
+        dispatch(deleteNote.request({ id: nodeData.nodes[0] }));
+        window.alert('삭제되었습니다.');
+      }
+    },
 
     addEdge: (edgeData: EdgeDataType, _callback: any) => {
       setConnectionInfo({ leftNote: edgeData.from, rightNote: edgeData.to });
@@ -150,7 +155,12 @@ const NoteGraphContainer = ({ articleId }: Props) => {
 
       setIsOpenUpdateConnectionModal(true);
     },
-    deleteEdge: (edgeData: VisSelectDelete, _callback: any) => dispatch(deleteConnection.request({ id: edgeData.edges[0] })),
+    deleteEdge: (edgeData: VisSelectDelete, _callback: any) => {
+      if (window.confirm('삭제하시겠습니까?')) {
+        dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
+        window.alert('삭제되었습니다.');
+      }
+    },
   };
 
   const graph = {

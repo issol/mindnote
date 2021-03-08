@@ -27,8 +27,10 @@ const ArticleListContainer = () => {
 
   const handleDeleteArticle = (articleId: number) => (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-
-    dispatch(deleteArticle.request(articleId));
+    if (window.confirm('삭제하시겠습니까?')) {
+      dispatch(deleteArticle.request(articleId));
+      window.alert('삭제되었습니다.');
+    }
   };
 
   useEffect(() => {

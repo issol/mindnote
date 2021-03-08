@@ -93,7 +93,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
 
-  padding: 50px;
+  padding: 30px;
   padding-top: 70px;
 
   width: 100%;
@@ -104,7 +104,7 @@ const CreateArticleButton = styled.button`
   background-color: white;
   color: #adaeb9;
 
-  width: 300px;
+  width: 280px;
 
   margin-bottom: 70px;
   padding: 20px;
