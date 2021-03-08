@@ -44,7 +44,7 @@ const deleteArticleApi = (id: number) => axios.delete(HOST + `/articles/${id}/`)
 function* deleteArticleAsync({ payload }: ReturnType<typeof deleteArticle.request>) {
   try {
     yield call(deleteArticleApi, payload);
-    window.location.href = '/article-list';
+
     yield put(deleteArticle.success(payload));
   } catch (e) {
     yield put(deleteArticle.failure());

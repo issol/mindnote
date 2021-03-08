@@ -2,17 +2,24 @@ import React from 'react';
 
 import styled from 'styled-components';
 import trashBasketImage from 'assets/images/trashBasket.png';
+import { Redirect, useHistory } from 'react-router-dom';
 
 type Props = {
   id: number;
   subject: string;
   description: string;
   handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
+  history: any;
 };
 
-const ArticleCard = ({ id, subject, description, handleDeleteArticle }: Props) => {
+const ArticleCard = ({ id, subject, description, handleDeleteArticle, history }: Props) => {
   return (
-    <Card>
+    <Card
+      onClick={(e) => {
+        e.stopPropagation();
+        history.push(`/article/${id}`);
+      }}
+    >
       <ArticleForm>
         <ArticleTitle>{subject}</ArticleTitle>
         <SubjectLine />
