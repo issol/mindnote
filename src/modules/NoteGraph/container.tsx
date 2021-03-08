@@ -95,6 +95,13 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     setIsOpenUpdateNoteModal(false);
   };
 
+  const handleDeleteNote = (id: number) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      dispatch(deleteNote.request({ id: id }));
+      window.alert('삭제되었습니다.');
+    }
+  };
+
   const changeNoteFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNoteFormData((originValue) => ({ ...originValue, contents: event.target.value }));
   };
@@ -137,7 +144,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       const { nodes, edges } = event;
 
       if (nodes.length !== 0) {
-        const selectedNoteId = nodes[0];
+        setSelectedNoteId(nodes[0]);
         const foundNote = articleDetailReducer.articleDetail.notes.find((note) => note.id === selectedNoteId);
 
         setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
@@ -158,7 +165,15 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         setIsOpenUpdateConnectionModal(true);
       }
     },
+    click: (event: any) => {
+      const { nodes, edges } = event;
+      setSelectedNoteId(nodes[0]);
+    },
   };
+
+  useEffect(() => {
+    console.log(selectedNoteId);
+  }, [selectedNoteId]);
 
   const manipulation = {
     enabled: true,
@@ -213,12 +228,14 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         noteHandleSubmit,
         handleCreateNote,
         handleUpdateNote,
+        handleDeleteNote,
         changeNoteFormData,
         isOpenCreateNoteModal,
         isOpenUpdateNoteModal,
         setIsOpenCreateNoteModal,
         setIsOpenUpdateNoteModal,
         noteFormData,
+        selectedNoteId,
       }}
       connectionProps={{
         connectionFormRegister,

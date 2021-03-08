@@ -56,7 +56,8 @@ div.vis-manipulation {
   width: 100%;
   height: 28px;
 }
-div.vis-manipulation button.vis-add {
+div.vis-manipulation button.vis-add,
+button.vis-delete {
   display: none;
 }
 

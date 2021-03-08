@@ -26,12 +26,14 @@ type Props = {
     noteHandleSubmit: Function;
     handleCreateNote: (data: NoteFormType) => void;
     handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
+    handleDeleteNote: (id: number) => void;
     changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isOpenCreateNoteModal: boolean;
     isOpenUpdateNoteModal: boolean;
     setIsOpenCreateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     setIsOpenUpdateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     noteFormData: NoteFormType;
+    selectedNoteId: number;
   };
   connectionProps: {
     connectionFormRegister: ({ required }: { required?: boolean }) => RefReturn;
@@ -101,8 +103,13 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, isOpenContex
         <Item id="1" onClick={() => noteProps.setIsOpenCreateNoteModal(true)}>
           노트추가
         </Item>
-
         <Separator />
+        {noteProps.selectedNoteId >= 0 ? (
+          <Item onClick={() => noteProps.handleDeleteNote(noteProps.selectedNoteId)}>노트삭제</Item>
+        ) : (
+          <></>
+        )}
+
         <Item disabled>Disabled</Item>
       </Menu>
     </>
