@@ -12,6 +12,12 @@ import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
 import './styles.css';
 
+import { Menu, Item, Separator, Submenu, useContextMenu } from 'react-contexify';
+
+import 'react-contexify/dist/ReactContexify.css';
+
+const MENU_ID = 'menu_id';
+
 type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
 
 type Props = {
@@ -44,17 +50,22 @@ type Props = {
     graph: GraphType;
     manipulation: ManiPulationType;
   };
+  isOpenContextMenu: boolean;
+  setIsOpenContextMenu: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => {
+const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, isOpenContextMenu, setIsOpenContextMenu }: Props) => {
+  const { show } = useContextMenu({ id: MENU_ID });
+
   return (
     <>
-      <NoteGraphWrapper>
+      <NoteGraphWrapper onContextMenu={show}>
         <Graph
           graph={visProps.graph}
           options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
           events={visProps.events}
         />
+
         <CreateNoteModal
           isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
           setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
@@ -86,6 +97,14 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
           changeConnectionFormData={connectionProps.changeConnectionFormData}
         />
       </NoteGraphWrapper>
+      <Menu id={MENU_ID}>
+        <Item id="1" onClick={() => noteProps.setIsOpenCreateNoteModal(true)}>
+          노트추가
+        </Item>
+
+        <Separator />
+        <Item disabled>Disabled</Item>
+      </Menu>
     </>
   );
 };

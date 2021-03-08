@@ -15,6 +15,9 @@ div.vis-button {
   -ms-user-select: none;
   user-select: none;
 }
+div.vis-network {
+  outline: none;
+}
 
 div.vis-button:hover {
   box-shadow: 0 0 3px 3px rgba(56, 207, 21, 0.3);
@@ -30,7 +33,6 @@ div.vis-manipulation {
   border-bottom: 1px;
   border-style: solid;
   border-color: #d6d9d8;
-  background: #ffffff; /* Old browsers */
   background: -moz-linear-gradient(top, #ffffff 0%, #fcfcfc 48%, #fafafa 50%, #fcfcfc 100%); /* FF3.6+ */
   background: -webkit-gradient(
     linear,
@@ -46,13 +48,16 @@ div.vis-manipulation {
   background: -ms-linear-gradient(top, #ffffff 0%, #fcfcfc 48%, #fafafa 50%, #fcfcfc 100%); /* IE10+ */
   background: linear-gradient(to bottom, #ffffff 0%, #fcfcfc 48%, #fafafa 50%, #fcfcfc 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
-
+  outline: none;
   padding-top: 4px;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 28px;
+}
+div.vis-manipulation button.vis-add {
+  display: none;
 }
 
 div.vis-manipulation button.vis-button,

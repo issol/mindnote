@@ -83,6 +83,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
   const [isOpenUpdateConnectionModal, setIsOpenUpdateConnectionModal] = useState(false);
+  const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
 
   const handleCreateNote = (data: NoteFormType) => {
     dispatch(createNote.request({ article: articleId, contents: data.contents }));
@@ -232,6 +233,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         connectionFormData,
       }}
       visProps={{ events, graph, manipulation }}
+      isOpenContextMenu={isOpenContextMenu}
+      setIsOpenContextMenu={setIsOpenContextMenu}
     />
   );
 };
