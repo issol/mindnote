@@ -4,8 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navigation = () => {
   const HandleLogOut = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
+    if (window.confirm('로그아웃하시겠습니까?')) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
   };
   return (
     <>
@@ -17,14 +19,10 @@ const Navigation = () => {
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Button variant="outline-dark" size="sm" onClick={HandleLogOut}>
