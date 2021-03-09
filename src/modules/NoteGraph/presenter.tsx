@@ -22,9 +22,7 @@ type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.
 
 type Props = {
   noteProps: {
-    noteFormRegister: ({ required }: { required?: boolean }) => RefReturn;
-    noteHandleSubmit: Function;
-    handleCreateNote: (data: NoteFormType) => void;
+    handleCreateNote: () => void;
     handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
     handleDeleteNote: (id: number) => void;
     getSelectedNoteInfo: () => void;
@@ -70,9 +68,8 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
         <CreateNoteModal
           isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
           setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
-          register={noteProps.noteFormRegister}
-          handleSubmit={noteProps.noteHandleSubmit}
           handleCreateNote={noteProps.handleCreateNote}
+          changeNoteFormData={noteProps.changeNoteFormData}
         />
         <UpdateNoteModal
           isOpenUpdateNoteModal={noteProps.isOpenUpdateNoteModal}

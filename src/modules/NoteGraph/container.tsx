@@ -78,8 +78,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
   const [isOpenUpdateConnectionModal, setIsOpenUpdateConnectionModal] = useState(false);
 
-  const handleCreateNote = (data: NoteFormType) => {
-    dispatch(createNote.request({ article: articleId, contents: data.contents }));
+  const handleCreateNote = () => {
+    dispatch(createNote.request({ article: articleId, contents: noteFormData.contents }));
     setIsOpenCreateNoteModal(false);
   };
 
@@ -213,8 +213,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   return (
     <NoteGraphPresenter
       noteProps={{
-        noteFormRegister,
-        noteHandleSubmit,
         handleCreateNote,
         handleUpdateNote,
         handleDeleteNote,

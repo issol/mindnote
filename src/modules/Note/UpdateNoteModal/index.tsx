@@ -66,17 +66,16 @@ const ButtonForm = styled.div`
 `;
 
 const InputContentForm = styled.textarea`
-
   display: block;
   box-sizing: border-box;
   width: 100%;
   height: 270px;
-  border:none;
-  outline:none;
-  padding : 0 10px 0 10px;
+  border: none;
+  outline: none;
+  padding: 0 10px 0 10px;
   margin-bottom: 10px;
   font-size: 30px;
-}
+  resize: none;
 `;
 
 export default UpdateNoteModal;
