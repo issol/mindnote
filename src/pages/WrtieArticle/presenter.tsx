@@ -7,9 +7,11 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { ConnectionFormType } from 'modules/NoteGraph/container';
 import { ArticleDetailFormType, ArticleInfoType, NoteFormType } from './container';
 import MarkdownIt from 'markdown-it';
+import { RouteComponentProps } from 'react-router-dom';
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   mdParser: MarkdownIt;
+  history: RouteComponentProps['history'];
   articleDetail: ArticleDetailFormType;
   articleInfo: ArticleInfoType;
   handleEditorChange: ({ text: string }) => void;
@@ -20,6 +22,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 
 const WriteArticlePresenter = ({
   mdParser,
+  history,
   articleDetail,
   articleInfo,
   handleEditorChange,
@@ -55,8 +58,10 @@ const WriteArticlePresenter = ({
             onChange={handleEditorChange}
           />
         </div>
-
-        <button onClick={handleUpdateArticleForm}>저장하기</button>
+        <ButtonForm>
+          <GoBackButton onClick={() => history.goBack()}>뒤로가기</GoBackButton>
+          <PublishArticleButton onClick={handleUpdateArticleForm}>출간하기</PublishArticleButton>
+        </ButtonForm>
       </WrtieArticleForm>
 
       <NoteConnectionInfo>
@@ -82,20 +87,20 @@ const WriteArticlePage = styled.div`
 `;
 
 const WrtieArticleForm = styled.div`
-  width: 60%;
+  width: 70%;
 `;
 
 const ArticleInfoForm = styled.div`
   box-sizing: border-box;
   margin: 50px 0 0 50px;
   width: 100%;
-  height: 150px;
+  height: 160px;
 `;
 
 const NoteConnectionInfo = styled.div`
   background: rgb(204, 204, 204);
 
-  width: 40%;
+  width: 30%;
 `;
 
 const SubjectInput = styled.input`
@@ -125,6 +130,32 @@ const ReasonForm = styled.div`
 
 const NoteForm = styled.div`
   padding-left: 20px;
+`;
+
+const ButtonForm = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  margin: 5px 10px 10px 0;
+`;
+
+const GoBackButton = styled.button`
+  width: 20%;
+  outline: none;
+
+  background-color: white;
+  border: none;
+  padding: 10px 30px;
+`;
+
+const PublishArticleButton = styled.button`
+  width: 20%;
+  padding: 10px 30px;
+
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
 `;
 
 export default WriteArticlePresenter;

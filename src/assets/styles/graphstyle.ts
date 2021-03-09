@@ -47,7 +47,7 @@ export const graphDefaultVisualOptions = {
     },
     widthConstraint: {
       minimum: 100,
-      maximum: 500,
+      maximum: 150,
     },
     heightConstraint: {
       minimum: 50,

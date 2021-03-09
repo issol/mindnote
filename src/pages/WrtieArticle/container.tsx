@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import MarkdownIt from 'markdown-it';
 
 import { ParamType } from 'pages/ArticleDetail/container';
@@ -32,6 +32,7 @@ export type ArticleDetailFormType = {
 const WriteArticleContainer = () => {
   const articleId = Number(useParams<ParamType>().id);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
 
@@ -87,6 +88,7 @@ const WriteArticleContainer = () => {
   return (
     <WriteArticlePresenter
       mdParser={mdParser}
+      history={history}
       articleDetail={articleDetail}
       articleInfo={articleInfo}
       handleEditorChange={handleEditorChange}
