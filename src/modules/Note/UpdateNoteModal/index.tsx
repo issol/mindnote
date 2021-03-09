@@ -10,7 +10,7 @@ type Props = {
   isOpenUpdateNoteModal: boolean;
   setIsOpenUpdateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
   data: NoteFormType;
-  changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeNoteFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 const UpdateNoteModal = ({
@@ -22,7 +22,12 @@ const UpdateNoteModal = ({
 }: Props) => {
   return (
     <Modal isOpen={isOpenUpdateNoteModal} setIsOpen={setIsOpenUpdateNoteModal}>
-      <InputContentForm type="text" value={data.contents} onChange={changeNoteFormData} placeholder="노트를 채워주세요." />
+      <InputContentForm
+        value={data.contents}
+        onChange={changeNoteFormData}
+        placeholder="노트를 채워주세요.   (100자)"
+        maxLength={100}
+      />
       <ButtonForm>
         <CancelUpdateButton onClick={() => setIsOpenUpdateNoteModal(false)}>취소</CancelUpdateButton>
         <UpdateNoteButton onClick={handleUpdateNote}>저장</UpdateNoteButton>
@@ -35,10 +40,7 @@ const UpdateNoteButton = styled.button`
   width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
-
   cursor: pointer;
-  display: block;
-
   background: linear-gradient(to right, #ff105f, #ffad06);
   border: 0;
   outline: none;
@@ -51,7 +53,6 @@ const CancelUpdateButton = styled.button`
   margin: 30px auto 0 auto;
 
   cursor: pointer;
-  display: block;
 
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
   border: 0;
@@ -64,14 +65,15 @@ const ButtonForm = styled.div`
   display: flex;
 `;
 
-const InputContentForm = styled.input`
+const InputContentForm = styled.textarea`
 
   display: block;
   box-sizing: border-box;
   width: 100%;
+  height: 270px;
   border:none;
   outline:none;
-  padding: 10px 15px;
+  padding : 0 10px 0 10px;
   margin-bottom: 10px;
   font-size: 30px;
 }
