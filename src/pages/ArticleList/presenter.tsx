@@ -110,7 +110,7 @@ const CreateArticleButton = styled.button`
   padding: 20px;
 
   font-size: 50px;
-
+  cursor: pointer;
   outline: none;
   border: white;
   border-radius: 10px;
