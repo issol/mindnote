@@ -6,7 +6,7 @@ import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
 import UpdateConnectionModal from 'modules/Connection/UpdateConnectionModal';
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
 import UpdateNoteModal from 'modules/Note/UpdateNoteModal';
-import { ConnectionFormType, ConnectionReason, EventType, GraphType, ManiPulationType, NoteFormType } from './container';
+import { ConnectionFormType, EventType, GraphType, ManiPulationType, NoteFormType } from './container';
 
 import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
@@ -18,13 +18,9 @@ import 'react-contexify/dist/ReactContexify.css';
 
 const MENU_ID = 'menu_id';
 
-type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
-
 type Props = {
   noteProps: {
-    noteFormRegister: ({ required }: { required?: boolean }) => RefReturn;
-    noteHandleSubmit: Function;
-    handleCreateNote: (data: NoteFormType) => void;
+    handleCreateNote: () => void;
     handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
     handleDeleteNote: (id: number) => void;
     getSelectedNoteInfo: () => void;
@@ -37,16 +33,14 @@ type Props = {
     selectedNoteId: number;
   };
   connectionProps: {
-    connectionFormRegister: ({ required }: { required?: boolean }) => RefReturn;
-    connectionHandleSubmit: Function;
-    handleCreateConnection: (data: ConnectionFormType) => void;
+    handleCreateConnection: () => void;
     handleUpdateConnection: (event: React.MouseEvent<HTMLElement>) => void;
     changeConnectionFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     isOpenCreateConnectionModal: boolean;
     isOpenUpdateConnectionModal: boolean;
     setIsOpenCreateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
     setIsOpenUpdateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
-    connectionFormData: ConnectionReason;
+    connectionFormData: ConnectionFormType;
   };
   visProps: {
     events: EventType;
@@ -70,9 +64,8 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
         <CreateNoteModal
           isOpenCreateNoteModal={noteProps.isOpenCreateNoteModal}
           setIsOpenCreateNoteModal={noteProps.setIsOpenCreateNoteModal}
-          register={noteProps.noteFormRegister}
-          handleSubmit={noteProps.noteHandleSubmit}
           handleCreateNote={noteProps.handleCreateNote}
+          changeNoteFormData={noteProps.changeNoteFormData}
         />
         <UpdateNoteModal
           isOpenUpdateNoteModal={noteProps.isOpenUpdateNoteModal}
@@ -85,9 +78,8 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
         <CreateConnectionModal
           isOpenCreateConnectionModal={connectionProps.isOpenCreateConnectionModal}
           setIsOpenCreateConnectionModal={connectionProps.setIsOpenCreateConnectionModal}
-          register={connectionProps.connectionFormRegister}
-          handleSubmit={connectionProps.connectionHandleSubmit}
           handleCreateConnection={connectionProps.handleCreateConnection}
+          changeConnectionFormData={connectionProps.changeConnectionFormData}
         />
 
         <UpdateConnectionModal
