@@ -119,9 +119,8 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
 };
 
 const NoteGraphWrapper = styled.div`
-  width: 80%;
+  width: 100%;
   box-sizing: border-box;
-  margin: 0 auto;
 `;
 
 export default NoteGraphPresenter;

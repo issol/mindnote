@@ -36,7 +36,7 @@ export type ConnectionReason = {
 
 export type GraphType = {
   nodes: { id: number; label: string }[];
-  edges: { id: number; from: number; to: number; label: string }[];
+  edges: { id: number; from: number; to: number }[];
 };
 
 export type ManiPulationType = {
@@ -207,7 +207,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       id: connection.id,
       from: connection.leftNote,
       to: connection.rightNote,
-      label: connection.reason,
     })),
   };
 

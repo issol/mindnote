@@ -21,7 +21,7 @@ const UpdateConnectionModal = ({
 }: Props) => {
   return (
     <Modal isOpen={isOpenUpdateConnectionModal} setIsOpen={setIsOpenUpdateConnectionModal}>
-      <input type="text" value={data.reason} onChange={changeConnectionFormData} />
+      <InputContentForm type="text" value={data.reason} onChange={changeConnectionFormData} />
 
       <CreateConnectionButton onClick={handleUpdateConnection}>save</CreateConnectionButton>
     </Modal>
@@ -40,6 +40,19 @@ const CreateConnectionButton = styled.button`
   border: 0;
   outline: none;
   border-radius: 30px;
+`;
+
+const InputContentForm = styled.input`
+
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid black;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
 `;
 
 export default UpdateConnectionModal;
