@@ -103,7 +103,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     }
   };
 
-  const changeNoteFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeNoteFormData = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNoteFormData((originValue) => ({ ...originValue, contents: event.target.value }));
   };
 
@@ -123,7 +123,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     dispatch(updateConnection.request({ article: articleId, ...connectionFormData }));
     setIsOpenUpdateConnectionModal(false);
   };
-  const changeConnectionFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeConnectionFormData = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setConnectionFormData((originData) => ({ ...originData, reason: event.target.value }));
   };
 

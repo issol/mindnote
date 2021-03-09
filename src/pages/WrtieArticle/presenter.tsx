@@ -68,7 +68,7 @@ const WriteArticlePresenter = ({
         {articleDetail.connections.map((conn: ConnectionFormType) => {
           return (
             <ReasonForm key={conn.id}>
-              {conn.id} :
+              {conn.reason} :
               {articleDetail.notes.map((note: NoteFormType) => {
                 if (note.id === conn.leftNote || note.id === conn.rightNote) {
                   return <NoteForm key={note.id}>{note.contents}</NoteForm>;
@@ -87,7 +87,7 @@ const WriteArticlePage = styled.div`
 `;
 
 const WrtieArticleForm = styled.div`
-  width: 70%;
+  width: 65%;
 `;
 
 const ArticleInfoForm = styled.div`
@@ -100,7 +100,7 @@ const ArticleInfoForm = styled.div`
 const NoteConnectionInfo = styled.div`
   background: rgb(204, 204, 204);
 
-  width: 30%;
+  width: 35%;
 `;
 
 const SubjectInput = styled.input`

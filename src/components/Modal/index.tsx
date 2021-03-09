@@ -54,10 +54,9 @@ const Contents = styled.div`
   text-align: center;
   width: 360px;
   max-width: 480px;
-  height: 250px;
-  transform: translateY(-50%);
+  height: 400px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 30px 20px;
 `;
 
 export default Modal;

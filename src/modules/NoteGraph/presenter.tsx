@@ -28,7 +28,7 @@ type Props = {
     handleUpdateNote: (event: React.MouseEvent<HTMLElement>) => void;
     handleDeleteNote: (id: number) => void;
     getSelectedNoteInfo: () => void;
-    changeNoteFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    changeNoteFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     isOpenCreateNoteModal: boolean;
     isOpenUpdateNoteModal: boolean;
     setIsOpenCreateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,7 +41,7 @@ type Props = {
     connectionHandleSubmit: Function;
     handleCreateConnection: (data: ConnectionFormType) => void;
     handleUpdateConnection: (event: React.MouseEvent<HTMLElement>) => void;
-    changeConnectionFormData: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    changeConnectionFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     isOpenCreateConnectionModal: boolean;
     isOpenUpdateConnectionModal: boolean;
     setIsOpenCreateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
