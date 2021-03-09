@@ -1,14 +1,17 @@
 import React from 'react';
 
 import Modal from 'components/Modal';
-import { ConnectionReason } from 'modules/NoteGraph/container';
+import { ConnectionFormType } from 'modules/NoteGraph/container';
 import styled from 'styled-components';
+import clockImage from 'assets/images/clock.svg';
+
+import Moment from 'react-moment';
 
 type Props = {
   handleUpdateConnection: (event: React.MouseEvent<HTMLElement>) => void;
   isOpenUpdateConnectionModal: boolean;
   setIsOpenUpdateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
-  data: ConnectionReason;
+  data: ConnectionFormType;
   changeConnectionFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
@@ -26,6 +29,13 @@ const UpdateConnectionModal = ({
         onChange={changeConnectionFormData}
         placeholder="노트간의 연결점을 생각해서 작성해주세요.(200자)"
       />
+
+      <DateForm>
+        <CreatedAt></CreatedAt>
+        <CreatedText>Date Created </CreatedText>
+        <Moment format="MM/DD , YYYY HH:mm">{data.createdAt}</Moment>
+      </DateForm>
+
       <ButtonForm>
         <CancleUpdateButton onClick={() => setIsOpenUpdateConnectionModal(false)}>취소</CancleUpdateButton>
         <UpdateConnectionButton onClick={handleUpdateConnection}>저장</UpdateConnectionButton>
@@ -37,9 +47,8 @@ const UpdateConnectionModal = ({
 const UpdateConnectionButton = styled.button`
   width: 40%;
   padding: 10px 30px;
-  margin: 30px auto 0 auto;
-
-  cursor: pointer;
+  margin: 0 auto;
+  height: 40px;
   display: block;
 
   background: linear-gradient(to right, #ff105f, #ffad06);
@@ -51,9 +60,8 @@ const UpdateConnectionButton = styled.button`
 const CancleUpdateButton = styled.button`
   width: 40%;
   padding: 10px 30px;
-  margin: 30px auto 0 auto;
-
-  cursor: pointer;
+  margin: 0 auto;
+  height: 40px;
 
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
   border: 0;
@@ -72,12 +80,29 @@ const InputContentForm = styled.textarea`
   padding: 0 10px 0 10px
   margin-bottom: 10px;
   font-size: 30px;
-}
+  resize : none;
+
 `;
 
 const ButtonForm = styled.div`
   display: flex;
   width: 100%;
+`;
+
+const DateForm = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const CreatedAt = styled.div`
+  background-image: url(${clockImage});
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
+
+const CreatedText = styled.p`
+  margin-right: 20px;
 `;
 
 export default UpdateConnectionModal;

@@ -26,7 +26,7 @@ export type ArticleDetailFormType = {
   description: string;
   body: string;
   notes: { id: number; contents: string }[];
-  connections: { id: number; leftNote: number; rightNote: number; reason: string }[];
+  connections: { id: number; leftNote: number; rightNote: number; reason: string; createdAt: string }[];
 };
 
 const WriteArticleContainer = () => {
@@ -54,6 +54,7 @@ const WriteArticleContainer = () => {
       leftNote: connection.leftNote,
       rightNote: connection.rightNote,
       reason: connection.reason,
+      createdAt: connection.createdAt,
     })),
   };
 

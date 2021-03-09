@@ -1,38 +1,38 @@
 import Modal from 'components/Modal';
-import TextInput from 'components/TextInput';
-import { ConnectionFormType } from 'modules/NoteGraph/container';
+
 import React from 'react';
 import styled from 'styled-components';
 
-type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
-
 type Props = {
-  register: ({ required }: { required?: boolean }) => RefReturn;
-  handleSubmit: Function;
-  handleCreateConnection: (data: ConnectionFormType) => void;
+  handleCreateConnection: () => void;
   isOpenCreateConnectionModal: boolean;
   setIsOpenCreateConnectionModal: React.Dispatch<React.SetStateAction<boolean>>;
+  changeConnectionFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 const CreateConnectionModal = ({
   isOpenCreateConnectionModal,
   setIsOpenCreateConnectionModal,
-  register,
+  changeConnectionFormData,
   handleCreateConnection,
-  handleSubmit,
 }: Props) => {
   return (
     <Modal isOpen={isOpenCreateConnectionModal} setIsOpen={setIsOpenCreateConnectionModal}>
-      <form onSubmit={handleSubmit(handleCreateConnection)}>
-        <TextInput type="text" label="reason" register={register} required errorHandler={{ isError: false, errorMessage: '' }} />
-        <CreateConnectionButton type="submit" value="저장" />
-      </form>
+      <InputContentForm
+        onChange={changeConnectionFormData}
+        placeholder="노트간의 연결점을 생각해서 작성해주세요."
+        maxLength={200}
+      ></InputContentForm>
+      <ButtonForm>
+        <CancleCreateButton onClick={() => setIsOpenCreateConnectionModal(false)}>취소</CancleCreateButton>
+        <CreateConnectionButton onClick={handleCreateConnection}>저장</CreateConnectionButton>
+      </ButtonForm>
     </Modal>
   );
 };
 
-const CreateConnectionButton = styled.input`
-  width: 50%;
+const CreateConnectionButton = styled.button`
+  width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
 
@@ -43,6 +43,37 @@ const CreateConnectionButton = styled.input`
   border: 0;
   outline: none;
   border-radius: 30px;
+`;
+
+const CancleCreateButton = styled.button`
+  width: 40%;
+  padding: 10px 30px;
+  margin: 30px auto 0 auto;
+
+  cursor: pointer;
+
+  background: linear-gradient(to right, #dcdcdc, #e6e6e6);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+`;
+
+const InputContentForm = styled.textarea`
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height : 270px;
+  border : none;
+  outline :none;
+  padding: 0 10px 0 10px
+  margin-bottom: 10px;
+  font-size: 30px;
+  resize : none;
+`;
+
+const ButtonForm = styled.div`
+  display: flex;
+  width: 100%;
 `;
 
 export default CreateConnectionModal;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import trashBasketImage from 'assets/images/trashBasket.png';
+import trashBasketImage from 'assets/images/trashBasket.svg';
 import { RouteComponentProps } from 'react-router-dom';
 
 type Props = {

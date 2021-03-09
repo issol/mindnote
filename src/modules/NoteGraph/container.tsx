@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
@@ -21,6 +20,7 @@ type EdgeDataType = {
 
 export type NoteFormType = {
   contents: string;
+  createdAt: string;
 };
 
 export type ConnectionFormType = {
@@ -28,10 +28,7 @@ export type ConnectionFormType = {
   leftNote: number;
   rightNote: number;
   reason: string;
-};
-
-export type ConnectionReason = {
-  reason: string;
+  createdAt: string;
 };
 
 export type GraphType = {
@@ -50,6 +47,7 @@ export type ManiPulationType = {
 
 export type EventType = {
   doubleClick: (event: any) => void;
+  click: (event: any) => void;
 };
 
 type Props = {
@@ -60,7 +58,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
   const dispatch = useDispatch();
 
-  const [noteFormData, setNoteFormData] = useState({ contents: '' });
+  const [noteFormData, setNoteFormData] = useState<NoteFormType>({ contents: '', createdAt: '' });
   const [selectedNoteId, setSelectedNoteId] = useState(-1);
   const [connectionInfo, setConnectionInfo] = useState({ leftNote: 0, rightNote: 0 });
   const [connectionFormData, setConnectionFormData] = useState<ConnectionFormType>({
@@ -68,10 +66,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     leftNote: -1,
     rightNote: -1,
     reason: '',
+    createdAt: '',
   });
-
-  const { register: noteFormRegister, handleSubmit: noteHandleSubmit } = useForm<NoteFormType>();
-  const { register: connectionFormRegister, handleSubmit: connectionHandleSubmit } = useForm<ConnectionFormType>();
 
   const [isOpenCreateNoteModal, setIsOpenCreateNoteModal] = useState(false);
   const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
@@ -107,13 +103,13 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     setNoteFormData((originValue) => ({ ...originValue, contents: event.target.value }));
   };
 
-  const handleCreateConnection = (data: ConnectionFormType) => {
+  const handleCreateConnection = () => {
     dispatch(
       createConnection.request({
         article: articleId,
         leftNote: connectionInfo.leftNote,
         rightNote: connectionInfo.rightNote,
-        reason: data.reason,
+        reason: connectionFormData.reason,
       })
     );
     setIsOpenCreateConnectionModal(false);
@@ -161,6 +157,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
           leftNote: foundConnection?.leftNote || -1,
           rightNote: foundConnection?.rightNote || -1,
           reason: foundConnection?.reason || '',
+          createdAt: foundConnection?.createdAt || '',
         }));
 
         setIsOpenUpdateConnectionModal(true);
@@ -189,6 +186,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         leftNote: edgeData.from,
         rightNote: edgeData.to,
         reason: foundConnection?.reason || '',
+        createdAt: foundConnection?.createdAt || '',
       }));
 
       setIsOpenUpdateConnectionModal(true);
@@ -226,8 +224,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         selectedNoteId,
       }}
       connectionProps={{
-        connectionFormRegister,
-        connectionHandleSubmit,
         handleCreateConnection,
         handleUpdateConnection,
         changeConnectionFormData,
