@@ -87,7 +87,11 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const getSelectedNoteInfo = () => {
     const foundNote = articleDetailReducer.articleDetail.notes.find((note) => note.id === selectedNoteId);
 
-    setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
+    setNoteFormData((originData) => ({
+      ...originData,
+      contents: foundNote?.contents || '',
+      createdAt: foundNote?.createdAt || '',
+    }));
 
     setIsOpenUpdateNoteModal(true);
   };
@@ -144,7 +148,11 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         setSelectedNoteId(nodes[0]);
         const foundNote = articleDetailReducer.articleDetail.notes.find((note) => note.id === selectedNoteId);
 
-        setNoteFormData((originData) => ({ ...originData, contents: foundNote?.contents || '' }));
+        setNoteFormData((originData) => ({
+          ...originData,
+          contents: foundNote?.contents || '',
+          createdAt: foundNote?.createdAt || '',
+        }));
 
         setIsOpenUpdateNoteModal(true);
       } else if (edges.length !== 0) {

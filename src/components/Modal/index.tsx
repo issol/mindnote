@@ -55,7 +55,7 @@ const Contents = styled.div`
   text-align: center;
   width: 360px;
   max-width: 480px;
-  max-height: 400px;
+
   margin: 0 auto;
   padding: 30px 20px;
 `;
