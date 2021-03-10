@@ -75,7 +75,7 @@ const UpdateConnectionButton = styled.button`
   display: block;
   cursor: pointer;
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: 0;
+  border: none;
   outline: none;
   border-radius: 30px;
 `;
@@ -88,7 +88,7 @@ const CancleUpdateButton = styled.button`
   cursor: pointer;
 
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
-  border: 0;
+  border: none;
   outline: none;
   border-radius: 30px;
 `;

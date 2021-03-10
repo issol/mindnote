@@ -38,7 +38,7 @@ const ArticleListContainer = () => {
       showCancelButton: true,
       reverseButtons: true,
       icon: 'warning',
-      width: '30%',
+      width: '40%',
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteArticle.request(articleId));

@@ -183,6 +183,10 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     enabled: true,
     initiallyActive: true,
 
+    deleteNode: (nodeData: VisSelectDelete, _callback: any) => {
+      handleDeleteNote(nodeData.nodes[0]);
+    },
+
     addEdge: (edgeData: EdgeDataType, _callback: any) => {
       setConnectionInfo({ leftNote: edgeData.from, rightNote: edgeData.to });
       setIsOpenCreateConnectionModal(true);
