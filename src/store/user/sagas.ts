@@ -5,6 +5,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from './actions';
 import { HOST } from 'constants/requests';
 import { LogInInfo, SignUpInfo } from './types';
+import Swal from 'sweetalert2';
 
 const mapErrorMessageFromServerForUser = {
   '{"email":["user with this email already exists."]}': '이미 동일한 이메일이 존재합니다.',
@@ -31,6 +32,7 @@ const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + '/users/', payload)
 function* SignUpAsync({ payload }: ReturnType<typeof signUp.request>) {
   try {
     const res = yield call(SignUpApi, payload);
+    Swal.fire('Welcome', '회원가입성공~', 'success');
     localStorage.setItem('token', res.data.token);
     axios.defaults.headers.common['Authorization'] = `token ${res.data.token}`;
     yield put(signUp.success());

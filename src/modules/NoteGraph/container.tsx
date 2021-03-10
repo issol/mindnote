@@ -6,6 +6,8 @@ import { RootState } from 'store';
 import { createNote, updateNote, updateConnection, deleteNote, createConnection, deleteConnection } from 'store/article/actions';
 import NoteGraphPresenter from './presenter';
 
+import Swal from 'sweetalert2';
+
 type VisSelectDelete = {
   nodes: [number];
   edges: [number];
@@ -97,10 +99,22 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   };
 
   const handleDeleteNote = (id: number) => {
-    if (window.confirm('삭제하시겠습니까?')) {
-      dispatch(deleteNote.request({ id: id }));
-      window.alert('삭제되었습니다.');
-    }
+    Swal.fire({
+      title: '노트를 삭제하시겠습니까?',
+      icon: 'warning',
+      cancelButtonText: '취소',
+      confirmButtonText: '확인',
+      cancelButtonColor: '#dcdcdc',
+      confirmButtonColor: '#ff105f',
+      showCancelButton: true,
+      width: '30%',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteNote.request({ id: id }));
+        Swal.fire('삭제되었습니다', '', 'success');
+      }
+    });
   };
 
   const changeNoteFormData = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -200,10 +214,22 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       setIsOpenUpdateConnectionModal(true);
     },
     deleteEdge: (edgeData: VisSelectDelete, _callback: any) => {
-      if (window.confirm('삭제하시겠습니까?')) {
-        dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
-        window.alert('삭제되었습니다.');
-      }
+      Swal.fire({
+        title: '커넥션을 삭제하시겠습니까?',
+        cancelButtonText: '취소',
+        confirmButtonText: '확인',
+        cancelButtonColor: '#dcdcdc',
+        confirmButtonColor: '#ff105f',
+        showCancelButton: true,
+        icon: 'warning',
+        width: '35%',
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
+          Swal.fire('삭제되었습니다', '', 'success');
+        }
+      });
     },
   };
 

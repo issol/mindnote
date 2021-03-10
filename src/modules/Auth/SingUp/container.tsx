@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { RootState } from 'store';
 import { eraseErrorMessage, signUp } from 'store/user/actions';
 import SignUpPresenter from './presenter';
-import StatusModal from 'components/StatusModal';
 import { SignUpInfo } from 'store/user/types';
 
 const SignUpContainer = () => {

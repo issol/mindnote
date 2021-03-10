@@ -2,16 +2,32 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavigationPresenter from './presenter';
 
+import Swal from 'sweetalert2';
+
 const NavigationContainer = () => {
   const history = useHistory();
   const dropDownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
 
   const handleLogOut = () => {
-    if (window.confirm('로그아웃하시겠습니까?')) {
-      localStorage.removeItem('token');
-      window.location.href = '/';
-    }
+    Swal.fire({
+      title: '로그아웃하시겠습니까?',
+
+      cancelButtonText: '취소',
+      confirmButtonText: '확인',
+      cancelButtonColor: '#dcdcdc',
+      confirmButtonColor: '#ff105f',
+      showCancelButton: true,
+
+      icon: 'warning',
+      width: '30%',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+      }
+    });
   };
   const handleMoveArticleListPage = () => {
     history.push('/article-list/');

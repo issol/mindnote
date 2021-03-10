@@ -8,6 +8,8 @@ import { RootState } from 'store';
 import { createArticle, deleteArticle, fetchArticleList } from 'store/articleList/actions';
 import ArticleListPresenter from './presenter';
 
+import Swal from 'sweetalert2';
+
 type ArticleFormType = {
   subject: string;
   description: string;
@@ -27,10 +29,22 @@ const ArticleListContainer = () => {
 
   const handleDeleteArticle = (articleId: number) => (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    if (window.confirm('삭제하시겠습니까?')) {
-      dispatch(deleteArticle.request(articleId));
-      window.alert('삭제되었습니다.');
-    }
+    Swal.fire({
+      title: '글을 삭제하시겠습니까?',
+      cancelButtonText: '취소',
+      confirmButtonText: '확인',
+      cancelButtonColor: '#dcdcdc',
+      confirmButtonColor: '#ff105f',
+      showCancelButton: true,
+      reverseButtons: true,
+      icon: 'warning',
+      width: '30%',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteArticle.request(articleId));
+        Swal.fire('삭제되었습니다', '', 'success');
+      }
+    });
   };
 
   const changeSubject = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
