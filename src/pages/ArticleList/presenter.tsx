@@ -10,22 +10,15 @@ import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import { ArticleInfo, ArticleResponse } from 'store/articleList/types';
 
-type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
-
-type InputValueType = {
-  subject: string;
-  description: string;
-};
-
 type Props = {
   isOpenCreateArticleModal: boolean;
   setIsOpenCreateArticleModal: React.Dispatch<React.SetStateAction<boolean>>;
-  handleCreateArticle: (data: ArticleInfo) => void;
+  handleCreateArticle: () => void;
   handleDeleteArticle: (articleId: number) => (event: React.MouseEvent<HTMLElement>) => void;
   articleList: ArticleResponse[];
-  handleSubmit: Function;
-  register: ({ required }: { required?: boolean }) => RefReturn;
-  errors: DeepMap<InputValueType, FieldError>;
+  changeSubject: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  changeDescription: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+
   history: RouteComponentProps['history'];
 };
 
@@ -35,9 +28,8 @@ const ArticleListPresenter = ({
   handleCreateArticle,
   handleDeleteArticle,
   articleList,
-  register,
-  handleSubmit,
-  errors,
+  changeSubject,
+  changeDescription,
   history,
 }: Props) => {
   return (
@@ -47,10 +39,9 @@ const ArticleListPresenter = ({
         <CreateArticleModal
           isOpenCreateArticleModal={isOpenCreateArticleModal}
           setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}
-          register={register}
-          handleSubmit={handleSubmit}
           handleCreateArticle={handleCreateArticle}
-          errors={errors}
+          changeSubject={changeSubject}
+          changeDescription={changeDescription}
         />
       </Overlay>
       <CardWrapper>

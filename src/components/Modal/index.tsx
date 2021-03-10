@@ -16,6 +16,7 @@ const Modal = ({ isOpen, children, setIsOpen }: Props) => {
           setIsOpen(false);
         }}
       />
+
       <Contents>{children}</Contents>
     </Container>
   ) : (
@@ -54,7 +55,7 @@ const Contents = styled.div`
   text-align: center;
   width: 360px;
   max-width: 480px;
-  height: 400px;
+  max-height: 400px;
   margin: 0 auto;
   padding: 30px 20px;
 `;
