@@ -107,7 +107,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       cancelButtonColor: '#dcdcdc',
       confirmButtonColor: '#ff105f',
       showCancelButton: true,
-      width: '30%',
+      width: '45%',
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -139,19 +139,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   };
   const changeConnectionFormData = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setConnectionFormData((originData) => ({ ...originData, reason: event.target.value }));
-  };
-
-  useEffect(() => {
-    if (isOpenCreateNoteModal || isOpenUpdateNoteModal || isOpenCreateConnectionModal || isOpenUpdateConnectionModal) {
-      window.history.pushState(null, '', window.location.href);
-    }
-  }, [isOpenCreateNoteModal, isOpenUpdateNoteModal, isOpenCreateConnectionModal, isOpenUpdateConnectionModal]);
-
-  window.onpopstate = () => {
-    setIsOpenCreateNoteModal(false);
-    setIsOpenUpdateNoteModal(false);
-    setIsOpenCreateConnectionModal(false);
-    setIsOpenUpdateConnectionModal(false);
   };
 
   const events = {
@@ -222,7 +209,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         confirmButtonColor: '#ff105f',
         showCancelButton: true,
         icon: 'warning',
-        width: '35%',
+        width: '45%',
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -240,6 +227,19 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       from: connection.leftNote,
       to: connection.rightNote,
     })),
+  };
+
+  useEffect(() => {
+    if (isOpenCreateNoteModal || isOpenUpdateNoteModal || isOpenCreateConnectionModal || isOpenUpdateConnectionModal) {
+      window.history.pushState(null, '', window.location.href);
+    }
+  }, [isOpenCreateNoteModal, isOpenUpdateNoteModal, isOpenCreateConnectionModal, isOpenUpdateConnectionModal]);
+
+  window.onpopstate = () => {
+    setIsOpenCreateNoteModal(false);
+    setIsOpenUpdateNoteModal(false);
+    setIsOpenCreateConnectionModal(false);
+    setIsOpenUpdateConnectionModal(false);
   };
 
   return (

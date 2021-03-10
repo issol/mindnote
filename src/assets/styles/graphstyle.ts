@@ -1,6 +1,6 @@
 export const graphDefaultVisualOptions = {
   autoResize: true,
-  height: '700px',
+  height: '730px',
   width: '100%',
   layout: {
     randomSeed: 1,

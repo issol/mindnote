@@ -27,7 +27,7 @@ div.vis-button:active {
 }
 
 div.vis-manipulation {
-  box-sizing: content-box;
+  box-sizing: border-box;
 
   border-width: 0;
   border-bottom: 1px;
@@ -54,7 +54,7 @@ div.vis-manipulation {
   left: 0;
   top: 0;
   width: 100%;
-  height: 28px;
+  height: 30px;
 }
 div.vis-manipulation button.vis-add {
   display: none;
