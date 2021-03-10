@@ -3,11 +3,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 import MdEditor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
+import { RouteComponentProps } from 'react-router-dom';
+
+import MarkdownIt from 'markdown-it';
+
 import { ConnectionFormType } from 'modules/NoteGraph/container';
 import { ArticleDetailFormType, ArticleInfoType, NoteFormType } from './container';
-import MarkdownIt from 'markdown-it';
-import { RouteComponentProps } from 'react-router-dom';
+
+import 'react-markdown-editor-lite/lib/index.css';
+import Navigation from 'components/Navigation';
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   mdParser: MarkdownIt;
@@ -31,63 +35,72 @@ const WriteArticlePresenter = ({
   handleUpdateArticleForm,
 }: Props) => {
   return (
-    <WriteArticlePage>
-      <WrtieArticleForm>
-        <ArticleInfoForm>
-          <SubjectInput
-            type="text"
-            name="subject"
-            defaultValue={articleDetail.subject}
-            onChange={handleSubjectChange}
-            placeholder="제목을 입력해주세요."
-          />
-          <SubjectLine />
-          <DescriptionInput
-            type="text"
-            name="description"
-            defaultValue={articleDetail.description}
-            onChange={handleDescriptionChange}
-            placeholder="(선택)설명을 입력해보세요."
-          />
-        </ArticleInfoForm>
-        <div>
-          <MdEditor
-            style={{ height: '560px' }}
-            value={articleInfo.body}
-            renderHTML={(text) => mdParser.render(text)}
-            onChange={handleEditorChange}
-          />
-        </div>
-        <ButtonForm>
-          <GoBackButton onClick={() => history.goBack()}>뒤로가기</GoBackButton>
-          <PublishArticleButton onClick={handleUpdateArticleForm}>출간하기</PublishArticleButton>
-        </ButtonForm>
-      </WrtieArticleForm>
+    <Container>
+      <WriteArticlePage>
+        <WrtieArticleForm>
+          <ArticleInfoForm>
+            <SubjectInput
+              type="text"
+              name="subject"
+              defaultValue={articleDetail.subject}
+              onChange={handleSubjectChange}
+              placeholder="제목을 입력해주세요."
+            />
+            <SubjectLine />
+            <DescriptionInput
+              type="text"
+              name="description"
+              defaultValue={articleDetail.description}
+              onChange={handleDescriptionChange}
+              placeholder="(선택)설명을 입력해보세요."
+            />
+          </ArticleInfoForm>
+          <div>
+            <MdEditor
+              style={{ height: '560px' }}
+              value={articleInfo.body}
+              renderHTML={(text) => mdParser.render(text)}
+              onChange={handleEditorChange}
+            />
+          </div>
+          <ButtonForm>
+            <GoBackButton onClick={() => history.goBack()}>뒤로가기</GoBackButton>
 
-      <NoteConnectionInfo>
-        {articleDetail.connections.map((conn: ConnectionFormType) => {
-          return (
-            <ReasonForm key={conn.id}>
-              {conn.reason} :
-              {articleDetail.notes.map((note: NoteFormType) => {
-                if (note.id === conn.leftNote || note.id === conn.rightNote) {
-                  return <NoteForm key={note.id}>{note.contents}</NoteForm>;
-                }
-              })}
-            </ReasonForm>
-          );
-        })}
-      </NoteConnectionInfo>
-    </WriteArticlePage>
+            <PublishArticleButton onClick={handleUpdateArticleForm}>출간하기</PublishArticleButton>
+          </ButtonForm>
+        </WrtieArticleForm>
+
+        <NoteConnectionInfo>
+          {articleDetail.connections.map((conn: ConnectionFormType) => {
+            return (
+              <ReasonForm key={conn.id}>
+                {conn.reason} :
+                {articleDetail.notes.map((note: NoteFormType) => {
+                  if (note.id === conn.leftNote || note.id === conn.rightNote) {
+                    return <NoteForm key={note.id}>{note.contents}</NoteForm>;
+                  }
+                })}
+              </ReasonForm>
+            );
+          })}
+        </NoteConnectionInfo>
+      </WriteArticlePage>
+    </Container>
   );
 };
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const WriteArticlePage = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
 `;
 
 const WrtieArticleForm = styled.div`
-  width: 65%;
+  width: 50%;
 `;
 
 const ArticleInfoForm = styled.div`
@@ -98,9 +111,9 @@ const ArticleInfoForm = styled.div`
 `;
 
 const NoteConnectionInfo = styled.div`
-  background: rgb(204, 204, 204);
+  background: rgb(240, 240, 240);
 
-  width: 35%;
+  width: 50%;
 `;
 
 const SubjectInput = styled.input`
@@ -136,26 +149,25 @@ const NoteForm = styled.div`
 
 const ButtonForm = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 
-  margin: 5px 10px 10px 0;
+  margin: 5px 10px 10px 5px;
 `;
 
 const GoBackButton = styled.button`
-  width: 20%;
+  width: 150px;
   outline: none;
-
-  background-color: white;
+  border-radius: 30px;
+  margin-right: 10px;
+  background: linear-gradient(to right, #dcdcdc, #e6e6e6);
   border: none;
-  padding: 10px 30px;
 `;
 
 const PublishArticleButton = styled.button`
-  width: 20%;
-  padding: 10px 30px;
-
+  width: 150px;
+  height: 40px;
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: 0;
+  border: none;
   outline: none;
   border-radius: 30px;
 `;
