@@ -76,8 +76,8 @@ const SignUpPresenter = ({
 
 const SignUpForm = styled.form`
   width: 75%;
-  left: 50px;
-  margin: 30px 0;
+
+  margin: 30px auto;
 `;
 
 const SignUpButton = styled.input`

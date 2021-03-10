@@ -47,6 +47,7 @@ const FormWrap = styled.div`
   position: relative;
   margin: 6% auto;
   background: #fff;
+  border: 1px solid;
   padding: 5px;
 `;
 
