@@ -107,6 +107,7 @@ const SubjectInput = styled.input`
   border: none;
   font-size: 50px;
   outline: none;
+  background-color: #fafafa;
 `;
 
 const SubjectLine = styled.div`
@@ -121,6 +122,7 @@ const SubjectLine = styled.div`
 const DescriptionInput = styled.input`
   border: none;
   outline: none;
+  background-color: #fafafa;
 `;
 
 const ReasonForm = styled.div`

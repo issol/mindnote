@@ -20,12 +20,17 @@ import {
 } from './actions';
 import { HOST } from 'constants/requests';
 import { ConnectionInfo, NoteInfo, UpdatedConnectionInfo, UpdatedNoteInfo } from './types';
+import Swal from 'sweetalert2';
 
 const fetchArticleDetailApi = (id: number) => axios.get(HOST + `/articles/${id}/`);
 
 function* fetchArticleDetailAsync({ payload }: ReturnType<typeof fetchArticleDetail.request>) {
   try {
     const res = yield call(fetchArticleDetailApi, payload);
+
+    if (res.data.notes.length === 0) {
+      Swal.fire('우클릭으로 노트를 추가해보세요!');
+    }
 
     yield put(fetchArticleDetail.success(res.data));
   } catch (e) {

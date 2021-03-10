@@ -86,7 +86,7 @@ const DropDown = styled.nav<NavProps>`
   position: absolute;
   top: 60px;
   right: 0;
-  width: 300px;
+  width: 130px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   
   opacity: ${(props) => (props.isActive ? '1;' : '0;')}
