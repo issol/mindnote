@@ -22,7 +22,8 @@ const CreateConnectionModal = ({
         onChange={changeConnectionFormData}
         placeholder="노트간의 연결점을 생각해서 작성해주세요."
         maxLength={200}
-      ></InputContentForm>
+      />
+      <SubjectLine />
       <ButtonForm>
         <CancleCreateButton onClick={() => setIsOpenCreateConnectionModal(false)}>취소</CancleCreateButton>
         <CreateConnectionButton onClick={handleCreateConnection}>저장</CreateConnectionButton>
@@ -74,6 +75,15 @@ const InputContentForm = styled.textarea`
 const ButtonForm = styled.div`
   display: flex;
   width: 100%;
+`;
+
+const SubjectLine = styled.div`
+  background: rgb(73, 80, 87);
+  height: 3px;
+  width: 19rem;
+
+  margin-left: 8px;
+  border-radius: 1px;
 `;
 
 export default CreateConnectionModal;

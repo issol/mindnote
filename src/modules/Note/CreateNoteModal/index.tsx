@@ -26,6 +26,7 @@ const CreateNoteModal = ({
         maxLength={100}
         autoFocus
       ></InputContentForm>
+      <SubjectLine></SubjectLine>
       <ButtonForm>
         <CancelCreateButton onClick={() => setIsOpenCreateNoteModal(false)}>취소</CancelCreateButton>
         <CreateNoteButton onClick={handleCreateNote}>저장</CreateNoteButton>
@@ -77,6 +78,15 @@ const InputContentForm = styled.textarea`
   margin-bottom: 10px;
   font-size: 30px;
   resize: none;
+`;
+
+const SubjectLine = styled.div`
+  background: rgb(73, 80, 87);
+  height: 3px;
+  width: 19rem;
+
+  margin-left: 8px;
+  border-radius: 1px;
 `;
 
 export default CreateNoteModal;
