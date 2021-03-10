@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { RootState } from 'store';
 
 import { createArticle, deleteArticle, fetchArticleList } from 'store/articleList/actions';
-import { ArticleInfo } from 'store/articleList/types';
 import ArticleListPresenter from './presenter';
 
+type ArticleFormType = {
+  subject: string;
+  description: string;
+};
+
 const ArticleListContainer = () => {
-  const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(false);
-
-  const { register, handleSubmit, errors } = useForm<ArticleInfo>();
-
+  const articleReducer = useSelector((state: RootState) => state.articleReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const articleReducer = useSelector((state: RootState) => state.articleReducer);
-
-  const handleCreateArticle = (data: ArticleInfo) => {
+  const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(false);
+  const [articleFormData, setArticleFormData] = useState<ArticleFormType>({ subject: '', description: '' });
+  const handleCreateArticle = () => {
+    dispatch(createArticle.request({ subject: articleFormData.subject, description: articleFormData.description, body: '' }));
     setIsOpenCreateArticleModal(false);
-    dispatch(createArticle.request(data));
   };
 
   const handleDeleteArticle = (articleId: number) => (e: React.MouseEvent<HTMLElement>) => {
@@ -31,6 +31,13 @@ const ArticleListContainer = () => {
       dispatch(deleteArticle.request(articleId));
       window.alert('삭제되었습니다.');
     }
+  };
+
+  const changeSubject = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setArticleFormData((originData) => ({ ...originData, subject: event.target.value }));
+  };
+  const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setArticleFormData((originData) => ({ ...originData, description: event.target.value }));
   };
 
   useEffect(() => {
@@ -54,10 +61,9 @@ const ArticleListContainer = () => {
       articleList={articleReducer.articleList}
       handleCreateArticle={handleCreateArticle}
       handleDeleteArticle={handleDeleteArticle}
+      changeSubject={changeSubject}
+      changeDescription={changeDescription}
       history={history}
-      register={register}
-      handleSubmit={handleSubmit}
-      errors={errors}
     />
   );
 };

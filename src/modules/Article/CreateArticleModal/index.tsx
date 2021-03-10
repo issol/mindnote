@@ -1,62 +1,46 @@
 import React from 'react';
 
-import { DeepMap, FieldError } from 'react-hook-form';
-
-import TextInput from 'components/TextInput';
-
 import styled from 'styled-components';
-import { ArticleInfo } from 'store/articleList/types';
 import Modal from 'components/Modal';
 
-type InputProps = {
-  subject: string;
-  description: string;
-};
-
-type RefReturn = string | ((instance: HTMLInputElement | null) => void) | React.RefObject<HTMLInputElement> | null | undefined;
-
 type Props = {
-  register: ({ required }: { required?: boolean }) => RefReturn;
-  handleSubmit: Function;
-  handleCreateArticle: (data: ArticleInfo) => void;
+  handleCreateArticle: () => void;
   isOpenCreateArticleModal: boolean;
   setIsOpenCreateArticleModal: React.Dispatch<React.SetStateAction<boolean>>;
-  errors: DeepMap<InputProps, FieldError>;
+  changeSubject: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  changeDescription: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 const CreateArticleModal = ({
   isOpenCreateArticleModal,
   setIsOpenCreateArticleModal,
-  register,
-  handleSubmit,
+  changeSubject,
+  changeDescription,
   handleCreateArticle,
-  errors,
 }: Props) => {
   return (
     <Modal isOpen={isOpenCreateArticleModal} setIsOpen={setIsOpenCreateArticleModal}>
-      <form onSubmit={handleSubmit(handleCreateArticle)}>
-        <TextInput
-          type="text"
-          label="subject"
-          register={register}
-          required
-          errorHandler={{ isError: !!errors.subject, errorMessage: '제목을 입력해주세요.' }}
-        />
+      <TextAreaForm>
+        <SubjectTextArea onChange={changeSubject} placeholder="제목을 입력해주세요." autoFocus></SubjectTextArea>
+        <SubjectLine />
+        <DescriptionTextArea onChange={changeDescription} placeholder="(선택)간략하게 설명해주세요."></DescriptionTextArea>
+      </TextAreaForm>
 
-        <TextInput
-          type="text"
-          label="description"
-          register={register}
-          errorHandler={{ isError: !!errors.description, errorMessage: '' }}
-        />
-        <CreateArticleButton type="submit" value="저장" />
-      </form>
+      <ButtonForm>
+        <CancleCreateButton onClick={() => setIsOpenCreateArticleModal(false)}>취소</CancleCreateButton>
+        <CreateArticleButton onClick={handleCreateArticle}>저장</CreateArticleButton>
+      </ButtonForm>
     </Modal>
   );
 };
 
-const CreateArticleButton = styled.input`
-  width: 50%;
+const ButtonForm = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const CreateArticleButton = styled.button`
+  width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
 
@@ -67,6 +51,60 @@ const CreateArticleButton = styled.input`
   border: 0;
   outline: none;
   border-radius: 30px;
+`;
+
+const CancleCreateButton = styled.button`
+  width: 40%;
+  padding: 10px 30px;
+  margin: 30px auto 0 auto;
+  cursor: pointer;
+  background: linear-gradient(to right, #dcdcdc, #e6e6e6);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+`;
+
+const TextAreaForm = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  margin-left: 10px;
+  outline: none;
+`;
+
+const SubjectTextArea = styled.textarea`
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 70px;
+  border: none;
+  outline: none;
+  padding: 0 10px 0 10px;
+  font-size: 30px;
+  resize: none;
+`;
+
+const DescriptionTextArea = styled.textarea`
+  display: block;
+  box-sizing : border-box;
+  width :100%;
+  height : 100px;
+  border : none;
+  outline : none;
+  padding 0 10px 0 10px;
+  margin-bottom :10px;
+  font-size :15px;
+  resize :none;
+
+`;
+
+const SubjectLine = styled.div`
+  background: rgb(73, 80, 87);
+  height: 3px;
+  width: 17rem;
+  margin-bottom: 10px;
+  margin-left: 8px;
+  border-radius: 1px;
 `;
 
 export default CreateArticleModal;
