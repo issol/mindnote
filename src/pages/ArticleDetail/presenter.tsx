@@ -4,6 +4,8 @@ import NoteGraph from 'modules/NoteGraph';
 import styled from 'styled-components';
 import Navigation from 'components/Navigation';
 
+import arrowImage from 'assets/images/arrow.svg';
+
 type Props = {
   handleRedirectWriteArtilcePage: (event: React.MouseEvent<HTMLElement>) => void;
   articleId: number;
@@ -15,10 +17,11 @@ const ArticleDetailPresenter = ({ handleRedirectWriteArtilcePage, articleId }: P
       <Navigation />
       <Overlay>
         <NoteGraph articleId={articleId} />
+        <ButtonForm>
+          <GoWriteArticleButton onClick={handleRedirectWriteArtilcePage} />
+          <InfoText>작성하기</InfoText>
+        </ButtonForm>
       </Overlay>
-      <div>
-        <button onClick={handleRedirectWriteArtilcePage}>글 작성하기</button>
-      </div>
     </Container>
   );
 };
@@ -36,8 +39,33 @@ const Container = styled.div`
 const Overlay = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.8);
+`;
+
+const ButtonForm = styled.div`
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const GoWriteArticleButton = styled.button`
+  background-image: url(${arrowImage});
+  background-color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+`;
+
+const InfoText = styled.p`
+  margin-top: 10px;
+  font-size: 15px;
 `;
 
 export default ArticleDetailPresenter;
