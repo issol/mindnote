@@ -6,6 +6,10 @@ import SignUp from 'modules/Auth/SingUp';
 import styled from 'styled-components';
 import { AuthType } from './container';
 
+import { GoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
+import { googleLogIn } from 'store/user/actions';
+
 type AuthTypeProps = {
   authType: string;
   handleAuthType: (type: AuthType) => () => void;
@@ -15,6 +19,10 @@ type ButtonProps = {
 };
 
 const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
+  const dispatch = useDispatch();
+  const responseGoogle = (response: any) => {
+    dispatch(googleLogIn.request({ token: response.accessToken }));
+  };
   return (
     <WholeWrap>
       <FormWrap>
@@ -27,6 +35,13 @@ const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
           </SignUpButton>
         </ButtonWrap>
         {authType === 'LogIn' ? <LogIn /> : <SignUp />}
+        <GoogleLogin
+          clientId="185163811614-42nv1haaihc6i448ccc5u4ovobfv5del.apps.googleusercontent.com"
+          buttonText="GoogleLogin"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </FormWrap>
     </WholeWrap>
   );

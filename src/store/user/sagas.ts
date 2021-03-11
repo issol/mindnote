@@ -2,9 +2,9 @@ import axios from 'axios';
 
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from './actions';
+import { googleLogIn, GOOGLE_LOG_IN_REQUEST, logIn, LOG_IN_REQUEST, signUp, SIGN_UP_REQUEST } from './actions';
 import { HOST } from 'constants/requests';
-import { LogInInfo, SignUpInfo } from './types';
+import { GoogleLogInInfo, LogInInfo, SignUpInfo } from './types';
 import Swal from 'sweetalert2';
 
 const mapErrorMessageFromServerForUser = {
@@ -27,6 +27,24 @@ function* LogInAsync({ payload }: ReturnType<typeof logIn.request>) {
   }
 }
 
+const GoogleLogInApi = (payload: GoogleLogInInfo) => axios.post(HOST + '', payload);
+
+function* GoogleLogInAsync({ payload }: ReturnType<typeof googleLogIn.request>) {
+  try {
+    console.log(payload);
+
+    const res = yield call(GoogleLogInApi, payload);
+    localStorage.setItem('token', res.data.token);
+    axios.defaults.headers.common['Authorization'] = `token ${res.data.token}`;
+    yield put(logIn.success());
+  } catch (e) {
+    if (e.request.status >= 400 && e.request.status <= 599) {
+      localStorage.removeItem('token');
+      yield put(logIn.failure('구글인증 실패'));
+    }
+  }
+}
+
 const SignUpApi = (payload: SignUpInfo) => axios.post(HOST + '/users/', payload);
 
 function* SignUpAsync({ payload }: ReturnType<typeof signUp.request>) {
@@ -45,5 +63,6 @@ function* SignUpAsync({ payload }: ReturnType<typeof signUp.request>) {
 }
 export function* watchUser() {
   yield takeEvery(LOG_IN_REQUEST, LogInAsync);
+  yield takeEvery(GOOGLE_LOG_IN_REQUEST, GoogleLogInAsync);
   yield takeEvery(SIGN_UP_REQUEST, SignUpAsync);
 }
