@@ -19,6 +19,7 @@ export type SetSignUpInfoPayload = Required<SignUpInfo>;
 export type UserState = {
   isLoggedIn: boolean | null;
   errorMessage: string;
+  statusMessage: string;
   logInInfo: LogInInfo;
   signUpInfo: SignUpInfo;
 };
