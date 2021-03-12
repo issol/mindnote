@@ -36,7 +36,7 @@ const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
         </ButtonWrap>
         {authType === 'LogIn' ? <LogIn /> : <SignUp />}
         <GoogleLogin
-          clientId="185163811614-42nv1haaihc6i448ccc5u4ovobfv5del.apps.googleusercontent.com"
+          clientId="475949578269-0gbudsp2q3bova12ilcibkmmtrfg0v8m.apps.googleusercontent.com"
           buttonText="GoogleLogin"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
