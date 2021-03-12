@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,6 +7,7 @@ import { createNote, updateNote, updateConnection, deleteNote, createConnection,
 import NoteGraphPresenter from './presenter';
 
 import Swal from 'sweetalert2';
+import { useContextMenu } from 'react-contexify';
 
 type SelectedNodeType = {
   nodes: [number];
@@ -49,19 +50,22 @@ export type ManiPulationType = {
 
 export type EventType = {
   doubleClick: (event: any) => void;
-  click: (event: any) => void;
+  selectNode: (event: any) => void;
+  deselectNode: () => void;
 };
 
 type Props = {
   articleId: number;
 };
 
+export const MENU_ID = 'menu_id';
+
 const NoteGraphContainer = ({ articleId }: Props) => {
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
   const dispatch = useDispatch();
 
   const [noteFormData, setNoteFormData] = useState<NoteFormType>({ contents: '', createdAt: '' });
-  const [selectedNoteId, setSelectedNoteId] = useState(-1);
+  const [selectedNoteId, setSelectedNoteId] = useState(0);
   const [connectionInfo, setConnectionInfo] = useState({ leftNote: 0, rightNote: 0 });
   const [connectionFormData, setConnectionFormData] = useState<ConnectionFormType>({
     id: -1,
@@ -75,6 +79,10 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
   const [isOpenUpdateConnectionModal, setIsOpenUpdateConnectionModal] = useState(false);
+
+  const isExistSelectedNote = useMemo(() => selectedNoteId !== 0, [selectedNoteId]);
+
+  const { show } = useContextMenu({ id: MENU_ID });
 
   const handleCreateNote = () => {
     dispatch(createNote.request({ article: articleId, contents: noteFormData.contents }));
@@ -172,10 +180,13 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         setIsOpenUpdateConnectionModal(true);
       }
     },
-    click: (event: any) => {
+    selectNode: (event: any) => {
       const { nodes } = event;
 
       setSelectedNoteId(nodes[0]);
+    },
+    deselectNode: () => {
+      setSelectedNoteId(0);
     },
   };
 
@@ -259,6 +270,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         setIsOpenCreateNoteModal,
         setIsOpenUpdateNoteModal,
         noteFormData,
+        isExistSelectedNote,
+        setSelectedNoteId,
         selectedNoteId,
       }}
       connectionProps={{
@@ -272,6 +285,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         connectionFormData,
       }}
       visProps={{ events, graph, manipulation }}
+      show={show}
     />
   );
 };
