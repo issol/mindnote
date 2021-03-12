@@ -16,7 +16,10 @@ const ArticleDetailPresenter = ({ handleRedirectWriteArtilcePage, articleId }: P
     <Container>
       <Navigation />
       <Overlay>
-        <NoteGraph articleId={articleId} />
+        <NoteGraphWrapper>
+          <NoteGraph articleId={articleId} />
+        </NoteGraphWrapper>
+
         <ButtonForm>
           <GoWriteArticleButton onClick={handleRedirectWriteArtilcePage} />
           <InfoText>작성하기</InfoText>
@@ -42,6 +45,11 @@ const Overlay = styled.div`
   display: flex;
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.8);
+`;
+const NoteGraphWrapper = styled.div`
+  width: 90%;
+  box-sizing: border-box;
+  margin-left: 20px;
 `;
 
 const ButtonForm = styled.div`

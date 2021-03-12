@@ -53,7 +53,7 @@ type Props = {
 const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, show }: Props) => {
   return (
     <>
-      <NoteGraphWrapper onContextMenu={show}>
+      <NoteGraphContainer onContextMenu={show}>
         <Graph
           graph={visProps.graph}
           options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
@@ -88,7 +88,7 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, show }: Prop
           data={connectionProps.connectionFormData}
           changeConnectionFormData={connectionProps.changeConnectionFormData}
         />
-      </NoteGraphWrapper>
+      </NoteGraphContainer>
       <Menu id={MENU_ID}>
         <Item id="1" onClick={() => noteProps.setIsOpenCreateNoteModal(true)}>
           노트추가
@@ -109,8 +109,8 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, show }: Prop
   );
 };
 
-const NoteGraphWrapper = styled.div`
-  width: 90%;
+const NoteGraphContainer = styled.div`
+  width: 100%;
   box-sizing: border-box;
   margin-left: 20px;
 `;
