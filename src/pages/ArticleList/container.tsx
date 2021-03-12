@@ -23,9 +23,10 @@ const ArticleListContainer = () => {
     setIsOpenCreateArticleModal(false);
   };
 
-  const handleDeleteArticle = (articleId: number) => (e: React.MouseEvent<HTMLElement>) => {
+  const handleDeleteArticle = (articleId: number) => async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    Swal.fire({
+
+    const result = await Swal.fire({
       title: '글을 삭제하시겠습니까?',
       cancelButtonText: '취소',
       confirmButtonText: '확인',
@@ -35,12 +36,12 @@ const ArticleListContainer = () => {
       reverseButtons: true,
       icon: 'warning',
       width: '40%',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteArticle.request(articleId));
-        Swal.fire('삭제되었습니다', '', 'success');
-      }
     });
+
+    if (result.isConfirmed) {
+      dispatch(deleteArticle.request(articleId));
+      Swal.fire('삭제되었습니다', '', 'success');
+    }
   };
 
   const changeSubject = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

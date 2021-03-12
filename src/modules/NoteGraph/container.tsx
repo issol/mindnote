@@ -106,8 +106,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     setIsOpenUpdateNoteModal(true);
   };
 
-  const handleDeleteNote = (id: number) => {
-    Swal.fire({
+  const handleDeleteNote = async (id: number) => {
+    const result = await Swal.fire({
       title: '노트를 삭제하시겠습니까?',
       icon: 'warning',
       cancelButtonText: '취소',
@@ -117,12 +117,12 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       showCancelButton: true,
       width: '45%',
       reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteNote.request({ id: id }));
-        Swal.fire('삭제되었습니다', '', 'success');
-      }
     });
+
+    if (result.isConfirmed) {
+      dispatch(deleteNote.request({ id: id }));
+      Swal.fire('삭제되었습니다', '', 'success');
+    }
   };
 
   const changeNoteFormData = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -215,8 +215,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
 
       setIsOpenUpdateConnectionModal(true);
     },
-    deleteEdge: (edgeData: SelectedNodeType, _callback: any) => {
-      Swal.fire({
+    deleteEdge: async (edgeData: SelectedNodeType, _callback: any) => {
+      const result = await Swal.fire({
         title: '커넥션을 삭제하시겠습니까?',
         cancelButtonText: '취소',
         confirmButtonText: '확인',
@@ -226,12 +226,12 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         icon: 'warning',
         width: '45%',
         reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
-          Swal.fire('삭제되었습니다', '', 'success');
-        }
       });
+
+      if (result.isConfirmed) {
+        dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
+        Swal.fire('삭제되었습니다', '', 'success');
+      }
     },
   };
 
