@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,8 +7,9 @@ import { createNote, updateNote, updateConnection, deleteNote, createConnection,
 import NoteGraphPresenter from './presenter';
 
 import Swal from 'sweetalert2';
+import { useContextMenu } from 'react-contexify';
 
-type VisSelectDelete = {
+type SelectedNodeType = {
   nodes: [number];
   edges: [number];
 };
@@ -44,24 +45,27 @@ export type ManiPulationType = {
 
   addEdge: (edgeData: EdgeDataType, _callback: any) => void;
   editEdge: (edgeData: EdgeDataType, _callback: any) => void;
-  deleteEdge: (edgeData: VisSelectDelete, _callback: any) => void;
+  deleteEdge: (edgeData: SelectedNodeType, _callback: any) => void;
 };
 
 export type EventType = {
   doubleClick: (event: any) => void;
-  click: (event: any) => void;
+  selectNode: (event: any) => void;
+  deselectNode: () => void;
 };
 
 type Props = {
   articleId: number;
 };
 
+export const MENU_ID = 'menu_id';
+
 const NoteGraphContainer = ({ articleId }: Props) => {
   const articleDetailReducer = useSelector((state: RootState) => state.articleDetailReducer);
   const dispatch = useDispatch();
 
   const [noteFormData, setNoteFormData] = useState<NoteFormType>({ contents: '', createdAt: '' });
-  const [selectedNoteId, setSelectedNoteId] = useState(-1);
+  const [selectedNoteId, setSelectedNoteId] = useState(0);
   const [connectionInfo, setConnectionInfo] = useState({ leftNote: 0, rightNote: 0 });
   const [connectionFormData, setConnectionFormData] = useState<ConnectionFormType>({
     id: -1,
@@ -75,6 +79,10 @@ const NoteGraphContainer = ({ articleId }: Props) => {
   const [isOpenUpdateNoteModal, setIsOpenUpdateNoteModal] = useState(false);
   const [isOpenCreateConnectionModal, setIsOpenCreateConnectionModal] = useState(false);
   const [isOpenUpdateConnectionModal, setIsOpenUpdateConnectionModal] = useState(false);
+
+  const isExistSelectedNote = useMemo(() => selectedNoteId !== 0, [selectedNoteId]);
+
+  const { show } = useContextMenu({ id: MENU_ID });
 
   const handleCreateNote = () => {
     dispatch(createNote.request({ article: articleId, contents: noteFormData.contents }));
@@ -98,8 +106,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     setIsOpenUpdateNoteModal(true);
   };
 
-  const handleDeleteNote = (id: number) => {
-    Swal.fire({
+  const handleDeleteNote = async (id: number) => {
+    const result = await Swal.fire({
       title: '노트를 삭제하시겠습니까?',
       icon: 'warning',
       cancelButtonText: '취소',
@@ -109,12 +117,12 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       showCancelButton: true,
       width: '45%',
       reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteNote.request({ id: id }));
-        Swal.fire('삭제되었습니다', '', 'success');
-      }
     });
+
+    if (result.isConfirmed) {
+      dispatch(deleteNote.request({ id: id }));
+      Swal.fire('삭제되었습니다', '', 'success');
+    }
   };
 
   const changeNoteFormData = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -172,10 +180,13 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         setIsOpenUpdateConnectionModal(true);
       }
     },
-    click: (event: any) => {
+    selectNode: (event: any) => {
       const { nodes } = event;
 
       setSelectedNoteId(nodes[0]);
+    },
+    deselectNode: () => {
+      setSelectedNoteId(0);
     },
   };
 
@@ -183,7 +194,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     enabled: true,
     initiallyActive: true,
 
-    deleteNode: (nodeData: VisSelectDelete, _callback: any) => {
+    deleteNode: (nodeData: SelectedNodeType, _callback: any) => {
       handleDeleteNote(nodeData.nodes[0]);
     },
 
@@ -204,8 +215,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
 
       setIsOpenUpdateConnectionModal(true);
     },
-    deleteEdge: (edgeData: VisSelectDelete, _callback: any) => {
-      Swal.fire({
+    deleteEdge: async (edgeData: SelectedNodeType, _callback: any) => {
+      const result = await Swal.fire({
         title: '커넥션을 삭제하시겠습니까?',
         cancelButtonText: '취소',
         confirmButtonText: '확인',
@@ -215,12 +226,12 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         icon: 'warning',
         width: '45%',
         reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
-          Swal.fire('삭제되었습니다', '', 'success');
-        }
       });
+
+      if (result.isConfirmed) {
+        dispatch(deleteConnection.request({ id: edgeData.edges[0] }));
+        Swal.fire('삭제되었습니다', '', 'success');
+      }
     },
   };
 
@@ -231,19 +242,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
       from: connection.leftNote,
       to: connection.rightNote,
     })),
-  };
-
-  useEffect(() => {
-    if (isOpenCreateNoteModal || isOpenUpdateNoteModal || isOpenCreateConnectionModal || isOpenUpdateConnectionModal) {
-      window.history.pushState(null, '', window.location.href);
-    }
-  }, [isOpenCreateNoteModal, isOpenUpdateNoteModal, isOpenCreateConnectionModal, isOpenUpdateConnectionModal]);
-
-  window.onpopstate = () => {
-    setIsOpenCreateNoteModal(false);
-    setIsOpenUpdateNoteModal(false);
-    setIsOpenCreateConnectionModal(false);
-    setIsOpenUpdateConnectionModal(false);
   };
 
   return (
@@ -259,6 +257,8 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         setIsOpenCreateNoteModal,
         setIsOpenUpdateNoteModal,
         noteFormData,
+        isExistSelectedNote,
+        setSelectedNoteId,
         selectedNoteId,
       }}
       connectionProps={{
@@ -272,6 +272,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
         connectionFormData,
       }}
       visProps={{ events, graph, manipulation }}
+      show={show}
     />
   );
 };

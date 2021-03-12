@@ -9,11 +9,7 @@ import { createArticle, deleteArticle, fetchArticleList } from 'store/articleLis
 import ArticleListPresenter from './presenter';
 
 import Swal from 'sweetalert2';
-
-type ArticleFormType = {
-  subject: string;
-  description: string;
-};
+import { ArticleFormType } from 'pages/ArticleDetail/container';
 
 const ArticleListContainer = () => {
   const articleReducer = useSelector((state: RootState) => state.articleReducer);
@@ -27,9 +23,10 @@ const ArticleListContainer = () => {
     setIsOpenCreateArticleModal(false);
   };
 
-  const handleDeleteArticle = (articleId: number) => (e: React.MouseEvent<HTMLElement>) => {
+  const handleDeleteArticle = (articleId: number) => async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    Swal.fire({
+
+    const result = await Swal.fire({
       title: '글을 삭제하시겠습니까?',
       cancelButtonText: '취소',
       confirmButtonText: '확인',
@@ -39,12 +36,12 @@ const ArticleListContainer = () => {
       reverseButtons: true,
       icon: 'warning',
       width: '40%',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteArticle.request(articleId));
-        Swal.fire('삭제되었습니다', '', 'success');
-      }
     });
+
+    if (result.isConfirmed) {
+      dispatch(deleteArticle.request(articleId));
+      Swal.fire('삭제되었습니다', '', 'success');
+    }
   };
 
   const changeSubject = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,16 +49,6 @@ const ArticleListContainer = () => {
   };
   const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setArticleFormData((originData) => ({ ...originData, description: event.target.value }));
-  };
-
-  useEffect(() => {
-    if (isOpenCreateArticleModal) {
-      window.history.pushState(null, '', window.location.href);
-    }
-  }, [isOpenCreateArticleModal]);
-
-  window.onpopstate = () => {
-    setIsOpenCreateArticleModal(false);
   };
 
   useEffect(() => {

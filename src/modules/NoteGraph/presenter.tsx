@@ -6,17 +6,15 @@ import CreateConnectionModal from 'modules/Connection/CreateConnectionModal';
 import UpdateConnectionModal from 'modules/Connection/UpdateConnectionModal';
 import CreateNoteModal from 'modules/Note/CreateNoteModal';
 import UpdateNoteModal from 'modules/Note/UpdateNoteModal';
-import { ConnectionFormType, EventType, GraphType, ManiPulationType, NoteFormType } from './container';
+import { ConnectionFormType, EventType, GraphType, ManiPulationType, MENU_ID, NoteFormType } from './container';
 
 import styled from 'styled-components';
 import { graphDefaultVisualOptions } from 'assets/styles/graphstyle';
 import './styles.css';
 
-import { Menu, Item, useContextMenu } from 'react-contexify';
+import { Menu, Item, ContextMenuParams, TriggerEvent } from 'react-contexify';
 
 import 'react-contexify/dist/ReactContexify.css';
-
-const MENU_ID = 'menu_id';
 
 type Props = {
   noteProps: {
@@ -30,6 +28,8 @@ type Props = {
     setIsOpenCreateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     setIsOpenUpdateNoteModal: React.Dispatch<React.SetStateAction<boolean>>;
     noteFormData: NoteFormType;
+    isExistSelectedNote: boolean;
+    setSelectedNoteId: React.Dispatch<React.SetStateAction<number>>;
     selectedNoteId: number;
   };
   connectionProps: {
@@ -47,14 +47,13 @@ type Props = {
     graph: GraphType;
     manipulation: ManiPulationType;
   };
+  show: (event: TriggerEvent, params?: Pick<ContextMenuParams, 'id' | 'props' | 'position'> | undefined) => void;
 };
 
-const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => {
-  const { show } = useContextMenu({ id: MENU_ID });
-
+const NoteGraphPresenter = ({ noteProps, connectionProps, visProps, show }: Props) => {
   return (
     <>
-      <NoteGraphWrapper onContextMenu={show}>
+      <NoteGraphContainer onContextMenu={show}>
         <Graph
           graph={visProps.graph}
           options={{ ...graphDefaultVisualOptions, manipulation: visProps.manipulation }}
@@ -89,13 +88,13 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
           data={connectionProps.connectionFormData}
           changeConnectionFormData={connectionProps.changeConnectionFormData}
         />
-      </NoteGraphWrapper>
+      </NoteGraphContainer>
       <Menu id={MENU_ID}>
         <Item id="1" onClick={() => noteProps.setIsOpenCreateNoteModal(true)}>
           노트추가
         </Item>
 
-        {noteProps.selectedNoteId >= 0 ? (
+        {noteProps.isExistSelectedNote ? (
           <>
             <Item onClick={noteProps.getSelectedNoteInfo}>노트수정</Item>
             <Item onClick={() => noteProps.handleDeleteNote(noteProps.selectedNoteId)}>노트삭제</Item>
@@ -110,8 +109,8 @@ const NoteGraphPresenter = ({ noteProps, connectionProps, visProps }: Props) => 
   );
 };
 
-const NoteGraphWrapper = styled.div`
-  width: 90%;
+const NoteGraphContainer = styled.div`
+  width: 100%;
   box-sizing: border-box;
   margin-left: 20px;
 `;

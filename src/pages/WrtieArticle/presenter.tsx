@@ -11,7 +11,6 @@ import { ConnectionFormType } from 'modules/NoteGraph/container';
 import { ArticleDetailFormType, ArticleInfoType, NoteFormType } from './container';
 
 import 'react-markdown-editor-lite/lib/index.css';
-import Navigation from 'components/Navigation';
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   mdParser: MarkdownIt;
