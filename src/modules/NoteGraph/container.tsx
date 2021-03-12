@@ -244,19 +244,6 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     })),
   };
 
-  useEffect(() => {
-    if (isOpenCreateNoteModal || isOpenUpdateNoteModal || isOpenCreateConnectionModal || isOpenUpdateConnectionModal) {
-      window.history.pushState(null, '', window.location.href);
-    }
-  }, [isOpenCreateNoteModal, isOpenUpdateNoteModal, isOpenCreateConnectionModal, isOpenUpdateConnectionModal]);
-
-  window.onpopstate = () => {
-    setIsOpenCreateNoteModal(false);
-    setIsOpenUpdateNoteModal(false);
-    setIsOpenCreateConnectionModal(false);
-    setIsOpenUpdateConnectionModal(false);
-  };
-
   return (
     <NoteGraphPresenter
       noteProps={{

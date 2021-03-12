@@ -52,16 +52,6 @@ const ArticleListContainer = () => {
   };
 
   useEffect(() => {
-    if (isOpenCreateArticleModal) {
-      window.history.pushState(null, '', window.location.href);
-    }
-  }, [isOpenCreateArticleModal]);
-
-  window.onpopstate = () => {
-    setIsOpenCreateArticleModal(false);
-  };
-
-  useEffect(() => {
     dispatch(fetchArticleList.request());
   }, [dispatch]);
 
