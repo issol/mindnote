@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { RootState } from 'store';
 
 import { fetchArticleDetail } from 'store/article/actions';
 import ArticleDetailPresenter from './presenter';

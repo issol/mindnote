@@ -8,7 +8,7 @@ import NoteGraphPresenter from './presenter';
 
 import Swal from 'sweetalert2';
 
-type VisSelectDelete = {
+type SelectedNodeType = {
   nodes: [number];
   edges: [number];
 };
@@ -44,7 +44,7 @@ export type ManiPulationType = {
 
   addEdge: (edgeData: EdgeDataType, _callback: any) => void;
   editEdge: (edgeData: EdgeDataType, _callback: any) => void;
-  deleteEdge: (edgeData: VisSelectDelete, _callback: any) => void;
+  deleteEdge: (edgeData: SelectedNodeType, _callback: any) => void;
 };
 
 export type EventType = {
@@ -183,7 +183,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
     enabled: true,
     initiallyActive: true,
 
-    deleteNode: (nodeData: VisSelectDelete, _callback: any) => {
+    deleteNode: (nodeData: SelectedNodeType, _callback: any) => {
       handleDeleteNote(nodeData.nodes[0]);
     },
 
@@ -204,7 +204,7 @@ const NoteGraphContainer = ({ articleId }: Props) => {
 
       setIsOpenUpdateConnectionModal(true);
     },
-    deleteEdge: (edgeData: VisSelectDelete, _callback: any) => {
+    deleteEdge: (edgeData: SelectedNodeType, _callback: any) => {
       Swal.fire({
         title: '커넥션을 삭제하시겠습니까?',
         cancelButtonText: '취소',

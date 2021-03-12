@@ -9,11 +9,7 @@ import { createArticle, deleteArticle, fetchArticleList } from 'store/articleLis
 import ArticleListPresenter from './presenter';
 
 import Swal from 'sweetalert2';
-
-type ArticleFormType = {
-  subject: string;
-  description: string;
-};
+import { ArticleFormType } from 'pages/ArticleDetail/container';
 
 const ArticleListContainer = () => {
   const articleReducer = useSelector((state: RootState) => state.articleReducer);
