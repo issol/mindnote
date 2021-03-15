@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@hookform/error-message": "0.0.5",
+    "@sentry/react": "^6.2.2",
+    "@sentry/tracing": "^6.2.2",
     "@types/node": "^12.19.12",
     "@types/react-dom": "^16.9.10",
     "@types/redux-devtools": "^3.0.47",

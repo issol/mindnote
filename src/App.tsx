@@ -5,6 +5,20 @@ import { useDispatch } from 'react-redux';
 import Root from 'router/Root';
 import { logIn } from 'store/user/actions';
 
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+
+  integrations: [new Integrations.BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
 function App() {
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
@@ -25,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.withProfiler(App);
