@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -21,12 +21,26 @@ export type NoteFormType = {
   contents: string;
 };
 
+export type ConnectionFormActiveType = {
+  id: number;
+  leftNote: number;
+  rightNote: number;
+  reason: string;
+  createdAt: string;
+  isActive: boolean;
+};
+
+export type IsActiveListType = {
+  id: number;
+  isActive: boolean;
+}[];
+
 export type ArticleDetailFormType = {
   subject: string;
   description: string;
   body: string;
   notes: { id: number; contents: string }[];
-  connections: { id: number; leftNote: number; rightNote: number; reason: string; createdAt: string }[];
+  connections: { id: number; leftNote: number; rightNote: number; reason: string; createdAt: string; isActive: boolean }[];
 };
 
 const WriteArticleContainer = () => {
@@ -38,25 +52,21 @@ const WriteArticleContainer = () => {
 
   const mdParser = new MarkdownIt();
 
+  const dropNoteRef = useRef(null);
+
   const [articleInfo, setArticleInfo] = useState<ArticleInfoType>({
     subject: '',
     description: '',
     body: '',
   });
 
-  const articleDetail: ArticleDetailFormType = {
-    subject: articleDetailReducer.articleDetail.subject,
-    description: articleDetailReducer.articleDetail.description,
-    body: articleDetailReducer.articleDetail.body,
-    notes: articleDetailReducer.articleDetail.notes.map((note) => ({ id: note.id, contents: note.contents })),
-    connections: articleDetailReducer.articleDetail.connections.map((connection) => ({
-      id: connection.id,
-      leftNote: connection.leftNote,
-      rightNote: connection.rightNote,
-      reason: connection.reason,
-      createdAt: connection.createdAt,
-    })),
-  };
+  const [articleDetail, setArticleDetail] = useState<ArticleDetailFormType>({
+    subject: '',
+    description: '',
+    body: '',
+    notes: [{ id: 0, contents: '' }],
+    connections: [{ id: 0, leftNote: 0, rightNote: 0, reason: '', createdAt: '', isActive: false }],
+  });
 
   const handleEditorChange = ({ text }) => {
     setArticleInfo((originData) => ({ ...originData, body: text }));
@@ -74,6 +84,17 @@ const WriteArticleContainer = () => {
     dispatch(updateArticle.request({ id: articleId, ...articleInfo }));
   };
 
+  const handleTest = (idx: number) => {
+    const updatedList = articleDetail.connections.map((conn, index) => {
+      if (idx === index) {
+        return { ...conn, isActive: !conn.isActive };
+      }
+      return conn;
+    });
+
+    setArticleDetail((prevState) => ({ ...prevState, connections: updatedList }));
+  };
+
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
   }, [dispatch, articleId]);
@@ -83,6 +104,20 @@ const WriteArticleContainer = () => {
       subject: articleDetailReducer.articleDetail.subject,
       description: articleDetailReducer.articleDetail.description,
       body: articleDetailReducer.articleDetail.body,
+    });
+    setArticleDetail({
+      subject: articleDetailReducer.articleDetail.subject,
+      description: articleDetailReducer.articleDetail.description,
+      body: articleDetailReducer.articleDetail.body,
+      notes: articleDetailReducer.articleDetail.notes.map((note) => ({ id: note.id, contents: note.contents })),
+      connections: articleDetailReducer.articleDetail.connections.map((connection) => ({
+        id: connection.id,
+        leftNote: connection.leftNote,
+        rightNote: connection.rightNote,
+        reason: connection.reason,
+        createdAt: connection.createdAt,
+        isActive: false,
+      })),
     });
   }, [articleDetailReducer.articleDetail]);
 
@@ -96,6 +131,8 @@ const WriteArticleContainer = () => {
       handleSubjectChange={handleSubjectChange}
       handleDescriptionChange={handleDescriptionChange}
       handleUpdateArticleForm={handleUpdateArticleForm}
+      dropNoteRef={dropNoteRef}
+      handleTest={handleTest}
     />
   );
 };
