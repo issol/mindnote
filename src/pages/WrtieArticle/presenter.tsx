@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
 import MdEditor from 'react-markdown-editor-lite';
 import { RouteComponentProps } from 'react-router-dom';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import MarkdownIt from 'markdown-it';
 
-import { ArticleDetailFormType, ArticleInfoType, ConnectionFormActiveType, IsActiveListType } from './container';
+import { ArticleDetailFormType, ArticleInfoType, ConnectionFormActiveType, NoteFormType } from './container';
 
 import 'react-markdown-editor-lite/lib/index.css';
 
@@ -77,44 +78,28 @@ const WriteArticlePresenter = ({
           </ButtonForm>
         </WrtieArticleForm>
 
-        {/* <NoteConnectionInfo>
-          {articleDetail.connections.map((conn: ConnectionFormType) => {
-            return (
-              <ReasonCardWrapper>
-                <div>
-                  {conn.reason}
-                  <DropDownButton onClick={() => setIsActive(!isActive)} />
-                </div>
-
-                {/* {articleDetail.notes.map((note: NoteFormType) => {
-                  if (note.id === conn.leftNote || note.id === conn.rightNote) {
-                    return <NoteForm key={note.id}>{note.contents}</NoteForm>;
-                  }
-                })} 
-
-                <div>{isActive && <NoteForm>{conn.id}</NoteForm>}</div>
-              </ReasonCardWrapper>
-            );
-          })}
-        </NoteConnectionInfo> */}
         <NoteConnectionInfo>
           {articleDetail.connections.map((conn: ConnectionFormActiveType, index) => {
             return (
-              <ReasonCardWrapper key={conn.id}>
+              <ReasonCardWrapper key={conn.id} ref={dropNoteRef} isActive={conn.isActive}>
                 <ReasonCard>
-                  <Reason>{conn.id}</Reason>
+                  <Reason readOnly maxRows={conn.isActive ? 3 : 1}>
+                    {conn.reason}
+                  </Reason>
                   <DropDownButton onClick={() => handleTest(index)} />
                 </ReasonCard>
-                <DropDownNoteForm ref={dropNoteRef} isActive={conn.isActive}>
-                  <DropDownMenu>
-                    <DropDownContentWrapper>
-                      <DropDownContent>ddd</DropDownContent>
-                    </DropDownContentWrapper>
-                    <DropDownContentWrapper>
-                      <DropDownContent>ddd</DropDownContent>
-                    </DropDownContentWrapper>
-                  </DropDownMenu>
-                </DropDownNoteForm>
+
+                {articleDetail.notes.map((note: NoteFormType) => {
+                  if (note.id === conn.leftNote || note.id === conn.rightNote) {
+                    return (
+                      <NoteCard isActive={conn.isActive}>
+                        <Note readOnly maxRows={3}>
+                          {note.contents}
+                        </Note>
+                      </NoteCard>
+                    );
+                  }
+                })}
               </ReasonCardWrapper>
             );
           })}
@@ -135,7 +120,7 @@ const WriteArticlePage = styled.div`
 `;
 
 const WrtieArticleForm = styled.div`
-  width: 70%;
+  width: 60%;
 `;
 
 const ArticleInfoForm = styled.div`
@@ -147,7 +132,7 @@ const ArticleInfoForm = styled.div`
 
 const NoteConnectionInfo = styled.div`
   background: rgb(240, 240, 240);
-  width: 30%;
+  width: 40%;
 `;
 
 const SubjectInput = styled.input`
@@ -173,76 +158,62 @@ const DescriptionInput = styled.input`
   background-color: #fafafa;
 `;
 
-const ReasonCardWrapper = styled.div`
+const ReasonCardWrapper = styled.div<NavProps>`
   background-color: white;
   margin: 20px 0 0 20px;
-  width: 90%;
-
+  width: 95%;
   padding: 20px;
   border-radius: 10px;
-
   color: #adaeb9;
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  height: ${(props) => (props.isActive ? '40%;' : '10%')};
 `;
 
 const ReasonCard = styled.div`
   box-sizing: border-box;
-
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
-const Reason = styled.div`
-  font-size: 20px;
+const Reason = styled(TextareaAutosize)`
+  font-size: 23px;
   color: black;
+  width: 95%;
+  border: none;
+
+  outline: none;
+  resize: none;
 `;
 
-const DividerLine = styled.div<NavProps>`
-  background: rgb(73, 80, 87);
-  height: 2px;
-  width: 10rem;
-  margin-top: 10px;
-  margin-bottom: 1rem;
-  border-radius: 1px;
-`;
-
-const DropDownButton = styled.div`
-  background-image: url(${dropDownImage});
-  width: 15px;
-  height: 15px;
-`;
-
-const DropDownNoteForm = styled.nav<NavProps>`
-  background: #ffffff;
-  border-radius: 8px;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 130px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-
+const NoteCard = styled.div<NavProps>`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  
   opacity: ${(props) => (props.isActive ? '1;' : '0;')}
   visibility: ${(props) => (props.isActive ? 'visible;' : 'hidden;')};
   transform : ${(props) => (props.isActive ? 'translateY(0);' : 'translateY(-20px);')};
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
 `;
 
-const DropDownContentWrapper = styled.li`
-  border-bottom: 1px solid #dddddd;
+const Note = styled(TextareaAutosize)`
+  font-size: 18px;
+  color: #adaeb9;
+  margin-bottom: 10px;
+  padding: 10px 0 10px 10px;
+  background: linear-gradient(to right, #f5f5f5, #f0f0f0);
+  resize: none;
+  border: none;
+  outline: none;
 `;
 
-const DropDownMenu = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const DropDownContent = styled.div`
-  text-decoration: none;
-  color: #333333;
-  padding: 15px 20px;
-  display: block;
-  cursor: pointer;
+const DropDownButton = styled.div`
+  background-image: url(${dropDownImage});
+  width: 15px;
+  height: 15px;
 `;
 
 const ButtonForm = styled.div`
