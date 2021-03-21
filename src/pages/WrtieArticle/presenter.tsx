@@ -40,8 +40,6 @@ const WriteArticlePresenter = ({
   dropNoteRef,
   handleTest,
 }: Props) => {
-  console.log(articleDetail.connections);
-
   return (
     <Container>
       <WriteArticlePage>
@@ -83,23 +81,21 @@ const WriteArticlePresenter = ({
             return (
               <ReasonCardWrapper key={conn.id} ref={dropNoteRef} isActive={conn.isActive}>
                 <ReasonCard>
-                  <Reason readOnly maxRows={conn.isActive ? 3 : 1}>
-                    {conn.reason}
-                  </Reason>
+                  <Reason readOnly maxRows={conn.isActive ? 3 : 1} value={conn.reason} />
+
                   <DropDownButton onClick={() => handleTest(index)} />
                 </ReasonCard>
 
-                {articleDetail.notes.map((note: NoteFormType) => {
-                  if (note.id === conn.leftNote || note.id === conn.rightNote) {
-                    return (
-                      <NoteCard isActive={conn.isActive}>
-                        <Note readOnly maxRows={3}>
-                          {note.contents}
-                        </Note>
-                      </NoteCard>
-                    );
-                  }
-                })}
+                {conn.isActive &&
+                  articleDetail.notes.map((note: NoteFormType) => {
+                    if (note.id === conn.leftNote || note.id === conn.rightNote) {
+                      return (
+                        <NoteCard isActive={conn.isActive}>
+                          <Note readOnly maxRows={3} value={note.contents} />
+                        </NoteCard>
+                      );
+                    }
+                  })}
               </ReasonCardWrapper>
             );
           })}
@@ -133,6 +129,8 @@ const ArticleInfoForm = styled.div`
 const NoteConnectionInfo = styled.div`
   background: rgb(240, 240, 240);
   width: 40%;
+  height: 100vh;
+  overflow: scroll;
 `;
 
 const SubjectInput = styled.input`
@@ -166,7 +164,6 @@ const ReasonCardWrapper = styled.div<NavProps>`
   border-radius: 10px;
   color: #adaeb9;
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
-  height: ${(props) => (props.isActive ? '40%;' : '10%')};
 `;
 
 const ReasonCard = styled.div`
@@ -194,7 +191,6 @@ const NoteCard = styled.div<NavProps>`
   flex-direction: column;
   
   opacity: ${(props) => (props.isActive ? '1;' : '0;')}
-  visibility: ${(props) => (props.isActive ? 'visible;' : 'hidden;')};
   transform : ${(props) => (props.isActive ? 'translateY(0);' : 'translateY(-20px);')};
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
 `;

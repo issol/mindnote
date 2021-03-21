@@ -6,8 +6,6 @@ import { googleLogIn, GOOGLE_LOG_IN_REQUEST, logIn, LOG_IN_REQUEST, signUp, SIGN
 import { HOST } from 'constants/requests';
 
 import { GoogleLogInInfo, LogInInfo, SignUpInfo } from './types';
-import Swal from 'sweetalert2';
-
 
 const mapErrorMessageFromServerForUser = {
   '{"email":["user with this email already exists."]}': '이미 동일한 이메일이 존재합니다.',
