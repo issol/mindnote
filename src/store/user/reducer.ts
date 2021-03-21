@@ -44,6 +44,7 @@ const userReducer = createReducer<UserState, UserAction>(initialState, {
     isLoggedIn: false,
     errorMessage: action.payload,
   }),
+
   [SET_SIGN_UP_INFO]: (state, action) => ({
     ...state,
     signUpInfo: {

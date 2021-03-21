@@ -1,10 +1,14 @@
 import { ActionType } from 'typesafe-actions';
 
-import { logIn, setLogInInfo, signUp, setSignUpInfo, eraseErrorMessage } from './actions';
+import { logIn, setLogInInfo, signUp, setSignUpInfo, eraseErrorMessage, googleLogIn } from './actions';
 
 export type LogInInfo = {
   email: string;
   password: string;
+};
+
+export type GoogleLogInInfo = {
+  oAuthToken: string;
 };
 
 export type SignUpInfo = {
@@ -27,6 +31,7 @@ export type UserState = {
 export type UserAction =
   | ActionType<typeof logIn>
   | ActionType<typeof signUp>
+  | ActionType<typeof googleLogIn>
   | ActionType<typeof setSignUpInfo>
   | ActionType<typeof setLogInInfo>
   | ActionType<typeof eraseErrorMessage>;
