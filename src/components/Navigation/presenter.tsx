@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import dropDownImage from 'assets/images/dropdown.svg';
 
-type NavProps = {
+export type NavProps = {
   isActive: boolean;
 };
 

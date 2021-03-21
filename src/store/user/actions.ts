@@ -28,7 +28,7 @@ export const googleLogIn = createAsyncAction(GOOGLE_LOG_IN_REQUEST, GOOGLE_LOG_I
 
 export const setLogInInfo = createAction(SET_LOG_IN_INFO)<SetLogInInfoPayload>();
 
-export const signUp = createAsyncAction(SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE)<SignUpInfo, void, string>();
+export const signUp = createAsyncAction(SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE)<SignUpInfo, string, string>();
 
 export const setSignUpInfo = createAction(SET_SIGN_UP_INFO)<SetSignUpInfoPayload>();
 

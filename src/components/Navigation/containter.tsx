@@ -9,8 +9,8 @@ const NavigationContainer = () => {
   const dropDownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
 
-  const handleLogOut = () => {
-    Swal.fire({
+  const handleLogOut = async () => {
+    const result = await Swal.fire({
       title: '로그아웃하시겠습니까?',
 
       cancelButtonText: '취소',
@@ -22,12 +22,11 @@ const NavigationContainer = () => {
       icon: 'warning',
       width: '30%',
       reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        window.location.href = '/';
-      }
     });
+    if (result.isConfirmed) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
   };
   const handleMoveArticleListPage = () => {
     history.push('/article-list/');

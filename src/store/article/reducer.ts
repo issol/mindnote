@@ -19,6 +19,7 @@ import {
 import { ArticleDetailState, ArticleDetailAction } from './types';
 
 const initialState: ArticleDetailState = {
+  isExistNote: null,
   articleDetail: {
     subject: '',
     description: '',
@@ -31,6 +32,7 @@ const initialState: ArticleDetailState = {
 const articleDetailReducer = createReducer<ArticleDetailState, ArticleDetailAction>(initialState, {
   [FETCH_ARTICLE_DETAIL_SUCCESS]: (state, action) => ({
     ...state,
+    isExistNote: action.payload.notes.length >= 1,
     articleDetail: action.payload,
   }),
   [FETCH_ARTICLE_DETAIL_FAILURE]: (state) => ({

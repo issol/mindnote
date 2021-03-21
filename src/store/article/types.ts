@@ -71,6 +71,7 @@ export type ConnectionId = {
 };
 
 export type ArticleDetailState = {
+  isExistNote: boolean | null;
   articleDetail: ArticleDetail;
 };
 

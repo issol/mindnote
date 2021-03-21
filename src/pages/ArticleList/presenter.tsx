@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { DeepMap, FieldError } from 'react-hook-form';
 import { RouteComponentProps } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -8,7 +7,7 @@ import styled from 'styled-components';
 import ArticleCard from 'modules/Article/ArticleCard';
 import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
-import { ArticleInfo, ArticleResponse } from 'store/articleList/types';
+import { ArticleResponse } from 'store/articleList/types';
 
 type Props = {
   isOpenCreateArticleModal: boolean;
@@ -18,7 +17,6 @@ type Props = {
   articleList: ArticleResponse[];
   changeSubject: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   changeDescription: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-
   history: RouteComponentProps['history'];
 };
 
