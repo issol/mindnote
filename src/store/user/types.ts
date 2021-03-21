@@ -8,7 +8,7 @@ export type LogInInfo = {
 };
 
 export type GoogleLogInInfo = {
-  token: string;
+  oAuthToken: string;
 };
 
 export type SignUpInfo = {
