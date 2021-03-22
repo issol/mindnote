@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import MdEditor from 'react-markdown-editor-lite';
 import { RouteComponentProps } from 'react-router-dom';
@@ -26,6 +26,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
   handleUpdateArticleForm: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   dropNoteRef: React.MutableRefObject<null>;
   handleTest: (idx: number) => void;
+  mdEditorHeight: number;
 };
 
 const WriteArticlePresenter = ({
@@ -39,6 +40,7 @@ const WriteArticlePresenter = ({
   handleUpdateArticleForm,
   dropNoteRef,
   handleTest,
+  mdEditorHeight,
 }: Props) => {
   return (
     <Container>
@@ -63,8 +65,8 @@ const WriteArticlePresenter = ({
           </ArticleInfoForm>
           <div>
             <MdEditor
-              style={{ height: '560px' }}
               value={articleInfo.body}
+              style={{ height: '62vh' }}
               renderHTML={(text) => mdParser.render(text)}
               onChange={handleEditorChange}
             />
@@ -90,7 +92,7 @@ const WriteArticlePresenter = ({
                   articleDetail.notes.map((note: NoteFormType) => {
                     if (note.id === conn.leftNote || note.id === conn.rightNote) {
                       return (
-                        <NoteCard isActive={conn.isActive}>
+                        <NoteCard isActive={conn.isActive} key={note.id}>
                           <Note readOnly maxRows={3} value={note.contents} />
                         </NoteCard>
                       );
@@ -116,14 +118,15 @@ const WriteArticlePage = styled.div`
 `;
 
 const WrtieArticleForm = styled.div`
+  ${({ theme }) => theme.common.flexCenterColumn}
   width: 60%;
 `;
 
 const ArticleInfoForm = styled.div`
   box-sizing: border-box;
   margin: 50px 50px 10px 50px;
+  height: 21.5vh;
   max-width: 100%;
-  height: 160px;
 `;
 
 const NoteConnectionInfo = styled.div`
@@ -134,10 +137,9 @@ const NoteConnectionInfo = styled.div`
 `;
 
 const SubjectInput = styled.input`
-  border: none;
-  font-size: 50px;
-  outline: none;
+  ${({ theme }) => theme.common.noneLine};
   background-color: #fafafa;
+  font-size: ${({ theme }) => theme.fontSize.title};
 `;
 
 const SubjectLine = styled.div`
@@ -150,10 +152,9 @@ const SubjectLine = styled.div`
 `;
 
 const DescriptionInput = styled.input`
-  border: none;
-  outline: none;
-  font-size: 20px;
+  ${({ theme }) => theme.common.noneLine};
   background-color: #fafafa;
+  font-size: ${({ theme }) => theme.fontSize.subTitle};
 `;
 
 const ReasonCardWrapper = styled.div<NavProps>`
@@ -167,8 +168,8 @@ const ReasonCardWrapper = styled.div<NavProps>`
 `;
 
 const ReasonCard = styled.div`
-  box-sizing: border-box;
-  display: flex;
+  ${({ theme }) => theme.common.flexCenter}
+
   justify-content: space-between;
   border-bottom: 2px solid;
   padding-bottom: 20px;
@@ -176,34 +177,30 @@ const ReasonCard = styled.div`
 `;
 
 const Reason = styled(TextareaAutosize)`
-  font-size: 23px;
+  ${({ theme }) => theme.common.noneLine}
+
   color: black;
   width: 95%;
-  border: none;
-
-  outline: none;
   resize: none;
+  font-size: ${({ theme }) => theme.fontSize.contents};
 `;
 
 const NoteCard = styled.div<NavProps>`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  
-  opacity: ${(props) => (props.isActive ? '1;' : '0;')}
-  transform : ${(props) => (props.isActive ? 'translateY(0);' : 'translateY(-20px);')};
+  ${({ theme }) => theme.common.flexCenterColumn}
+
+  opacity: ${(props) => (props.isActive ? '1;' : '0;')};
+  transform: ${(props) => (props.isActive ? 'translateY(0);' : 'translateY(-20px);')};
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
 `;
 
 const Note = styled(TextareaAutosize)`
-  font-size: 18px;
-  color: #adaeb9;
+  ${({ theme }) => theme.common.noneLine}
   margin-bottom: 10px;
   padding: 10px 0 10px 10px;
   background: linear-gradient(to right, #f5f5f5, #f0f0f0);
   resize: none;
-  border: none;
-  outline: none;
+  font-size: ${({ theme }) => theme.fontSize.subTitle};
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 const DropDownButton = styled.div`
@@ -215,25 +212,24 @@ const DropDownButton = styled.div`
 const ButtonForm = styled.div`
   display: flex;
   justify-content: flex-end;
-
-  margin: 5px 10px 10px 5px;
+  height: 6vh;
+  margin: 10px 10px 10px 10px;
 `;
 
 const GoBackButton = styled.button`
+  ${({ theme }) => theme.common.noneLine};
   width: 150px;
-  outline: none;
+
   border-radius: 30px;
   margin-right: 10px;
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
-  border: none;
 `;
 
 const PublishArticleButton = styled.button`
+  ${({ theme }) => theme.common.noneLine};
   width: 150px;
-  height: 40px;
+
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: none;
-  outline: none;
   border-radius: 30px;
 `;
 

@@ -68,6 +68,8 @@ const WriteArticleContainer = () => {
     connections: [{ id: 0, leftNote: 0, rightNote: 0, reason: '', createdAt: '', isActive: false }],
   });
 
+  const [mdEditorHeight, setMdEditorHeight] = useState(0);
+
   const handleEditorChange = ({ text }) => {
     setArticleInfo((originData) => ({ ...originData, body: text }));
   };
@@ -94,6 +96,9 @@ const WriteArticleContainer = () => {
 
     setArticleDetail((prevState) => ({ ...prevState, connections: updatedList }));
   };
+  useEffect(() => {
+    setMdEditorHeight(window.innerHeight - 260);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchArticleDetail.request(articleId));
@@ -133,6 +138,7 @@ const WriteArticleContainer = () => {
       handleUpdateArticleForm={handleUpdateArticleForm}
       dropNoteRef={dropNoteRef}
       handleTest={handleTest}
+      mdEditorHeight={mdEditorHeight}
     />
   );
 };
