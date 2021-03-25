@@ -32,6 +32,10 @@ const NavigationContainer = () => {
     history.push('/article-list/');
   };
 
+  const handleMoveMyArticlePage = () => {
+    history.push('/my-article');
+  };
+
   useEffect(() => {
     const pageClick = (e: any) => {
       if (dropDownRef.current !== null && dropDownRef.current !== e.target) {
@@ -53,6 +57,7 @@ const NavigationContainer = () => {
       setIsActive={setIsActive}
       handleLogOut={handleLogOut}
       handleMoveArticleListPage={handleMoveArticleListPage}
+      handleMoveMyArticlePage={handleMoveMyArticlePage}
     />
   );
 };
