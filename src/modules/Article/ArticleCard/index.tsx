@@ -33,8 +33,9 @@ const ArticleCard = ({ id, subject, description, handleDeleteArticle, history }:
 };
 
 const Card = styled.div`
+  ${({ theme }) => theme.common.flexRow}
   background-color: white;
-  display: flex;
+
   margin-bottom: 70px;
   margin-right: 50px;
   font-weight: 300;
@@ -66,12 +67,12 @@ const ArticleTitle = styled.h3`
   margin: 0;
   font-weight: 300;
   margin-bottom: 5px;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.subTitle};
   color: #2c2c2c;
 `;
 
 const ArticleDescription = styled.h5`
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.fontSize.paragraph};
 `;
 
 const RemoveArticleButton = styled.button`

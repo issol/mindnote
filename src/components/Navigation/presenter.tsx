@@ -37,10 +37,12 @@ const NavigationPresenter = ({ isActive, dropDownRef, setIsActive, handleLogOut,
 };
 
 const NavBaseBar = styled.div`
+  ${({ theme }) => theme.common.flexRow}
+
   width: 100%;
   height: 60px;
   background: linear-gradient(to right, #ffad06, #ff105f);
-  display: flex;
+
   align-items: center;
   justify-content: space-between;
 `;

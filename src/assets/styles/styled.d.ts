@@ -17,8 +17,9 @@ declare module 'styled-components' {
       plum: string;
     };
     common: {
+      flexRow: string;
+      flexColumn: string;
       flexCenter: string;
-      flexCenterColumn: string;
       noneLine: string;
     };
   }

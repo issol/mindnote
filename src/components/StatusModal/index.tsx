@@ -19,6 +19,8 @@ const StatusModal = ({ isOpenStatusModal, setIsOpenStatusModal, statusMessage, o
 };
 
 const CloseStatusModalButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 50%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
@@ -27,8 +29,7 @@ const CloseStatusModalButton = styled.button`
   display: block;
 
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: 0;
-  outline: none;
+
   border-radius: 30px;
 `;
 

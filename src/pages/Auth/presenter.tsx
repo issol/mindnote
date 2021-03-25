@@ -62,7 +62,7 @@ const FormWrap = styled.div`
   position: relative;
   margin: 6% auto;
   background: #fff;
-  border: 1px solid;
+
   padding: 5px;
 `;
 
@@ -76,13 +76,12 @@ const ButtonWrap = styled.div`
 `;
 
 const CommonButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
   position: relative;
   width: 110px;
   height: 100%;
   border-radius: 30px;
   cursor: pointer;
-  outline: none;
-  border: none;
 `;
 
 const LoginButton = styled(CommonButton)<ButtonProps>`

@@ -33,6 +33,8 @@ const CreateConnectionModal = ({
 };
 
 const CreateConnectionButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
@@ -41,12 +43,13 @@ const CreateConnectionButton = styled.button`
   display: block;
 
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: 0;
-  outline: none;
+
   border-radius: 30px;
 `;
 
 const CancleCreateButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
@@ -54,26 +57,28 @@ const CancleCreateButton = styled.button`
   cursor: pointer;
 
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
-  border: 0;
-  outline: none;
+
   border-radius: 30px;
 `;
 
 const InputContentForm = styled.textarea`
+  ${({ theme }) => theme.common.noneLine}
+
   display: block;
   box-sizing: border-box;
   width: 100%;
   height : 270px;
-  border : none;
-  outline :none;
+ 
   padding: 0 10px 0 10px
   margin-bottom: 10px;
-  font-size: 30px;
+  
   resize : none;
+
+  font-size: ${({ theme }) => theme.fontSize.contents};
 `;
 
 const ButtonForm = styled.div`
-  display: flex;
+  ${({ theme }) => theme.common.flexRow}
   width: 100%;
 `;
 

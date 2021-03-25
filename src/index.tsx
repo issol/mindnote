@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import theme from 'assets/styles/theme';
 import GlobalStyle from 'assets/styles/global-styles';
 
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 
 import { applyMiddleware, createStore } from 'redux';

@@ -52,12 +52,12 @@ const UpdateConnectionModal = ({
 };
 
 const TitleForm = styled.div`
-  display: flex;
+  ${({ theme }) => theme.common.flexRow}
   margin-left: 3px;
 `;
 
 const TitleText = styled.div`
-  font-size: 25px;
+  font-size: ${({ theme }) => theme.fontSize.contents};
   margin-left: 5px;
 `;
 
@@ -68,6 +68,8 @@ const QuestionMarkImage = styled.div`
 `;
 
 const UpdateConnectionButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 40%;
   padding: 10px 30px;
   margin: 0 auto;
@@ -75,12 +77,13 @@ const UpdateConnectionButton = styled.button`
   display: block;
   cursor: pointer;
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: none;
-  outline: none;
+
   border-radius: 30px;
 `;
 
 const CancleUpdateButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 40%;
   padding: 10px 30px;
   margin: 0 auto;
@@ -88,32 +91,34 @@ const CancleUpdateButton = styled.button`
   cursor: pointer;
 
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
-  border: none;
-  outline: none;
+
   border-radius: 30px;
 `;
 
 const InputContentForm = styled.textarea`
+  ${({ theme }) => theme.common.noneLine}
+
   display: block;
   box-sizing: border-box;
   width: 100%;
   height: 270px;
-  border: none;
-  outline: none;
+
   padding: 0 10px 0 10px;
   margin-top: 15px;
   margin-bottom: 10px;
-  font-size: 20px;
+
   resize: none;
+
+  font-size: ${({ theme }) => theme.fontSize.paragraph};
 `;
 
 const ButtonForm = styled.div`
-  display: flex;
+  ${({ theme }) => theme.common.flexRow}
   width: 100%;
 `;
 
 const DateForm = styled.div`
-  display: flex;
+  ${({ theme }) => theme.common.flexRow}
   width: 100%;
   margin-bottom: 15px;
   margin-left: 8px;

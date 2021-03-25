@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 import MdEditor from 'react-markdown-editor-lite';
 import { RouteComponentProps } from 'react-router-dom';
@@ -25,8 +25,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
   handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleUpdateArticleForm: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   dropNoteRef: React.MutableRefObject<null>;
-  handleTest: (idx: number) => void;
-  mdEditorHeight: number;
+  handleListDropDown: (idx: number) => void;
 };
 
 const WriteArticlePresenter = ({
@@ -39,8 +38,7 @@ const WriteArticlePresenter = ({
   handleDescriptionChange,
   handleUpdateArticleForm,
   dropNoteRef,
-  handleTest,
-  mdEditorHeight,
+  handleListDropDown,
 }: Props) => {
   return (
     <Container>
@@ -85,7 +83,7 @@ const WriteArticlePresenter = ({
                 <ReasonCard>
                   <Reason readOnly maxRows={conn.isActive ? 3 : 1} value={conn.reason} />
 
-                  <DropDownButton onClick={() => handleTest(index)} />
+                  <DropDownButton onClick={() => handleListDropDown(index)} />
                 </ReasonCard>
 
                 {conn.isActive &&
@@ -97,6 +95,7 @@ const WriteArticlePresenter = ({
                         </NoteCard>
                       );
                     }
+                    return <></>;
                   })}
               </ReasonCardWrapper>
             );
@@ -118,7 +117,7 @@ const WriteArticlePage = styled.div`
 `;
 
 const WrtieArticleForm = styled.div`
-  ${({ theme }) => theme.common.flexCenterColumn}
+  ${({ theme }) => theme.common.flexColumn}
   width: 60%;
 `;
 
@@ -168,7 +167,7 @@ const ReasonCardWrapper = styled.div<NavProps>`
 `;
 
 const ReasonCard = styled.div`
-  ${({ theme }) => theme.common.flexCenter}
+  ${({ theme }) => theme.common.flexRow}
 
   justify-content: space-between;
   border-bottom: 2px solid;
@@ -182,11 +181,11 @@ const Reason = styled(TextareaAutosize)`
   color: black;
   width: 95%;
   resize: none;
-  font-size: ${({ theme }) => theme.fontSize.contents};
+  font-size: ${({ theme }) => theme.fontSize.subTitle};
 `;
 
 const NoteCard = styled.div<NavProps>`
-  ${({ theme }) => theme.common.flexCenterColumn}
+  ${({ theme }) => theme.common.flexColumn}
 
   opacity: ${(props) => (props.isActive ? '1;' : '0;')};
   transform: ${(props) => (props.isActive ? 'translateY(0);' : 'translateY(-20px);')};
@@ -199,7 +198,7 @@ const Note = styled(TextareaAutosize)`
   padding: 10px 0 10px 10px;
   background: linear-gradient(to right, #f5f5f5, #f0f0f0);
   resize: none;
-  font-size: ${({ theme }) => theme.fontSize.subTitle};
+  font-size: ${({ theme }) => theme.fontSize.paragraph};
   color: ${({ theme }) => theme.colors.gray};
 `;
 
@@ -213,7 +212,7 @@ const ButtonForm = styled.div`
   display: flex;
   justify-content: flex-end;
   height: 6vh;
-  margin: 10px 10px 10px 10px;
+  margin: 10px;
 `;
 
 const GoBackButton = styled.button`
@@ -221,16 +220,16 @@ const GoBackButton = styled.button`
   width: 150px;
 
   border-radius: 30px;
-  margin-right: 10px;
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
+
+  margin-right: 10px;
 `;
 
 const PublishArticleButton = styled.button`
   ${({ theme }) => theme.common.noneLine};
   width: 150px;
-
-  background: linear-gradient(to right, #ff105f, #ffad06);
   border-radius: 30px;
+  background: linear-gradient(to right, #ff105f, #ffad06);
 `;
 
 export default WriteArticlePresenter;

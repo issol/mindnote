@@ -81,6 +81,7 @@ const SignUpForm = styled.form`
 `;
 
 const SignUpButton = styled.input`
+  ${({ theme }) => theme.common.noneLine}
   width: 50%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
@@ -89,8 +90,7 @@ const SignUpButton = styled.input`
   display: block;
 
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: 0;
-  outline: none;
+
   border-radius: 30px;
 `;
 
