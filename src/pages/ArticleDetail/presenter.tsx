@@ -32,11 +32,6 @@ const ArticleDetailPresenter = ({ handleRedirectWriteArtilcePage, articleId }: P
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 `;
 
 const Overlay = styled.div`
@@ -47,24 +42,24 @@ const Overlay = styled.div`
   background-color: rgba(255, 255, 255, 0.8);
 `;
 const NoteGraphWrapper = styled.div`
-  flex: 9 9 800px;
   box-sizing: border-box;
+  flex: 9 9 800px;
   margin-left: 20px;
 `;
 
 const ButtonForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => theme.common.flexColumn}
+  ${({ theme }) => theme.common.flexCenter}
+
   flex: 1 1 100px;
 `;
 
 const GoWriteArticleButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   background-image: url(${arrowImage});
   background-color: white;
-  border: none;
-  outline: none;
+
   cursor: pointer;
   width: 50px;
   height: 50px;

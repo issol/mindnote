@@ -10,14 +10,7 @@ type Props = {
   changeNoteFormData: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-const CreateNoteModal = ({
-  isOpenCreateNoteModal,
-  setIsOpenCreateNoteModal,
-
-  handleCreateNote,
-
-  changeNoteFormData,
-}: Props) => {
+const CreateNoteModal = ({ isOpenCreateNoteModal, setIsOpenCreateNoteModal, handleCreateNote, changeNoteFormData }: Props) => {
   return (
     <Modal isOpen={isOpenCreateNoteModal} setIsOpen={setIsOpenCreateNoteModal}>
       <InputContentForm
@@ -36,6 +29,8 @@ const CreateNoteModal = ({
 };
 
 const CreateNoteButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
@@ -44,12 +39,13 @@ const CreateNoteButton = styled.button`
   display: block;
 
   background: linear-gradient(to right, #ff105f, #ffad06);
-  border: 0;
-  outline: none;
+
   border-radius: 30px;
 `;
 
 const CancelCreateButton = styled.button`
+  ${({ theme }) => theme.common.noneLine}
+
   width: 40%;
   padding: 10px 30px;
   margin: 30px auto 0 auto;
@@ -57,27 +53,30 @@ const CancelCreateButton = styled.button`
   cursor: pointer;
 
   background: linear-gradient(to right, #dcdcdc, #e6e6e6);
-  border: 0;
-  outline: none;
+
   border-radius: 30px;
 `;
 
 const ButtonForm = styled.div`
+  ${({ theme }) => theme.common.flexRow}
+
   width: 100%;
-  display: flex;
 `;
 
 const InputContentForm = styled.textarea`
+  ${({ theme }) => theme.common.noneLine}
+
   display: block;
   box-sizing: border-box;
   width: 100%;
   height: 270px;
-  border: none;
-  outline: none;
+
   padding: 0 10px 0 10px;
   margin-bottom: 10px;
-  font-size: 30px;
+
   resize: none;
+
+  font-size: ${({ theme }) => theme.fontSize.contents};
 `;
 
 const SubjectLine = styled.div`

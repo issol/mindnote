@@ -9,6 +9,7 @@
     "@types/node": "^12.19.12",
     "@types/react-dom": "^16.9.10",
     "@types/redux-devtools": "^3.0.47",
+    "@types/styled-components": "^5.1.9",
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
@@ -82,7 +83,6 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/redux-actions": "^2.6.1",
     "@types/redux-promise": "^0.5.29",
-    "@types/styled-components": "^5.1.7",
     "@types/vis": "^4.21.21",
     "redux-devtools": "^3.7.0"
   }

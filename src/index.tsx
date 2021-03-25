@@ -4,7 +4,7 @@ import App from 'App';
 
 import ReactDOM from 'react-dom';
 
-import { theme } from 'assets/styles/theme';
+import theme from 'assets/styles/theme';
 import GlobalStyle from 'assets/styles/global-styles';
 
 import { ThemeProvider } from 'styled-components';

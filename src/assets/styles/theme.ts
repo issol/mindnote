@@ -1,21 +1,41 @@
 import { DefaultTheme } from 'styled-components';
 
+const pixelToRem = (size: number) => `${size / 16}rem`;
+
 const theme: DefaultTheme = {
-  basicWidth: '320px',
+  fontSize: {
+    title: pixelToRem(50),
+    contents: pixelToRem(27),
+    subTitle: pixelToRem(22),
+    paragraph: pixelToRem(18),
+  },
+  colors: {
+    gray: '#cccccc',
+    liteGray: '#dcdcdc',
+    mLiteGray: '#e6e6e6',
+    orange: '#ff105f',
+    plum: '#ffad06',
+  },
+  common: {
+    flexRow: `
+    box-sizing : border-box;
+    display:flex;
 
-  color: {
-    main: '#1c1f25',
-    sub: '#fff',
+  `,
+    flexColumn: `
+    box-sizing : border-box;
+    display :flex;
+    flex-direction :column;
+  `,
+    flexCenter: `
+    align-items: center;
+    justify-content: center;
+  `,
+    noneLine: `
+    outline : none;
+    border :none;
+  `,
   },
 };
 
-const nextTheme: DefaultTheme = {
-  basicWidth: '320px',
-
-  color: {
-    main: '#1c1f25',
-    sub: '#fff',
-  },
-};
-
-export { theme, nextTheme };
+export default theme;

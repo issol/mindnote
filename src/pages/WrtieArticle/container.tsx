@@ -84,7 +84,7 @@ const WriteArticleContainer = () => {
     dispatch(updateArticle.request({ id: articleId, ...articleInfo }));
   };
 
-  const handleTest = (idx: number) => {
+  const handleListDropDown = (idx: number) => {
     const updatedList = articleDetail.connections.map((conn, index) => {
       if (idx === index) {
         return { ...conn, isActive: !conn.isActive };
@@ -132,7 +132,7 @@ const WriteArticleContainer = () => {
       handleDescriptionChange={handleDescriptionChange}
       handleUpdateArticleForm={handleUpdateArticleForm}
       dropNoteRef={dropNoteRef}
-      handleTest={handleTest}
+      handleListDropDown={handleListDropDown}
     />
   );
 };

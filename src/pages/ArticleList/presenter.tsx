@@ -98,13 +98,13 @@ const CreateArticleButton = styled.button`
   margin-bottom: 70px;
   padding: 20px;
 
-  font-size: 50px;
   cursor: pointer;
   outline: none;
   border: white;
   border-radius: 10px;
 
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  font-size: ${({ theme }) => theme.fontSize.title};
 `;
 
 export default ArticleListPresenter;

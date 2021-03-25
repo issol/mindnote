@@ -23,6 +23,9 @@ const ModalPresenter = ({ isOpen, children, setIsOpen }: ModalProps) => {
 };
 
 const Container = styled.div`
+  ${({ theme }) => theme.common.flexRow}
+  ${({ theme }) => theme.common.flexCenter}
+
   position: fixed;
   width: 100%;
   height: 100%;
@@ -31,9 +34,6 @@ const Container = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Overlay = styled.div`
