@@ -54,7 +54,7 @@ const Card = styled.div`
 
 const Subject = styled.div`
   ${({ theme }) => theme.common.noneLine}
-  font-size: ${({ theme }) => theme.fontSize.paragraph};
+  font-size: ${({ theme }) => theme.fontSize.subTitle};
   color: black;
   flex: 1;
 `;
