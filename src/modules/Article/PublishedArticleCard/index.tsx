@@ -10,12 +10,14 @@ import remark2rehype from 'remark-rehype';
 import html from 'rehype-stringify';
 
 type Props = {
+  id: number;
   subject: string;
   body: string;
   createdAt: string;
+  handleMovePublishedArticlePage: (id: number) => void;
 };
 
-const PublishedArticleCard = ({ subject, body, createdAt }: Props) => {
+const PublishedArticleCard = ({ id, subject, body, createdAt, handleMovePublishedArticlePage }: Props) => {
   const mdParser = new MarkdownIt();
 
   const removeHtml = (text: string) => {
@@ -25,7 +27,7 @@ const PublishedArticleCard = ({ subject, body, createdAt }: Props) => {
   };
 
   return (
-    <Card>
+    <Card onClick={() => handleMovePublishedArticlePage(id)}>
       <Subject>{subject}</Subject>
       <ArticleBody value={removeHtml(mdParser.render(body))} readOnly></ArticleBody>
       <AricleCreatedAt>
@@ -72,7 +74,7 @@ const ArticleBody = styled.textarea`
 const AricleCreatedAt = styled.div`
   display: flex;
   flex-direction: row-reverse;
-
+  margin-top: 5px;
   flex: 1;
 `;
 

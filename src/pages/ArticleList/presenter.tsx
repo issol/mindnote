@@ -32,8 +32,8 @@ const ArticleListPresenter = ({
 }: Props) => {
   return (
     <Container>
+      <Navigation />
       <Overlay>
-        <Navigation />
         <CreateArticleModal
           isOpenCreateArticleModal={isOpenCreateArticleModal}
           setIsOpenCreateArticleModal={setIsOpenCreateArticleModal}

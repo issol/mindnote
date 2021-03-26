@@ -4,6 +4,7 @@ import ArticleList from 'pages/ArticleList';
 import ArticleDetail from 'pages/ArticleDetail';
 import WriteArticle from 'pages/WrtieArticle';
 import MyArticle from 'pages/MyArticle';
+import PublishedArticle from 'pages/PublishedArticle';
 
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -22,6 +23,7 @@ const AuthenticatedRouter = () => {
             <Route path="/article/:id" component={ArticleDetail} />
             <Route path="/write-article/:id" component={WriteArticle} />
             <Route path="/my-article" component={MyArticle} />
+            <Route path="/published-article/:id" component={PublishedArticle} />
           </>
         );
       case false:

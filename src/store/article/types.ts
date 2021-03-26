@@ -11,6 +11,8 @@ import {
 } from './actions';
 
 export type ArticleDetail = {
+  id: number;
+  createdAt: string;
   subject: string;
   description: string;
   body: string;

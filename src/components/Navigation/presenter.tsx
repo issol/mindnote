@@ -34,6 +34,9 @@ const NavigationPresenter = ({
           <DropDownContentWrapper>
             <DropDownContent onClick={handleMoveMyArticlePage}>내글보기</DropDownContent>
           </DropDownContentWrapper>
+          <DropDownContentWrapper>
+            <DropDownContent onClick={handleMoveArticleListPage}>리스트보기</DropDownContent>
+          </DropDownContentWrapper>
 
           <DropDownContentWrapper>
             <DropDownContent onClick={handleLogOut}>로그아웃</DropDownContent>

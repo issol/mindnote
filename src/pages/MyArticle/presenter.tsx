@@ -7,21 +7,29 @@ import styled from 'styled-components';
 
 type Props = {
   articleList: ArticleResponse[];
+  handleMovePublishedArticlePage: (id: number) => void;
 };
 
 type ContainerProps = {
   listLength: number;
 };
 
-const MyArticlePresenter = ({ articleList }: Props) => {
+const MyArticlePresenter = ({ articleList, handleMovePublishedArticlePage }: Props) => {
   return (
     <Container>
       <Navigation />
-      <Overlay onClick={() => console.log('click')}></Overlay>
+
       <ArticleCardContainer listLength={articleList.length}>
         {articleList.map((article) => {
           return (
-            <PublishedArticleCard key={article.id} subject={article.subject} body={article.body} createdAt={article.createdAt} />
+            <PublishedArticleCard
+              key={article.id}
+              id={article.id}
+              subject={article.subject}
+              body={article.body}
+              createdAt={article.createdAt}
+              handleMovePublishedArticlePage={handleMovePublishedArticlePage}
+            />
           );
         })}
       </ArticleCardContainer>
@@ -37,11 +45,6 @@ const Container = styled.div`
   & * {
     box-sizing: border-box;
   }
-`;
-
-const Overlay = styled.div`
-  width: 100%;
-  height: 100%;
 `;
 
 const ArticleCardContainer = styled.div<ContainerProps>`
