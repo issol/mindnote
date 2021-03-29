@@ -10,7 +10,7 @@ type Props = {
   handleMovePublishedArticlePage: (id: number) => void;
 };
 
-type ContainerProps = {
+export type ContainerProps = {
   listLength: number;
 };
 
@@ -57,23 +57,23 @@ const ArticleCardContainer = styled.div<ContainerProps>`
     grid-template-columns: repeat(1, minmax(20%, auto));
     grid-template-rows: repeat(${(props) => props.listLength}, minmax(350px, auto));
   }
-  /* Small devices (portrait tablets and large phones, 600px and up) */
+
   @media only screen and (min-width: 600px) {
     justify-content: center;
     grid-template-columns: 300px;
     grid-template-rows: repeat(${(props) => props.listLength}, minmax(350px, auto));
   }
-  /* Medium devices (landscape tablets, 768px and up) */
+
   @media only screen and (min-width: 768px) {
     grid-template-columns: repeat(2, minmax(300px, auto));
     grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 2)}, minmax(350px, auto));
   }
-  /* Large devices (laptops/desktops, 992px and up) */
+
   @media only screen and (min-width: 992px) {
     grid-template-columns: repeat(3, minmax(270px, auto));
     grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 3)}, minmax(350px, auto));
   }
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
+
   @media only screen and (min-width: 1200px) {
     grid-template-columns: repeat(3, minmax(300px, auto));
     grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 3)}, minmax(350px, auto));

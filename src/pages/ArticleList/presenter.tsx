@@ -8,6 +8,7 @@ import ArticleCard from 'modules/Article/ArticleCard';
 import CreateArticleModal from 'modules/Article/CreateArticleModal';
 import Navigation from 'components/Navigation';
 import { ArticleResponse } from 'store/articleList/types';
+import { ContainerProps } from 'pages/MyArticle/presenter';
 
 type Props = {
   isOpenCreateArticleModal: boolean;
@@ -42,7 +43,7 @@ const ArticleListPresenter = ({
           changeDescription={changeDescription}
         />
       </Overlay>
-      <CardWrapper>
+      <CardWrapper listLength={articleList.length}>
         {articleList.map((article) => {
           return (
             <ArticleCard
@@ -65,10 +66,6 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 `;
 
 const Overlay = styled.div`
@@ -78,24 +75,42 @@ const Overlay = styled.div`
   background-color: rgba(255, 255, 255, 0.8);
 `;
 
-const CardWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
+const CardWrapper = styled.div<ContainerProps>`
+  margin: 50px auto;
+  display: grid;
+  gap: 50px;
+  width: 70%;
 
-  padding: 30px;
-  padding-top: 70px;
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+    grid-template-columns: repeat(1, minmax(280px, auto));
+    grid-template-rows: repeat(${(props) => props.listLength + 1}, minmax(150px, auto));
+  }
+  @media only screen and (min-width: 600px) {
+    grid-template-columns: repeat(1, minmax(280px, auto));
+    grid-template-rows: repeat(${(props) => props.listLength + 1}, minmax(150px, auto));
+  }
 
-  width: 100%;
-  height: 100%;
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(270px, auto));
+    grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 2) + 1}, minmax(150px, auto));
+  }
+
+  @media only screen and (min-width: 992px) {
+    grid-template-columns: repeat(3, minmax(200px, auto));
+    grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 3) + 1}, minmax(150px, auto));
+  }
+
+  @media only screen and (min-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(300px, auto));
+    grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 3) + 1}, minmax(150px, auto));
+  }
 `;
 
 const CreateArticleButton = styled.button`
   background-color: white;
   color: #adaeb9;
 
-  width: 280px;
-
-  margin-bottom: 70px;
   padding: 20px;
 
   cursor: pointer;

@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import Moment from 'react-moment';
 import MarkdownIt from 'markdown-it';
 
-import unified from 'unified';
-import markdown from 'remark-parse';
-import remark2rehype from 'remark-rehype';
-import html from 'rehype-stringify';
+import TextareaAutosize from 'react-textarea-autosize';
 
 type Props = {
   id: number;
@@ -28,7 +25,9 @@ const PublishedArticleCard = ({ id, subject, body, createdAt, handleMovePublishe
 
   return (
     <Card onClick={() => handleMovePublishedArticlePage(id)}>
-      <Subject>{subject}</Subject>
+      <SubjectForm>
+        <Subject>{subject}</Subject>
+      </SubjectForm>
       <ArticleBody value={removeHtml(mdParser.render(body))} readOnly></ArticleBody>
       <AricleCreatedAt>
         <Date format="YYYY년 MM월 DD일">{createdAt}</Date>
@@ -54,11 +53,22 @@ const Card = styled.div`
   }
 `;
 
-const Subject = styled.div`
+const SubjectForm = styled.div`
   ${({ theme }) => theme.common.noneLine}
-  font-size: ${({ theme }) => theme.fontSize.subTitle};
+
+  width: 100%;
   color: black;
   flex: 1;
+`;
+
+const Subject = styled.h4`
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const ArticleBody = styled.textarea`
