@@ -118,7 +118,25 @@ const WriteArticlePage = styled.div`
 
 const WrtieArticleForm = styled.div`
   ${({ theme }) => theme.common.flexColumn}
-  width: 60%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 60%;
+  }
 `;
 
 const ArticleInfoForm = styled.div`
@@ -132,6 +150,25 @@ const NoteConnectionInfo = styled.div`
   width: 40%;
   height: 100vh;
   overflow: scroll;
+
+  @media only screen and (max-width: 600px) {
+    width: 0%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 0%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 0%;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 0%;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 40%;
+  }
 `;
 
 const SubjectInput = styled(TextareaAutosize)`
