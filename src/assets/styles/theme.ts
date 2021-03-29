@@ -4,7 +4,7 @@ const pixelToRem = (size: number) => `${size / 16}rem`;
 
 const theme: DefaultTheme = {
   fontSize: {
-    title: pixelToRem(50),
+    title: pixelToRem(40),
     contents: pixelToRem(27),
     subTitle: pixelToRem(22),
     paragraph: pixelToRem(18),

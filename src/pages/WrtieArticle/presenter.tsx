@@ -15,13 +15,13 @@ import 'react-markdown-editor-lite/lib/index.css';
 import dropDownImage from 'assets/images/dropdown.svg';
 import { NavProps } from 'components/Navigation/presenter';
 
-type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+type Props = {
   mdParser: MarkdownIt;
   history: RouteComponentProps['history'];
   articleDetail: ArticleDetailFormType;
   articleInfo: ArticleInfoType;
   handleEditorChange: ({ text: string }) => void;
-  handleSubjectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubjectChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleUpdateArticleForm: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   dropNoteRef: React.MutableRefObject<null>;
@@ -46,8 +46,8 @@ const WriteArticlePresenter = ({
         <WrtieArticleForm>
           <ArticleInfoForm>
             <SubjectInput
-              type="text"
-              name="subject"
+              maxRows={2}
+              maxLength={100}
               defaultValue={articleDetail.subject}
               onChange={handleSubjectChange}
               placeholder="제목을 입력해주세요."
@@ -118,14 +118,31 @@ const WriteArticlePage = styled.div`
 
 const WrtieArticleForm = styled.div`
   ${({ theme }) => theme.common.flexColumn}
-  width: 60%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 60%;
+  }
 `;
 
 const ArticleInfoForm = styled.div`
   box-sizing: border-box;
-  margin: 50px 50px 10px 50px;
-  height: 21.5vh;
-  max-width: 100%;
+  margin: 40px 40px 0 40px;
+  height: 24vh;
 `;
 
 const NoteConnectionInfo = styled.div`
@@ -133,25 +150,51 @@ const NoteConnectionInfo = styled.div`
   width: 40%;
   height: 100vh;
   overflow: scroll;
+
+  @media only screen and (max-width: 600px) {
+    width: 0%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 0%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 0%;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 0%;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 40%;
+  }
 `;
 
-const SubjectInput = styled.input`
+const SubjectInput = styled(TextareaAutosize)`
   ${({ theme }) => theme.common.noneLine};
+  resize: none;
+  width: 100%;
+  display: block;
+
+  line-height: 1.5;
   background-color: #fafafa;
   font-size: ${({ theme }) => theme.fontSize.title};
+  font-weight: bold;
 `;
 
 const SubjectLine = styled.div`
   background: rgb(73, 80, 87);
   height: 6px;
-  width: 4rem;
-  margin-top: 1.5rem;
+  width: 9rem;
+
   margin-bottom: 1rem;
   border-radius: 1px;
 `;
 
 const DescriptionInput = styled.input`
   ${({ theme }) => theme.common.noneLine};
+  width: 100%;
   background-color: #fafafa;
   font-size: ${({ theme }) => theme.fontSize.subTitle};
 `;
