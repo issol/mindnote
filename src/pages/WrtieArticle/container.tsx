@@ -72,7 +72,7 @@ const WriteArticleContainer = () => {
     setArticleInfo((originData) => ({ ...originData, body: text }));
   };
 
-  const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubjectChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setArticleInfo((originData) => ({ ...originData, subject: event.target.value }));
   };
 
