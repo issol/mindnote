@@ -36,8 +36,6 @@ function* GoogleLogInAsync({ payload }: ReturnType<typeof googleLogIn.request>) 
     axios.defaults.headers.common['Authorization'] = `token ${res.data.token}`;
     yield put(logIn.success());
   } catch (e) {
-    console.log(e);
-
     if (e.request.status >= 400 && e.request.status <= 599) {
       localStorage.removeItem('token');
       yield put(logIn.failure('구글인증 실패'));

@@ -21,6 +21,8 @@ import { ArticleDetailState, ArticleDetailAction } from './types';
 const initialState: ArticleDetailState = {
   isExistNote: null,
   articleDetail: {
+    id: -1,
+    createdAt: '',
     subject: '',
     description: '',
     body: '',

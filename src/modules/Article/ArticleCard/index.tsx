@@ -36,11 +36,6 @@ const Card = styled.div`
   ${({ theme }) => theme.common.flexRow}
   background-color: white;
 
-  margin-bottom: 70px;
-  margin-right: 50px;
-  font-weight: 300;
-  width: 280px;
-
   padding: 20px;
   border-radius: 10px;
   color: #adaeb9;
@@ -54,7 +49,7 @@ const Card = styled.div`
 const SubjectLine = styled.div`
   background: rgb(73, 80, 87);
   height: 3px;
-  width: 4rem;
+  width: 7rem;
   margin-bottom: 4px;
   border-radius: 1px;
 `;
@@ -63,16 +58,19 @@ const ArticleForm = styled.div`
   width: 95%;
 `;
 
-const ArticleTitle = styled.h3`
-  margin: 0;
-  font-weight: 300;
-  margin-bottom: 5px;
-  font-size: ${({ theme }) => theme.fontSize.subTitle};
-  color: #2c2c2c;
+const ArticleTitle = styled.h4`
+  color: black;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const ArticleDescription = styled.h5`
-  font-size: ${({ theme }) => theme.fontSize.paragraph};
+  font-size: 1rem;
 `;
 
 const RemoveArticleButton = styled.button`

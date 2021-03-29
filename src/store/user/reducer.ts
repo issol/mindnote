@@ -55,6 +55,7 @@ const userReducer = createReducer<UserState, UserAction>(initialState, {
   [SIGN_UP_SUCCESS]: (state, action) => ({
     ...state,
     isLoggedIn: true,
+
     statusMessage: action.payload,
   }),
   [SIGN_UP_FAILURE]: (state, action) => ({

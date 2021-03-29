@@ -18,6 +18,7 @@ const ArticleListContainer = () => {
 
   const [isOpenCreateArticleModal, setIsOpenCreateArticleModal] = useState(false);
   const [articleFormData, setArticleFormData] = useState<ArticleFormType>({ subject: '', description: '' });
+
   const handleCreateArticle = () => {
     dispatch(createArticle.request({ subject: articleFormData.subject, description: articleFormData.description, body: '' }));
     setIsOpenCreateArticleModal(false);

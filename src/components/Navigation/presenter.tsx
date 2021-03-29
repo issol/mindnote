@@ -13,9 +13,17 @@ type Props = {
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogOut: () => void;
   handleMoveArticleListPage: () => void;
+  handleMoveMyArticlePage: () => void;
 };
 
-const NavigationPresenter = ({ isActive, dropDownRef, setIsActive, handleLogOut, handleMoveArticleListPage }: Props) => {
+const NavigationPresenter = ({
+  isActive,
+  dropDownRef,
+  setIsActive,
+  handleLogOut,
+  handleMoveArticleListPage,
+  handleMoveMyArticlePage,
+}: Props) => {
   return (
     <NavBaseBar>
       <Logo onClick={handleMoveArticleListPage}>MINDNOTE</Logo>
@@ -24,7 +32,10 @@ const NavigationPresenter = ({ isActive, dropDownRef, setIsActive, handleLogOut,
       <DropDown ref={dropDownRef} isActive={isActive}>
         <DropDownMenu className={`${isActive ? 'active' : 'inactive'}`}>
           <DropDownContentWrapper>
-            <DropDownContent>내글보기</DropDownContent>
+            <DropDownContent onClick={handleMoveMyArticlePage}>내글보기</DropDownContent>
+          </DropDownContentWrapper>
+          <DropDownContentWrapper>
+            <DropDownContent onClick={handleMoveArticleListPage}>리스트보기</DropDownContent>
           </DropDownContentWrapper>
 
           <DropDownContentWrapper>
