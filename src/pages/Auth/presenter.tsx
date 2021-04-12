@@ -20,6 +20,7 @@ type ButtonProps = {
 
 const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
   const dispatch = useDispatch();
+
   const responseGoogle = (response: any) => {
     dispatch(googleLogIn.request({ oAuthToken: response.accessToken }));
   };
