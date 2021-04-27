@@ -10,6 +10,8 @@ import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { googleLogIn } from 'store/user/actions';
 
+import mainImage from 'assets/images/mainImage.jpg';
+
 type AuthTypeProps = {
   authType: string;
   handleAuthType: (type: AuthType) => () => void;
@@ -36,9 +38,11 @@ const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
           </SignUpButton>
         </ButtonWrap>
         {authType === 'LogIn' ? <LogIn /> : <SignUp />}
-        <GoogleLogin
-          clientId="475949578269-0gbudsp2q3bova12ilcibkmmtrfg0v8m.apps.googleusercontent.com"
-          buttonText="GoogleLogin"
+
+        <GoogleLoginButton
+          clientId='475949578269-0gbudsp2q3bova12ilcibkmmtrfg0v8m.apps.googleusercontent.com'
+          buttonText='구글로 로그인'
+          icon={true}
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}
@@ -51,6 +55,7 @@ const AuthPresenter = ({ authType, handleAuthType }: AuthTypeProps) => {
 const WholeWrap = styled.div`
   height: 100%;
   width: 100%;
+  background-image: url(${mainImage});
 
   background-position: center;
   background-size: cover;
@@ -59,11 +64,11 @@ const WholeWrap = styled.div`
 
 const FormWrap = styled.div`
   width: 380px;
-  height: 580px;
+  height: 530px;
   position: relative;
   margin: 6% auto;
-  background: #fff;
-
+  background: #ffffff;
+  opacity: 0.87;
   padding: 5px;
 `;
 
@@ -83,6 +88,12 @@ const CommonButton = styled.button`
   height: 100%;
   border-radius: 30px;
   cursor: pointer;
+`;
+
+const GoogleLoginButton = styled(GoogleLogin)`
+  width: 75%;
+  margin-left: 45px;
+  padding-left: 10px;
 `;
 
 const LoginButton = styled(CommonButton)<ButtonProps>`
