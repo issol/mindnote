@@ -36,6 +36,26 @@ const Card = styled.div`
   ${({ theme }) => theme.common.flexRow}
   background-color: white;
 
+  @media only screen and (max-width: 600px) {
+  }
+  @media only screen and (min-width: 600px) {
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 250px;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 220px;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 240px;
+  }
+  @media only screen and (min-width: 1430px) {
+    width: 220px;
+  }
+
   padding: 20px;
   border-radius: 10px;
   color: #adaeb9;

@@ -105,6 +105,10 @@ const CardWrapper = styled.div<ContainerProps>`
     grid-template-columns: repeat(3, minmax(300px, auto));
     grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 3) + 1}, minmax(150px, auto));
   }
+  @media only screen and (min-width: 1430px) {
+    grid-template-columns: repeat(auto-fit, minmax(20%, auto));
+    grid-template-rows: repeat(${(props) => Math.ceil(props.listLength / 3) + 1}, minmax(150px, auto));
+  }
 `;
 
 const CreateArticleButton = styled.button`
@@ -112,6 +116,26 @@ const CreateArticleButton = styled.button`
   color: #adaeb9;
 
   padding: 20px;
+
+  @media only screen and (max-width: 600px) {
+  }
+  @media only screen and (min-width: 600px) {
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 250px;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 220px;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 240px;
+  }
+  @media only screen and (min-width: 1430px) {
+    width: 220px;
+  }
 
   cursor: pointer;
   outline: none;
